@@ -1,10 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-import studentSlice from '../features/students/studentSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import studentSlice from "../features/students/studentSlice";
+import uiSlice from "../features/ui/uiSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
-    students: studentSlice
+    ui: uiSlice,
+    students: studentSlice,
   },
 });
