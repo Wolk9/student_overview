@@ -27,7 +27,7 @@ const App = () => {
         <center>
           <h3>Student Overview App</h3>
         </center>
-        <StudentsList />
+        <StudentsList students={students} />
       </Container>
     </div>
   );

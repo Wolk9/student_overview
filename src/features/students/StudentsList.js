@@ -5,8 +5,7 @@ import StudentItem from "./StudentItem";
 import { useDispatch } from "react-redux";
 import { openAddStudentModal } from "../ui/uiSlice";
 
-const StudentsList = () => {
-  const students = useSelector((state) => state.students);
+const StudentsList = ({ students }) => {
   const dispatch = useDispatch();
 
   const handleAddClick = () => {
