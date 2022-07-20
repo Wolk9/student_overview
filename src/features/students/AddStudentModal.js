@@ -43,6 +43,10 @@ const AddStudentModal = (props) => {
       setAlert(true);
     }
     dispatch(openAddStudentModal(false));
+
+    //TODO: redux result reflect into JSON server
+    //TODO: format phone and email check and alert
+    //TODO: overall layout
   };
   return (
     <div>

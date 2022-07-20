@@ -27,4 +27,7 @@ const App = () => {
   );
 };
 
+//TODO: add navigation section with links and url's that reflect the right student
+//TODO: add courses and assignments from JSON Server
+
 export default App;

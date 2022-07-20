@@ -30,6 +30,24 @@ const AddStudentForm = (props) => {
           onChange={(e) => setValue({ ...value, lastName: e.target.value })}
           required
         />
+        <input
+          type="text"
+          className="form-control mb-2 mr-sm-2"
+          placeholder="phone"
+          value={value.phone}
+          key="phone"
+          id="phone"
+          onChange={(e) => setValue({ ...value, phone: e.target.value })}
+        />{" "}
+        <input
+          type="text"
+          className="form-control mb-2 mr-sm-2"
+          placeholder="email"
+          value={value.email}
+          key="email"
+          id="email"
+          onChange={(e) => setValue({ ...value, email: e.target.value })}
+        />
       </form>
     </div>
   );
