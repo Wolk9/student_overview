@@ -1,11 +1,28 @@
 import React, { useState } from "react";
-import { Modal, Button, CloseButton } from "react-bootstrap";
+import {
+  Modal,
+  Button,
+  CloseButton,
+  Form,
+  Col,
+  Row,
+  Alert,
+} from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { openAddStudentModal } from "../ui/uiSlice";
+import AddStudentForm from "./AddStudentForm";
 import { addStudent } from "./studentSlice";
 
 const AddStudentModal = (props) => {
   const { show } = props;
+  const [value, setValue] = useState({
+    id: "",
+    firstName: undefined,
+    lastName: undefined,
+    phone: undefined,
+    email: undefined,
+  });
+  const [alert, setAlert] = useState(false);
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -13,9 +30,19 @@ const AddStudentModal = (props) => {
     dispatch(openAddStudentModal(false));
   };
 
-  const addStudent = () => {
-    console.log("Click on addStudent");
-    dispatch(addStudent());
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (
+      value.firstName ||
+      value.lastName ||
+      value.phone ||
+      value.email !== undefined
+    ) {
+      dispatch(addStudent(value));
+    } else {
+      setAlert(true);
+    }
+    dispatch(openAddStudentModal(false));
   };
   return (
     <div>
@@ -24,10 +51,21 @@ const AddStudentModal = (props) => {
           <Modal.Title>Add Student</Modal.Title>
           <CloseButton onClick={handleClose} />
         </Modal.Header>
-        <Modal.Body>Edit user</Modal.Body>
+        <Modal.Body>
+          <AddStudentForm
+            value={value}
+            setValue={setValue}
+            onSubmit={onSubmit}
+          />
+        </Modal.Body>
+
         <Modal.Footer>
-          <Button onClick={handleClose}>close</Button>
-          <Button onClick={addStudent}>save</Button>
+          <div>
+            <Button onClick={handleClose}>cancel</Button>
+            <Button onClick={onSubmit} type="submit">
+              save
+            </Button>
+          </div>
         </Modal.Footer>
       </Modal>
     </div>

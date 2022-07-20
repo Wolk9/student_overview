@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import StudentItem from "./StudentItem";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import { openAddStudentModal } from "../ui/uiSlice";
 
 const StudentsList = ({ students }) => {
   const dispatch = useDispatch();
+  console.log(students);
 
   const handleAddClick = () => {
     console.log("Click on StudentAdd happend");
@@ -17,12 +18,11 @@ const StudentsList = ({ students }) => {
     <Table striped="columns" size="sm">
       <thead>
         <tr>
-          <th>id</th>
           <th>name</th>
-          <th>gender</th>
-          <th>age</th>
+          <th>phone</th>
+          <th>email</th>
           <th>
-            <button onClick={handleAddClick}>add</button>
+            <Button onClick={handleAddClick}>add</Button>
           </th>
         </tr>
       </thead>
@@ -31,9 +31,10 @@ const StudentsList = ({ students }) => {
           <StudentItem
             key={student.id}
             id={student.id}
-            name={student.name}
-            gender={student.gender}
-            age={student.age}
+            firstName={student.firstName}
+            lastName={student.lastName}
+            phone={student.phone}
+            email={student.email}
           />
         ))}
       </tbody>

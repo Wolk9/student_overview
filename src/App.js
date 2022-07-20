@@ -11,12 +11,6 @@ const App = () => {
   const students = useSelector((state) => state.students);
   const show = useSelector((state) => state.ui.addStudentModalOpen);
 
-  // useEffect(() => {
-  //   studentService.getAllStudents().then((response) => {
-  //     setStudents(response.data);
-  //   });
-  // }, []);
-
   console.log(show);
   console.log(students);
 

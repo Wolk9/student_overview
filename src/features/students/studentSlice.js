@@ -1,33 +1,37 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
-
-const generateId = () => {
-  return uuidv4;
-};
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const studentSlice = createSlice({
   name: "students",
   initialState: [],
   reducers: {
-    addStudent(state, action) {
-      const content = action.payload;
-      state.push({
-        content,
-        // id: generateId(),
-      });
+    addStudent: {
+      reducer: (state, action) => {
+        state.push(action.payload);
+      },
+      prepare: (action) => {
+        const id = nanoid();
+        action.id = id;
+        return { payload: action };
+      },
     },
     editStudent(state, action) {
       //
     },
-    appendStudent(state, action) {
-      state.push(action.payload);
-    },
-    setStudents(state, action) {
-      return action.payload;
+    setStudents: {
+      reducer: (state, action) => {
+        return action.payload;
+      },
+      prepare: (action) => {
+        console.log(action);
+        action.map((student) => {
+          const id = nanoid();
+          student.id = id;
+        });
+        return { payload: action };
+      },
     },
   },
 });
 
-export const { addStudent, editStudent, appendStudent, setStudents } =
-  studentSlice.actions;
+export const { addStudent, editStudent, setStudents } = studentSlice.actions;
 export default studentSlice.reducer;

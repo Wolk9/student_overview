@@ -12,4 +12,4 @@ export const store = configureStore({
 
 studentService
   .getAllStudents()
-  .then((students) => store.dispatch(setStudents(students)));
+  .then((students) => store.dispatch(setStudents(students.data)));

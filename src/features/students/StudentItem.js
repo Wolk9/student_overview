@@ -1,8 +1,9 @@
 import React from "react";
+import { Button, Image } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { editStudent } from "./studentSlice";
 
-const StudentItem = ({ id, name, age, gender }) => {
+const StudentItem = ({ id, firstName, lastName, phone, email }) => {
   const dispatch = useDispatch();
 
   const handleEditClick = () => {
@@ -12,12 +13,13 @@ const StudentItem = ({ id, name, age, gender }) => {
 
   return (
     <tr key={id}>
-      <td>{id}</td>
-      <td>{name}</td>
-      <td>{gender}</td>
-      <td>{age}</td>
       <td>
-        <button onClick={handleEditClick}>edit</button>
+        {firstName} {lastName}
+      </td>
+      <td>{phone}</td>
+      <td>{email}</td>
+      <td>
+        <Button onClick={handleEditClick}>edit</Button>
       </td>
     </tr>
   );
