@@ -1,11 +1,12 @@
 import React from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import StudentItem from "./StudentItem";
 import { useDispatch } from "react-redux";
 import { openAddStudentModal } from "../ui/uiSlice";
+import AddStudentModal from "./AddStudentModal";
 
-const StudentsList = ({ students }) => {
+const StudentsList = ({ students, show }) => {
   const dispatch = useDispatch();
   console.log(students);
 
@@ -15,30 +16,35 @@ const StudentsList = ({ students }) => {
   };
 
   return (
-    <Table striped="columns" size="sm">
-      <thead>
-        <tr>
-          <th>name</th>
-          <th>phone</th>
-          <th>email</th>
-          <th>
-            <Button onClick={handleAddClick}>add</Button>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {students.map((student) => (
-          <StudentItem
-            key={student.id}
-            id={student.id}
-            firstName={student.firstName}
-            lastName={student.lastName}
-            phone={student.phone}
-            email={student.email}
-          />
-        ))}
-      </tbody>
-    </Table>
+    <div>
+      {show && <AddStudentModal show={show} />}
+      <Container fluid>
+        <Table striped="columns" size="sm">
+          <thead>
+            <tr>
+              <th>name</th>
+              <th>phone</th>
+              <th>email</th>
+              <th>
+                <Button onClick={handleAddClick}>add</Button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {students.map((student) => (
+              <StudentItem
+                key={student.id}
+                id={student.id}
+                firstName={student.firstName}
+                lastName={student.lastName}
+                phone={student.phone}
+                email={student.email}
+              />
+            ))}
+          </tbody>
+        </Table>
+      </Container>
+    </div>
   );
 };
 

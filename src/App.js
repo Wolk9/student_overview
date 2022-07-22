@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StudentsList from "./features/students/StudentsList";
-import { Container } from "react-bootstrap";
-import AddStudentModal from "./features/students/AddStudentModal";
 import { useSelector } from "react-redux";
 import studentService from "./services/students";
+import Overview from "./features/overview/Overview";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 const App = () => {
   // const [students, setStudents] = useState([]);
@@ -16,13 +17,22 @@ const App = () => {
 
   return (
     <div className="App">
-      {show && <AddStudentModal show={show} />}
-      <Container>
-        <center>
-          <h3>Student Overview App</h3>
-        </center>
-        <StudentsList students={students} />
-      </Container>
+      <Navbar bg="primary" variant="dark" fixed="top">
+        <Container>
+          <Navbar.Brand href="/">MdB StudentBoard</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/students">Students</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      <Routes>
+        <Route path="/" element={<Overview />} />
+        <Route
+          path="/students"
+          element={<StudentsList students={students} show={show} />}
+        />
+      </Routes>
     </div>
   );
 };
