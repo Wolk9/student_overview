@@ -7,6 +7,7 @@ import {
   Col,
   Row,
   Alert,
+  Container,
 } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { openAddStudentModal } from "../ui/uiSlice";
@@ -50,26 +51,38 @@ const AddStudentModal = (props) => {
   };
   return (
     <div>
-      <Modal show={show}>
+      <Modal
+        {...props}
+        show={show}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered>
         <Modal.Header>
-          <Modal.Title>Add Student</Modal.Title>
+          <Modal.Title>
+            Add{" "}
+            {value.firstName !== undefined
+              ? `${value.firstName} ${value.lastName}`
+              : "Student"}
+          </Modal.Title>
           <CloseButton onClick={handleClose} />
         </Modal.Header>
         <Modal.Body>
-          <AddStudentForm
-            value={value}
-            setValue={setValue}
-            onSubmit={onSubmit}
-          />
+          <Container>
+            <AddStudentForm
+              value={value}
+              setValue={setValue}
+              onSubmit={onSubmit}
+            />
+          </Container>
         </Modal.Body>
 
         <Modal.Footer>
-          <div>
-            <Button onClick={handleClose}>cancel</Button>
-            <Button onClick={onSubmit} type="submit">
-              save
-            </Button>
-          </div>
+          <Button variant="secondary" onClick={handleClose}>
+            cancel
+          </Button>
+
+          <Button variant="primary" onClick={onSubmit} type="submit">
+            save
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

@@ -10,7 +10,6 @@ import Icon from "@mdi/react";
 
 const StudentsList = ({ students, show }) => {
   const dispatch = useDispatch();
-  console.log(students);
 
   const handleAddClick = () => {
     console.log("Click on StudentAdd happend");
@@ -22,35 +21,41 @@ const StudentsList = ({ students, show }) => {
       {show && <AddStudentModal show={show} />}
       <Container fluid className="p-4 m4">
         <Card xs={4}>
-          <Table striped="columns" size="sm" className="p-4 m4">
-            <thead>
-              <tr>
-                <th>name</th>
-                <th>phone</th>
-                <th>email</th>
-                <th>
-                  <Icon
-                    path={mdiAccountPlus}
-                    size={1}
-                    onClick={handleAddClick}
-                    color="primary"
+          <Card.Header as="h5">List of Students</Card.Header>
+          <Card.Body>
+            <Table striped="columns" size="sm" className="p-4 m4">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>
+                    <Icon
+                      path={mdiAccountPlus}
+                      size={1}
+                      onClick={handleAddClick}
+                      color="primary"
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {students.map((student) => (
+                  <StudentItem
+                    key={student.id}
+                    id={student.id}
+                    firstName={student.firstName}
+                    lastName={student.lastName}
+                    phone={student.phone}
+                    email={student.email}
                   />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.map((student) => (
-                <StudentItem
-                  key={student.id}
-                  id={student.id}
-                  firstName={student.firstName}
-                  lastName={student.lastName}
-                  phone={student.phone}
-                  email={student.email}
-                />
-              ))}
-            </tbody>
-          </Table>
+                ))}
+              </tbody>
+            </Table>
+          </Card.Body>
+          <Card.Footer className="text-muted">
+            A total of {students.length} students registered
+          </Card.Footer>
         </Card>
       </Container>
     </div>

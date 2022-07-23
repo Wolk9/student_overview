@@ -22,11 +22,6 @@ const studentSlice = createSlice({
         return action.payload;
       },
       prepare: (action) => {
-        console.log(action);
-        action.map((student) => {
-          const id = nanoid();
-          student.id = id;
-        });
         return { payload: action };
       },
     },

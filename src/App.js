@@ -4,17 +4,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import StudentsList from "./features/students/StudentsList";
 import { useSelector } from "react-redux";
-import studentService from "./services/students";
+import dataService from "./services/dataService";
 import Overview from "./features/overview/Overview";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 const App = () => {
   // const [students, setStudents] = useState([]);
   const students = useSelector((state) => state.students);
+  const courses = useSelector((state) => state.courses);
+  const assignments = useSelector((state) => state.assignments);
   const show = useSelector((state) => state.ui.addStudentModalOpen);
-
-  console.log(show);
-  console.log(students);
 
   return (
     <div className="App">
