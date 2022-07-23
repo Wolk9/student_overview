@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 import StudentsList from "./features/students/StudentsList";
 import { useSelector } from "react-redux";
 import studentService from "./services/students";
@@ -17,7 +18,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Navbar bg="primary" variant="dark" fixed="top">
+      <Navbar bg="primary" variant="dark" sticky="top">
         <Container>
           <Navbar.Brand href="/">MdB StudentBoard</Navbar.Brand>
           <Nav className="me-auto">
