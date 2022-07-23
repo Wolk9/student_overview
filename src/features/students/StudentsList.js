@@ -22,7 +22,7 @@ const StudentsList = ({ students, show }) => {
       {show && <AddStudentModal show={show} />}
       <Container fluid className="p-4 m4">
         <Card xs={4}>
-          <Table striped="columns" size="sm">
+          <Table striped="columns" size="sm" className="p-4 m4">
             <thead>
               <tr>
                 <th>name</th>
