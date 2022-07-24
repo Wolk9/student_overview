@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { editAssignment } from "./assignmentSlice";
 import { mdiPencil } from "@mdi/js";
 import Icon from "@mdi/react";
+import { Rating } from "react-simple-star-rating";
 
 const AssignmentItem = ({ id, user, assignment, difficulty, fun }) => {
   const dispatch = useDispatch();
@@ -17,8 +18,12 @@ const AssignmentItem = ({ id, user, assignment, difficulty, fun }) => {
     <tr key={id}>
       <td>{user}</td>
       <td>{assignment}</td>
-      <td>{difficulty}</td>
-      <td>{fun}</td>
+      <td>
+        <Rating initialValue={difficulty} readonly={true} size={20} />
+      </td>
+      <td>
+        <Rating initialValue={fun} readonly={true} size={20} />
+      </td>
 
       {/* <td>
         <Icon path={mdiPencil} size={1} onClick={handleEditClick} />
