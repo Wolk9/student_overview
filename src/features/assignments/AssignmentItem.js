@@ -17,13 +17,10 @@ const AssignmentItem = ({ id, user_id, assignment, difficulty, fun }) => {
     <tr key={id}>
       <td>{id}</td>
       <td>{user_id}</td>
-      <td>
-        {assignment}
-        <tr>
-          <td>{difficulty}</td>
-          <td>{fun}</td>
-        </tr>
-      </td>
+      <td>{assignment}</td>
+      <td>{difficulty}</td>
+      <td>{fun}</td>
+
       {/* <td>
         <Icon path={mdiPencil} size={1} onClick={handleEditClick} />
       </td> */}
