@@ -42,7 +42,14 @@ const App = () => {
         />
         <Route
           path="/assignments"
-          element={<AssignmentsList assignments={assignments} show={show} />}
+          element={
+            <AssignmentsList
+              assignments={assignments}
+              students={students}
+              courses={courses}
+              show={show}
+            />
+          }
         />
         }/>
       </Routes>

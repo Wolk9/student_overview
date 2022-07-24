@@ -12,7 +12,6 @@ const AssignmentItem = ({ id, user_id, assignment, difficulty, fun }) => {
   //     console.log("Click on AssignmentEdit " + id + " happend");
   //     dispatch(editAssignment({ id }));
   //   };
-
   return (
     <tr key={id}>
       <td>{id}</td>

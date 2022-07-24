@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Button, Container, Col, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import AssignmentItem from "./AssignmentItem";
 import { useDispatch } from "react-redux";
 import { openAddAssignmentModal } from "../ui/uiSlice";
 // import AddAssignmentModal from "./AddAssignmentModal";
-import { mdiAccountPlus } from "@mdi/js";
+import { mdiAccountPlus, mdiClockDigital } from "@mdi/js";
 import Icon from "@mdi/react";
 
-const AssignmentsList = ({ assignments, show }) => {
+const AssignmentsList = ({ assignments, students, courses, show }) => {
   const dispatch = useDispatch();
+  const [listOfStudents, setListOfStudents] = useState([]);
+  console.log(students);
+
+
+ 
 
   //   const handleAddClick = () => {
   //     console.log("Click on AssignmentAdd happend");
@@ -44,7 +49,7 @@ const AssignmentsList = ({ assignments, show }) => {
                   <AssignmentItem
                     key={assignment.id}
                     id={assignment.id}
-                    user_id={assignment.user_id}
+                    user={(assignment.user_id)=> }
                     assignment={assignment.assignment.course_id}
                     difficulty={assignment.assignment.difficulty}
                     fun={assignment.assignment.fun}
