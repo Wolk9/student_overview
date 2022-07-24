@@ -5,8 +5,9 @@ import { editAssignment } from "./assignmentSlice";
 import { mdiPencil } from "@mdi/js";
 import Icon from "@mdi/react";
 
-const AssignmentItem = ({ id, user_id, assignment, difficulty, fun }) => {
+const AssignmentItem = ({ id, user, assignment, difficulty, fun }) => {
   const dispatch = useDispatch();
+  console.log(user);
 
   //   const handleEditClick = () => {
   //     console.log("Click on AssignmentEdit " + id + " happend");
@@ -14,8 +15,7 @@ const AssignmentItem = ({ id, user_id, assignment, difficulty, fun }) => {
   //   };
   return (
     <tr key={id}>
-      <td>{id}</td>
-      <td>{user_id}</td>
+      <td>{user}</td>
       <td>{assignment}</td>
       <td>{difficulty}</td>
       <td>{fun}</td>

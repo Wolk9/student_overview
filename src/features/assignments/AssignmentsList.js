@@ -11,10 +11,19 @@ import Icon from "@mdi/react";
 const AssignmentsList = ({ assignments, students, courses, show }) => {
   const dispatch = useDispatch();
   const [listOfStudents, setListOfStudents] = useState([]);
-  console.log(students);
 
+  const getNamesUser = (user_id) => {
+    const [result] = students.filter((student) => student.id === user_id);
+    const nameResult = result.firstName + " " + result.lastName;
+    return nameResult;
+  };
 
- 
+  const getCourseCode = (course_id) => {
+    const [result] = courses.filter((course) => course.id === course_id);
+    return (
+      result.code + " " + (result.project !== undefined ? result.project : "")
+    );
+  };
 
   //   const handleAddClick = () => {
   //     console.log("Click on AssignmentAdd happend");
@@ -31,9 +40,10 @@ const AssignmentsList = ({ assignments, students, courses, show }) => {
             <Table striped="columns" size="sm" className="p-4 m4">
               <thead>
                 <tr>
-                  <th>id</th>
                   <th>user</th>
                   <th>assignment</th>
+                  <th>difficulty</th>
+                  <th>fun</th>
                   <th>
                     {/* <Icon
                       path={mdiAccountPlus}
@@ -49,8 +59,8 @@ const AssignmentsList = ({ assignments, students, courses, show }) => {
                   <AssignmentItem
                     key={assignment.id}
                     id={assignment.id}
-                    user={(assignment.user_id)=> }
-                    assignment={assignment.assignment.course_id}
+                    user={getNamesUser(assignment.user_id)}
+                    assignment={getCourseCode(assignment.assignment.course_id)}
                     difficulty={assignment.assignment.difficulty}
                     fun={assignment.assignment.fun}
                   />
