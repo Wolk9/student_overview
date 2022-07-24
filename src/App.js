@@ -21,7 +21,7 @@ const App = () => {
     <div className="App">
       <Navbar bg="primary" variant="dark" sticky="top">
         <Container>
-          <Navbar.Brand href="/">MdB StudentBoard</Navbar.Brand>
+          <Navbar.Brand href="/"> MdB StudentBoard </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/students">Students</Nav.Link>

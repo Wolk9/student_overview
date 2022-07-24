@@ -24,7 +24,6 @@ const AssignmentsList = ({ assignments, students, courses, show }) => {
       result.code + " " + (result.project !== undefined ? result.project : "")
     );
   };
-
   //   const handleAddClick = () => {
   //     console.log("Click on AssignmentAdd happend");
   //     dispatch(openAddAssignmentModal(true));

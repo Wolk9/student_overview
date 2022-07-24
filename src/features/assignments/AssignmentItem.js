@@ -8,7 +8,6 @@ import { Rating } from "react-simple-star-rating";
 
 const AssignmentItem = ({ id, user, assignment, difficulty, fun }) => {
   const dispatch = useDispatch();
-  console.log(user);
 
   //   const handleEditClick = () => {
   //     console.log("Click on AssignmentEdit " + id + " happend");
