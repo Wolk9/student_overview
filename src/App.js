@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import dataService from "./services/dataService";
 import Overview from "./features/overview/Overview";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { selectedStudent } from "../src/features/ui/uiSlice";
 
 const App = () => {
   // const [students, setStudents] = useState([]);
@@ -16,7 +17,14 @@ const App = () => {
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
   const show = useSelector((state) => state.ui.addStudentModalOpen);
+  const pickedStudent = useSelector((state) => state.ui.selectedStudent);
 
+  const studentNames = students.map((student) => ({
+    id: student.id,
+    fullName: student.firstName + "_" + student.lastName,
+  }));
+
+  console.log(studentNames);
   return (
     <div className="App">
       <Navbar bg="primary" variant="dark" sticky="top">
@@ -36,6 +44,7 @@ const App = () => {
           path="/students"
           element={<StudentsList students={students} show={show} />}
         />
+
         <Route
           path="/courses"
           element={<CoursesList courses={courses} show={show} />}
@@ -44,14 +53,30 @@ const App = () => {
           path="/assignments"
           element={
             <AssignmentsList
+              key={assignments.id}
               assignments={assignments}
               students={students}
+              studentNames={studentNames}
+              pickedStudent={pickedStudent}
               courses={courses}
               show={show}
             />
-          }
-        />
-        }/>
+          }>
+          {/* <Route
+            path="/assignments/:studentName"
+            element={
+              <AssignmentsList
+                key={selectedStudent.id}
+                assignments={assignments}
+                students={students}
+                studentNames={studentNames}
+                selectedStudent={selectedStudent}
+                courses={courses}
+                show={show}
+              />
+            }
+          /> */}
+        </Route>
       </Routes>
     </div>
   );
