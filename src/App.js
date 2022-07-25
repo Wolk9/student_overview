@@ -46,7 +46,7 @@ const App = () => {
         </MDBContainer>
       </MDBNavbar>
       <Routes>
-        <Route path="/" element={<Overview />} />
+        <Route path="/" element={<Overview studentNames={studentNames} />} />
         <Route
           path="/students"
           element={<StudentsList students={students} show={show} />}
