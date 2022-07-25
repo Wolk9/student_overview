@@ -1,16 +1,17 @@
 import React from "react";
-import { Card, Container } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import { MDBContainer } from "mdb-react-ui-kit";
 
 export const Overview = () => {
   return (
     <div>
-      <Container fluid className="p-4 m4">
+      <MDBContainer fluid className="p-4 m4">
         <Card xs={4}>
           <Card.Header as="h5">Overview</Card.Header>
           <Card.Body>lorem ipsum dolor sit amet, consectet</Card.Body>
           <Card.Footer></Card.Footer>
         </Card>
-      </Container>
+      </MDBContainer>
     </div>
   );
 };

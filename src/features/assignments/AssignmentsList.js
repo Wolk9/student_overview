@@ -1,18 +1,13 @@
 import React from "react";
-import {
-  Table,
-  Container,
-  Card,
-  Nav,
-  NavDropdown,
-  Col,
-  Row,
-} from "react-bootstrap";
+import { Table, Card, Nav, NavDropdown, Col, Row } from "react-bootstrap";
+import { MDBContainer } from "mdb-react-ui-kit";
 // import { useSelector } from "react-redux";
+
 import AssignmentItem from "./AssignmentItem";
 import { useDispatch } from "react-redux";
 import StudentsList from "../students/StudentsList";
 import { selectedStudent } from "../ui/uiSlice";
+import DataTable from "react-data-table-component";
 
 // import { openAddAssignmentModal } from "../ui/uiSlice";
 // import AddAssignmentModal from "./AddAssignmentModal";
@@ -52,11 +47,48 @@ const AssignmentsList = ({
   //     dispatch(openAddAssignmentModal(true));
   //   };
 
+  const columns = [
+    {
+      name: "id",
+      selector: (row) => row.id,
+      sortable: true,
+    },
+    {
+      name: "User",
+      selector: (row) => row.user_id,
+      sortable: true,
+    },
+    {
+      name: "Assignment",
+      selector: (row) => row.assignment.course_id,
+      sortable: true,
+    },
+    {
+      name: "Difficulty",
+      selector: (row) => row.assignment.difficulty,
+      sortable: true,
+    },
+    {
+      name: "Fun",
+      selector: (row) => row.assignment.fun,
+      sortable: true,
+    },
+  ];
+
   return (
     <div>
       {/* {show && <AddAssignmentModal show={show} />} */}
-      <Container fluid className="p-4 m4">
-        <Card xs={4}>
+      <MDBContainer fluid className="p-4 m4">
+        <DataTable
+          title="Assignment"
+          columns={columns}
+          data={assignments}
+          pagination
+          dense
+          responsive
+          selectableRows
+        />
+        {/* <Card xs={4}>
           <Card.Header as="h5">
             <Row>
               <Col>List of Assignments</Col>
@@ -80,7 +112,7 @@ const AssignmentsList = ({
             </Row>
           </Card.Header>
           <Card.Body>
-            <Table striped="columns" size="sm" className="p-4 m4">
+            /* <Table striped="columns" size="sm" className="p-4 m4">
               <thead>
                 <tr>
                   <th>user</th>
@@ -88,12 +120,12 @@ const AssignmentsList = ({
                   <th>difficulty</th>
                   <th>fun</th>
                   <th>
-                    {/* <Icon
+                    <Icon
                       path={mdiAccountPlus}
                       size={1}
                       onClick={handleAddClick}
                       color="primary"
-                    /> */}
+                    />
                   </th>
                 </tr>
               </thead>
@@ -109,13 +141,13 @@ const AssignmentsList = ({
                   />
                 ))}
               </tbody>
-            </Table>
+            </Table> 
           </Card.Body>
           <Card.Footer className="text-muted">
             A total of {assignments.length} assignments registered
           </Card.Footer>
-        </Card>
-      </Container>
+        </Card> */}
+      </MDBContainer>
     </div>
   );
 };

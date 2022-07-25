@@ -8,7 +8,15 @@ import AssignmentsList from "./features/assignments/AssignmentsList";
 import { useSelector } from "react-redux";
 import dataService from "./services/dataService";
 import Overview from "./features/overview/Overview";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
+import {
+  MDBContainer,
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarItem,
+  MDBNavbarLink,
+  MDBNavbarNav,
+} from "mdb-react-ui-kit";
 import { selectedStudent } from "../src/features/ui/uiSlice";
 
 const App = () => {
@@ -27,17 +35,17 @@ const App = () => {
   console.log(studentNames);
   return (
     <div className="App">
-      <Navbar bg="primary" variant="dark" sticky="top">
-        <Container>
-          <Navbar.Brand href="/"> MdB StudentBoard </Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/students">Students</Nav.Link>
-            <Nav.Link href="/courses">Courses</Nav.Link>
-            <Nav.Link href="/assignments">Assignments</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
+      <MDBNavbar expand="lg" dark bgColor="primary">
+        <MDBContainer fluid>
+          <MDBNavbarBrand href="/"> MdB StudentBoard </MDBNavbarBrand>
+          <MDBNavbarNav className="me-auto">
+            <MDBNavbarLink href="/">Home</MDBNavbarLink>
+            <MDBNavbarLink href="/students">Students</MDBNavbarLink>
+            <MDBNavbarLink href="/courses">Courses</MDBNavbarLink>
+            <MDBNavbarLink href="/assignments">Assignments</MDBNavbarLink>
+          </MDBNavbarNav>
+        </MDBContainer>
+      </MDBNavbar>
       <Routes>
         <Route path="/" element={<Overview />} />
         <Route

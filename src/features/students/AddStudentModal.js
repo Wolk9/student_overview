@@ -7,8 +7,8 @@ import {
   Col,
   Row,
   Alert,
-  Container,
 } from "react-bootstrap";
+import { MDBContainer } from "mdb-react-ui-kit";
 import { useDispatch } from "react-redux";
 import { openAddStudentModal } from "../ui/uiSlice";
 import AddStudentForm from "./AddStudentForm";
@@ -66,13 +66,13 @@ const AddStudentModal = (props) => {
           <CloseButton onClick={handleClose} />
         </Modal.Header>
         <Modal.Body>
-          <Container>
+          <MDBContainer>
             <AddStudentForm
               value={value}
               setValue={setValue}
               onSubmit={onSubmit}
             />
-          </Container>
+          </MDBContainer>
         </Modal.Body>
 
         <Modal.Footer>

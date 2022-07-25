@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Container, Col, Card } from "react-bootstrap";
+import { Table, Button, Col, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import CourseItem from "./CourseItem";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import { openAddCourseModal } from "../ui/uiSlice";
 // import AddCourseModal from "./AddCourseModal";
 import { mdiAccountPlus } from "@mdi/js";
 import Icon from "@mdi/react";
+import { MDBContainer } from "mdb-react-ui-kit";
 
 const CoursesList = ({ courses, show }) => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const CoursesList = ({ courses, show }) => {
   return (
     <div>
       {/* {show && <AddCourseModal show={show} />} */}
-      <Container fluid className="p-4 m4">
+      <MDBContainer fluid className="p-4 m4">
         <Card xs={4}>
           <Card.Header as="h5">List of Courses</Card.Header>
           <Card.Body>
@@ -55,7 +56,7 @@ const CoursesList = ({ courses, show }) => {
             A total of {courses.length} courses registered
           </Card.Footer>
         </Card>
-      </Container>
+      </MDBContainer>
     </div>
   );
 };

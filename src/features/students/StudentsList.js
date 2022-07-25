@@ -1,5 +1,6 @@
 import React from "react";
-import { Table, Button, Container, Col, Card } from "react-bootstrap";
+import { Table, Button, Col, Card } from "react-bootstrap";
+import { MDBContainer } from "mdb-react-ui-kit";
 import { useSelector } from "react-redux";
 import StudentItem from "./StudentItem";
 import { useDispatch } from "react-redux";
@@ -19,7 +20,7 @@ const StudentsList = ({ students, show }) => {
   return (
     <div>
       {show && <AddStudentModal show={show} />}
-      <Container fluid className="p-4 m4">
+      <MDBContainer fluid className="p-4 m4">
         <Card xs={4}>
           <Card.Header as="h5">List of Students</Card.Header>
           <Card.Body>
@@ -57,7 +58,7 @@ const StudentsList = ({ students, show }) => {
             A total of {students.length} students registered
           </Card.Footer>
         </Card>
-      </Container>
+      </MDBContainer>
     </div>
   );
 };
