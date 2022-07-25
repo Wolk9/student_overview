@@ -32,7 +32,6 @@ const App = () => {
     fullName: student.firstName + "_" + student.lastName,
   }));
 
-  console.log(studentNames);
   return (
     <div className="App">
       <MDBNavbar expand="lg" dark bgColor="primary">

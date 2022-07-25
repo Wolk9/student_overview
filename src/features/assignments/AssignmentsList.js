@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import StudentsList from "../students/StudentsList";
 import { selectedStudent } from "../ui/uiSlice";
 import DataTable from "react-data-table-component";
+import { Rating } from "react-simple-star-rating";
 
 // import { openAddAssignmentModal } from "../ui/uiSlice";
 // import AddAssignmentModal from "./AddAssignmentModal";
@@ -36,12 +37,14 @@ const AssignmentsList = ({
     return nameResult;
   };
 
-  const getCourseCode = (course_id) => {
+  const getCourseName = (course_id) => {
     const [result] = courses.filter((course) => course.id === course_id);
-    return (
-      result.code + " " + (result.project !== undefined ? result.project : "")
-    );
+    console.log(result);
+    const code = result.code !== undefined ? result.code : "";
+    const project = result.project !== undefined ? result.project : "";
+    return code + " " + project;
   };
+
   //   const handleAddClick = () => {
   //     console.log("Click on AssignmentAdd happend");
   //     dispatch(openAddAssignmentModal(true));
@@ -49,28 +52,31 @@ const AssignmentsList = ({
 
   const columns = [
     {
-      name: "id",
-      selector: (row) => row.id,
-      sortable: true,
-    },
-    {
       name: "User",
-      selector: (row) => row.user_id,
+      selector: (row) => getNamesUser(row.user_id),
       sortable: true,
     },
     {
       name: "Assignment",
-      selector: (row) => row.assignment.course_id,
+      selector: (row) => getCourseName(row.assignment.course_id),
       sortable: true,
     },
     {
       name: "Difficulty",
-      selector: (row) => row.assignment.difficulty,
+      selector: (row) => (
+        <Rating
+          initialValue={row.assignment.difficulty}
+          readonly={true}
+          size={20}
+        />
+      ),
       sortable: true,
     },
     {
       name: "Fun",
-      selector: (row) => row.assignment.fun,
+      selector: (row) => (
+        <Rating initialValue={row.assignment.fun} readonly={true} size={20} />
+      ),
       sortable: true,
     },
   ];
@@ -80,13 +86,12 @@ const AssignmentsList = ({
       {/* {show && <AddAssignmentModal show={show} />} */}
       <MDBContainer fluid className="p-4 m4">
         <DataTable
-          title="Assignment"
+          title={assignments.length + " Assignments"}
           columns={columns}
           data={assignments}
           pagination
           dense
           responsive
-          selectableRows
         />
         {/* <Card xs={4}>
           <Card.Header as="h5">
@@ -135,7 +140,7 @@ const AssignmentsList = ({
                     key={assignment.id}
                     id={assignment.id}
                     user={getNamesUser(assignment.user_id)}
-                    assignment={getCourseCode(assignment.assignment.course_id)}
+                    assignment={getCourseName(assignment.assignment.course_id)}
                     difficulty={assignment.assignment.difficulty}
                     fun={assignment.assignment.fun}
                   />
