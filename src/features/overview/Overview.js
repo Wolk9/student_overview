@@ -51,11 +51,15 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
   const dtsts = students.map((s) => {
     return {
       label: s.firstName + " " + s.lastName,
-      data: assignments.map(
-        (a) => a.assignment.difficulty + " " + a.assignment.fun
-      ),
+      data: assignments
+        .filter((assignment) => assignment.user_id === s.id)
+        .map((a) => [a.assignment.difficulty, a.assignment.fun]),
+      backgroundColor: s.color,
     };
   });
+
+  console.log("dtsts", dtsts);
+
   const data = {
     labels,
     datasets: dtsts,
@@ -81,11 +85,11 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
                 <MDBCardTitle>Students</MDBCardTitle>
               </MDBCardHeader>
               <MDBCardBody>
-                {studentNames.map((student) => (
+                {students.map((student) => (
                   <MDBRow key={student.id}>
                     <MDBCheckbox
                       id={student.id}
-                      label={student.fullName}
+                      label={student.firstName + " " + student.lastName}
                       defaultChecked
                     />
                   </MDBRow>

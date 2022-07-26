@@ -568,7 +568,8 @@
   "lastName": "McGuire",
   "phone": "+31 6 1234 5678",
   "email": "mcguire@gmail.com",
-  "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff"
+  "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
+  "color": "rgb(255, 99, 132)"
 },
 {
   "id": 2,
@@ -576,7 +577,8 @@
   "lastName": "Smith",
   "phone": "+31 6 1234 7618",
   "email": "smith@gmail.com",
-  "photo": "http://dummyimage.com/128x100.png/dddddd/000000"
+  "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
+  "color": "rgb(0, 60, 255)"
 },
 {
   "id": 3,
@@ -584,7 +586,8 @@
   "lastName": "Beyond",
   "phone": "+31 6 1234 1231",
   "email": "beyond@gmail.com",
-  "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff"
+  "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff",
+  "color": "rgb(255, 60, 60)"
 },
 {
   "id": 4,
@@ -592,7 +595,8 @@
   "lastName": "Liberal",
   "phone": "+31 6 3414 1231",
   "email": "libHec@live.com",
-  "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff"
+  "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
+  "color": "rgb(132, 25, 255)"
 },
 {
   "id": 5,
@@ -600,7 +604,8 @@
   "lastName": "Navratilova",
   "phone": "+32 5 1234 1231",
   "email": "navratilova@tennis.net",
-  "photo": "http://dummyimage.com/128x100.png/5f2add/ffffff"
+  "photo": "http://dummyimage.com/128x100.png/5f2add/ffffff",
+  "color": "rgb(125, 199, 12)"
 },
 {
   "id": 6,
@@ -608,7 +613,8 @@
   "lastName": "VandenBerg",
   "phone": "+31 6 1931 1590",
   "email": "vandenberg@gmail.com",
-  "photo": "http://dummyimage.com/128x100.png/cc0000/ffffff"
+  "photo": "http://dummyimage.com/128x100.png/cc0000/ffffff",
+  "color": "rgb(55, 199, 132)"
 },
 {
   "id": 7,
@@ -616,7 +622,8 @@
   "lastName": "Soebagh",
   "phone": "+31 6 7891 1347",
   "email": "info@rahima.in",
-  "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff"
+  "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff",
+  "color": "rgb(255, 9, 132)"
 },
 {
   "id": 8,
@@ -624,7 +631,8 @@
   "lastName": "Bullock",
   "phone": "+1 492 1293 1923",
   "email": "Bullock@gmail.com",
-  "photo": "http://dummyimage.com/128x100.png/cc0000/ffffff"
+  "photo": "http://dummyimage.com/128x100.png/cc0000/ffffff",
+  "color": "rgb(25, 99, 132)"
 },
 {
   "id": 9,
@@ -632,7 +640,8 @@
   "lastName": "Kroes",
   "phone": "+1 492 1293 1231",
   "email": "Kroes@gmail.com",
-  "photo": "http://dummyimage.com/128x100.png/dddddd/000000"
+  "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
+  "color": "rgb(255, 99, 13)"
 },
 {
   "id": 10,
@@ -640,7 +649,8 @@
   "lastName": "Glass",
   "phone": "+1 492 1293 2313",
   "email": "Glass@gmail.com",
-  "photo": "http://dummyimage.com/128x100.png/dddddd/000000"
+  "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
+  "color": "rgb(255, 199, 132)"
 }
     ],
     "courses": [
