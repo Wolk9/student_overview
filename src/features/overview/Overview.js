@@ -38,11 +38,22 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: "right",
       },
       title: {
+        display: false,
+      },
+    },
+    scales: {
+      yAxis: {
         display: true,
-        text: "Chart.js Bar Chart",
+        scaleLabel: {
+          display: true,
+          labelString: "rating",
+        },
+        suggestedMin: 0,
+        suggestedMax: 5,
+        suggestedSteps: 1,
       },
     },
   };
@@ -51,9 +62,26 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
   const dtsts = students.map((s) => {
     return {
       label: s.firstName + " " + s.lastName,
-      data: assignments
-        .filter((assignment) => assignment.user_id === s.id)
-        .map((a) => [a.assignment.difficulty, a.assignment.fun]),
+      datasets: [
+        {
+          label: "difficulty",
+          data: assignments
+            .filter((assignment) => assignment.user_id === s.id)
+            .map((a) => a.assignment.difficulty),
+          parsing: {
+            yAxisKey: "difficulty",
+          },
+        },
+        {
+          label: "fun",
+          data: assignments
+            .filter((assignment) => assignment.user_id === s.id)
+            .map((a) => a.assignment.fun),
+          parsing: {
+            yAxisKey: "fun",
+          },
+        },
+      ],
       backgroundColor: s.color,
     };
   });
@@ -85,15 +113,24 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
                 <MDBCardTitle>Students</MDBCardTitle>
               </MDBCardHeader>
               <MDBCardBody>
-                {students.map((student) => (
-                  <MDBRow key={student.id}>
-                    <MDBCheckbox
-                      id={student.id}
-                      label={student.firstName + " " + student.lastName}
-                      defaultChecked
-                    />
-                  </MDBRow>
-                ))}
+                <MDBCard>
+                  <MDBCardBody>
+                    <MDBCheckbox label="all" defaultChecked />
+                  </MDBCardBody>
+                </MDBCard>
+                <MDBCard>
+                  <MDBCardBody>
+                    {students.map((student) => (
+                      <MDBRow key={student.id}>
+                        <MDBCheckbox
+                          id={student.id}
+                          label={student.firstName + " " + student.lastName}
+                          defaultChecked
+                        />
+                      </MDBRow>
+                    ))}
+                  </MDBCardBody>
+                </MDBCard>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
