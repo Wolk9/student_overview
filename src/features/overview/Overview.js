@@ -124,22 +124,22 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
                     {students.map((student) => (
                       <MDBRow key={student.id}>
                         <MDBCheckbox
+                          btn={true}
                           size="sm"
                           id={student.id}
                           value={student.id}
                           name={student.id}
                           label={student.firstName + " " + student.lastName}
                           labelStyle={{
-                            background: student.color2,
+                            background: student.color,
                             color: "white",
-                            padding: "5px",
-                            paddingLeft: "10px",
-                            fontSize: "12px",
+                            padding: "3px",
+                            marginTop: "3px",
+                            fontSize: "11px",
                             minWidth: "100%",
                             borderRadius: "5px",
                           }}
-                          wrapperTag="span"
-                          wrapperStyle={{ color: student.color }}
+                          disableWrapper
                           defaultChecked
                         />
                       </MDBRow>
