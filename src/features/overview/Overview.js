@@ -32,39 +32,34 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Chart.js Bar Chart",
-    },
-  },
-};
-
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Dataset 2",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
-export const Overview = ({ studentNames }) => {
+export const Overview = ({ studentNames, courses, students, assignments }) => {
   console.log(studentNames);
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Chart.js Bar Chart",
+      },
+    },
+  };
+
+  const labels = courses.map((c) => c.code);
+  const dtsts = students.map((s) => {
+    return {
+      label: s.firstName + " " + s.lastName,
+      data: assignments.map(
+        (a) => a.assignment.difficulty + " " + a.assignment.fun
+      ),
+    };
+  });
+  const data = {
+    labels,
+    datasets: dtsts,
+  };
   return (
     <div>
       <MDBContainer fluid className="p-4 m4">
