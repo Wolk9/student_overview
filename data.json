@@ -569,7 +569,8 @@
   "phone": "+31 6 1234 5678",
   "email": "mcguire@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
-  "color": "rgb(255, 99, 132)"
+  "color": "rgb(255, 99, 132)",
+  "color2": "rgb(255, 99, 232)"
 },
 {
   "id": 2,
@@ -578,7 +579,8 @@
   "phone": "+31 6 1234 7618",
   "email": "smith@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
-  "color": "rgb(0, 60, 255)"
+  "color": "rgb(0, 60, 255)",
+  "color2": "rgb(0,60, 155)"
 },
 {
   "id": 3,
@@ -587,7 +589,8 @@
   "phone": "+31 6 1234 1231",
   "email": "beyond@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff",
-  "color": "rgb(255, 60, 60)"
+  "color": "rgb(255, 60, 60)",
+  "color2": "rgb(255, 60, 160)"
 },
 {
   "id": 4,
@@ -596,7 +599,8 @@
   "phone": "+31 6 3414 1231",
   "email": "libHec@live.com",
   "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
-  "color": "rgb(132, 25, 255)"
+  "color": "rgb(132, 25, 255)",
+  "color2": "rgb(132, 25,155)"
 },
 {
   "id": 5,
@@ -605,7 +609,8 @@
   "phone": "+32 5 1234 1231",
   "email": "navratilova@tennis.net",
   "photo": "http://dummyimage.com/128x100.png/5f2add/ffffff",
-  "color": "rgb(125, 199, 12)"
+  "color": "rgb(125, 199, 12)",
+  "color2": "rgb(155, 199, 112)"
 },
 {
   "id": 6,
@@ -614,7 +619,8 @@
   "phone": "+31 6 1931 1590",
   "email": "vandenberg@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/cc0000/ffffff",
-  "color": "rgb(55, 199, 132)"
+  "color": "rgb(55, 199, 132)",
+  "color2": "rgb(55, 199,232)"
 },
 {
   "id": 7,
@@ -623,7 +629,8 @@
   "phone": "+31 6 7891 1347",
   "email": "info@rahima.in",
   "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff",
-  "color": "rgb(255, 9, 132)"
+  "color": "rgb(255, 9, 132)",
+  "color2": "rgb(255, 9, 232)"
 },
 {
   "id": 8,
@@ -632,7 +639,8 @@
   "phone": "+1 492 1293 1923",
   "email": "Bullock@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/cc0000/ffffff",
-  "color": "rgb(25, 99, 132)"
+  "color": "rgb(25, 99, 132)",
+  "color2": "rgb(25, 99, 232)"
 },
 {
   "id": 9,
@@ -641,7 +649,8 @@
   "phone": "+1 492 1293 1231",
   "email": "Kroes@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
-  "color": "rgb(255, 99, 13)"
+  "color": "rgb(255, 99, 13)",
+  "color2": "rgb(255, 99, 113)"
 },
 {
   "id": 10,
@@ -650,7 +659,8 @@
   "phone": "+1 492 1293 2313",
   "email": "Glass@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
-  "color": "rgb(255, 199, 132)"
+  "color": "rgb(255, 199, 132)",
+  "color2": "rgb(255, 199, 232)"
 }
     ],
     "courses": [
