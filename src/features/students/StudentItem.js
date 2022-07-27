@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { editStudent } from "./studentSlice";
 import { mdiPencil } from "@mdi/js";
 import Icon from "@mdi/react";
+import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 const StudentItem = ({
   id,
@@ -16,12 +17,13 @@ const StudentItem = ({
 }) => {
   const dispatch = useDispatch();
 
+  let funColor = color;
+  let difficultyColor = color2;
+
   const handleEditClick = () => {
     console.log("Click on StudentEdit " + id + " happend");
     dispatch(editStudent({ id }));
   };
-
-  const colorSet = [color, color2];
 
   return (
     <tr key={id}>
@@ -30,7 +32,19 @@ const StudentItem = ({
       </td>
       <td>{phone}</td>
       <td>{email}</td>
-      <td></td>
+      <td>
+        <MDBRow>
+          <MDBCol>
+            <div
+              className="swatch"
+              style={{ backgroundColor: difficultyColor }}
+            />
+          </MDBCol>
+          <MDBCol>
+            <div className="swatch" style={{ backgroundColor: funColor }} />
+          </MDBCol>
+        </MDBRow>
+      </td>
       <td>
         <Icon path={mdiPencil} size={1} onClick={handleEditClick} />
       </td>
