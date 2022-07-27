@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import StudentsList from "./features/students/StudentsList";
 import CoursesList from "./features/courses/CoursesList";
 import AssignmentsList from "./features/assignments/AssignmentsList";
 import { useSelector } from "react-redux";
-import dataService from "./services/dataService";
 import Overview from "./features/overview/Overview";
-import { Nav, Navbar } from "react-bootstrap";
 import {
   MDBContainer,
   MDBNavbar,
@@ -20,7 +18,6 @@ import {
 import { selectedStudent } from "../src/features/ui/uiSlice";
 
 const App = () => {
-  // const [students, setStudents] = useState([]);
   const students = useSelector((state) => state.students);
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
@@ -69,16 +66,7 @@ const App = () => {
           }
         />
 
-        <Route
-          path="/courses"
-          element={
-            <CoursesList
-              courses={courses}
-              showaddmodal={showaddmodal}
-              showeditmodal={showeditmodal}
-            />
-          }
-        />
+        <Route path="/courses" element={<CoursesList courses={courses} />} />
         <Route
           path="/assignments"
           element={
@@ -89,7 +77,6 @@ const App = () => {
               studentNames={studentNames}
               pickedStudent={pickedStudent}
               courses={courses}
-              showaddmodal={showaddmodal}
             />
           }>
           {/* <Route

@@ -12,11 +12,11 @@ const uiSlice = createSlice({
     difficultyColor: "#554433",
   },
   reducers: {
-    openAddStudentModal(state, action) {
-      state.addStudentModalOpen = action.payload;
+    toggleAddStudentModal(state, action) {
+      state.addStudentModalOpen = !state.addStudentModalOpen;
     },
-    openEditStudentModal(state, action) {
-      state.editStudentModalOpen = action.payload;
+    toggleEditStudentModal(state, action) {
+      state.editStudentModalOpen = !state.editStudentModalOpen;
     },
     selectedStudent(state, action) {
       state.selectedStudent = action.payload;
@@ -40,8 +40,8 @@ const uiSlice = createSlice({
 });
 
 export const {
-  openAddStudentModal,
-  openEditStudentModal,
+  toggleAddStudentModal,
+  toggleEditStudentModal,
   selectedStudent,
   toggleFunColorPicker,
   toggleDifficultyColorPicker,

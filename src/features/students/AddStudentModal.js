@@ -10,12 +10,12 @@ import {
 } from "react-bootstrap";
 import { MDBContainer } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
-import { openAddStudentModal } from "../ui/uiSlice";
+import { toggleAddStudentModal } from "../ui/uiSlice";
 import AddStudentForm from "./AddStudentForm";
 import { addStudent } from "./studentSlice";
 
 const AddStudentModal = (props) => {
-  const { showAddModal } = props;
+  const { showaddmodal } = props;
   const value2 = useSelector((state) => state.ui.selectedStudent);
   const [value, setValue] = useState({
     id: "",
@@ -29,7 +29,7 @@ const AddStudentModal = (props) => {
 
   const handleClose = () => {
     console.log("Click on closed");
-    dispatch(openAddStudentModal(false));
+    dispatch(toggleAddStudentModal());
   };
   const setValue2 = (value2) => {
     dispatch(addStudent(value2));
@@ -46,7 +46,7 @@ const AddStudentModal = (props) => {
     } else {
       setAlert(true);
     }
-    dispatch(openAddStudentModal(false));
+    dispatch(toggleAddStudentModal());
 
     //TODO: redux result reflect into JSON server
     //TODO: format phone and email check and alert
@@ -55,8 +55,7 @@ const AddStudentModal = (props) => {
   return (
     <div>
       <Modal
-        {...props}
-        show={showAddModal}
+        show={showaddmodal}
         aria-labelledby="contained-modal-title-vcenter"
         centered>
         <Modal.Header>

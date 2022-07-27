@@ -4,7 +4,7 @@ import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 import styled, { keyframes } from "styled-components";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { openAddStudentModal, openEditStudentModal } from "../ui/uiSlice";
+import { toggleAddStudentModal, toggleEditStudentModal } from "../ui/uiSlice";
 import { editStudent } from "./studentSlice";
 import AddStudentModal from "./AddStudentModal";
 import EditStudentModal from "./EditStudentModal";
@@ -48,7 +48,7 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
 
   const handleAddClick = () => {
     console.log("Click on StudentAdd happend");
-    dispatch(openAddStudentModal(true));
+    dispatch(toggleAddStudentModal());
   };
 
   const funColor = students.color;
@@ -56,8 +56,10 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
 
   const handleEditClick = (e) => {
     console.log("Click on StudentEdit " + e.id + " happend");
-    dispatch(openEditStudentModal(true));
+    dispatch(toggleEditStudentModal());
   };
+
+  console.log(showaddmodal, showeditmodal);
 
   const columns = [
     {
@@ -109,7 +111,9 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
       {showaddmodal && (
         <AddStudentModal showaddmodal={showaddmodal} students={students} />
       )}
-      {showeditmodal && <EditStudentModal showeditmodal={showeditmodal} />}
+      {showeditmodal && (
+        <EditStudentModal showeditmodal={showeditmodal} students={students} />
+      )}
       <MDBContainer fluid className="p-4 m4">
         <MDBRow className="justify-content-end">
           <MDBCol className="col-md-8"></MDBCol>

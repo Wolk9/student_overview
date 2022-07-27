@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { MDBContainer } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
-import { openEditStudentModal } from "../ui/uiSlice";
+import { toggleEditStudentModal } from "../ui/uiSlice";
 import AddStudentForm from "./AddStudentForm";
 import { editStudent } from "./studentSlice";
 
@@ -23,7 +23,7 @@ const EditStudentModal = (props) => {
 
   const handleClose = () => {
     console.log("Click on closed");
-    dispatch(openEditStudentModal(false));
+    dispatch(toggleEditStudentModal());
   };
   const setValue2 = (value2) => {
     dispatch(editStudent(value2));
@@ -40,7 +40,7 @@ const EditStudentModal = (props) => {
     // } else {
     //   setAlert(true);
     // }
-    dispatch(openEditStudentModal(false));
+    dispatch(toggleEditStudentModal());
 
     //TODO: redux result reflect into JSON server
     //TODO: format phone and email check and alert
@@ -49,13 +49,12 @@ const EditStudentModal = (props) => {
   return (
     <div>
       <Modal
-        {...props}
         show={showeditmodal}
         aria-labelledby="contained-modal-title-vcenter"
         centered>
         <Modal.Header>
           <Modal.Title>
-            Add{" "}
+            Edit{" "}
             {/* {value.firstName !== undefined
               ? `${value2.firstName} ${value2.lastName}`
               : "Student"} */}
