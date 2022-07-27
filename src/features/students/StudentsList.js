@@ -1,13 +1,13 @@
 import React from "react";
-import { Table, Button, Col, Card } from "react-bootstrap";
+
 import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 import styled, { keyframes } from "styled-components";
 import { useSelector } from "react-redux";
-import StudentItem from "./StudentItem";
 import { useDispatch } from "react-redux";
-import { openAddStudentModal } from "../ui/uiSlice";
+import { openAddStudentModal, openEditStudentModal } from "../ui/uiSlice";
 import { editStudent } from "./studentSlice";
 import AddStudentModal from "./AddStudentModal";
+import EditStudentModal from "./EditStudentModal";
 import { mdiAccountPlus, mdiPencil } from "@mdi/js";
 import Icon from "@mdi/react";
 import DataTable from "react-data-table-component";
@@ -42,7 +42,8 @@ const CustomLoader = () => (
   </div>
 );
 
-const StudentsList = ({ students, show }) => {
+const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
+  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
   const dispatch = useDispatch();
 
   const handleAddClick = () => {
@@ -55,7 +56,7 @@ const StudentsList = ({ students, show }) => {
 
   const handleEditClick = (e) => {
     console.log("Click on StudentEdit " + e.id + " happend");
-    dispatch(editStudent(e.id));
+    dispatch(openEditStudentModal(true));
   };
 
   const columns = [
@@ -105,19 +106,37 @@ const StudentsList = ({ students, show }) => {
 
   return (
     <div>
-      {show && <AddStudentModal show={show} students={students} />}
+      {showaddmodal && (
+        <AddStudentModal showaddmodal={showaddmodal} students={students} />
+      )}
+      {showeditmodal && <EditStudentModal showeditmodal={showeditmodal} />}
       <MDBContainer fluid className="p-4 m4">
-        <DataTable
-          title={students.length + " Students"}
-          columns={columns}
-          data={students}
-          pagination
-          dense
-          responsive
-          progressComponent={<CustomLoader />}
-          onRowClicked={(e) => handleEditClick(e)}
-        />
+        <MDBRow className="justify-content-end">
+          <MDBCol className="col-md-8"></MDBCol>
+          <MDBCol className="col-md-2">Add student</MDBCol>
 
+          <MDBCol className="col-md-1">
+            <Icon
+              path={mdiAccountPlus}
+              size={1}
+              onClick={handleAddClick}
+              color="primary"
+            />
+          </MDBCol>
+          <MDBCol className="col-md-1"></MDBCol>
+        </MDBRow>
+        <MDBCol>
+          <DataTable
+            title={students.length + " Students"}
+            columns={columns}
+            data={students}
+            pagination
+            dense
+            responsive
+            progressComponent={<CustomLoader />}
+            onRowClicked={(e) => handleEditClick(e)}
+          />
+        </MDBCol>
         {/* <Table striped="columns" size="sm" className="p-4 m4">
               <thead>
                 <tr>

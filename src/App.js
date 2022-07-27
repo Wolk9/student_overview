@@ -24,7 +24,8 @@ const App = () => {
   const students = useSelector((state) => state.students);
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
-  const show = useSelector((state) => state.ui.addStudentModalOpen);
+  const showaddmodal = useSelector((state) => state.ui.addStudentModalOpen);
+  const showeditmodal = useSelector((state) => state.ui.editStudentModalOpen);
   const pickedStudent = useSelector((state) => state.ui.selectedStudent);
 
   const studentNames = students.map((student) => ({
@@ -59,12 +60,24 @@ const App = () => {
         />
         <Route
           path="/students"
-          element={<StudentsList students={students} show={show} />}
+          element={
+            <StudentsList
+              students={students}
+              showaddmodal={showaddmodal}
+              showeditmodal={showeditmodal}
+            />
+          }
         />
 
         <Route
           path="/courses"
-          element={<CoursesList courses={courses} show={show} />}
+          element={
+            <CoursesList
+              courses={courses}
+              showaddmodal={showaddmodal}
+              showeditmodal={showeditmodal}
+            />
+          }
         />
         <Route
           path="/assignments"
@@ -76,7 +89,7 @@ const App = () => {
               studentNames={studentNames}
               pickedStudent={pickedStudent}
               courses={courses}
-              show={show}
+              showaddmodal={showaddmodal}
             />
           }>
           {/* <Route
@@ -89,7 +102,7 @@ const App = () => {
                 studentNames={studentNames}
                 selectedStudent={selectedStudent}
                 courses={courses}
-                show={show}
+                showaddmodal={showaddmodal}
               />
             }
           /> */}

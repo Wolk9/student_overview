@@ -14,9 +14,7 @@ const studentSlice = createSlice({
         return { payload: action };
       },
     },
-    editStudent(state, action) {
-      //
-    },
+    editStudent(state, action) {},
     setStudents: {
       reducer: (state, action) => {
         return action.payload;

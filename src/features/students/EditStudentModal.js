@@ -10,43 +10,37 @@ import {
 } from "react-bootstrap";
 import { MDBContainer } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
-import { openAddStudentModal } from "../ui/uiSlice";
+import { openEditStudentModal } from "../ui/uiSlice";
 import AddStudentForm from "./AddStudentForm";
-import { addStudent } from "./studentSlice";
+import { editStudent } from "./studentSlice";
 
-const AddStudentModal = (props) => {
-  const { showAddModal } = props;
-  const value2 = useSelector((state) => state.ui.selectedStudent);
-  const [value, setValue] = useState({
-    id: "",
-    firstName: undefined,
-    lastName: undefined,
-    phone: undefined,
-    email: undefined,
-  });
+const EditStudentModal = (props) => {
+  const { showeditmodal } = props;
   const [alert, setAlert] = useState(false);
   const dispatch = useDispatch();
+  const students = useSelector((state) => state.students);
+  const value = undefined;
 
   const handleClose = () => {
     console.log("Click on closed");
-    dispatch(openAddStudentModal(false));
+    dispatch(openEditStudentModal(false));
   };
   const setValue2 = (value2) => {
-    dispatch(addStudent(value2));
+    dispatch(editStudent(value2));
   };
   const onSubmit = (event) => {
     event.preventDefault();
-    if (
-      value2.firstName ||
-      value2.lastName ||
-      value2.phone ||
-      value2.email !== undefined
-    ) {
-      dispatch(addStudent(value2));
-    } else {
-      setAlert(true);
-    }
-    dispatch(openAddStudentModal(false));
+    // if (
+    //   value2.firstName ||
+    //   value2.lastName ||
+    //   value2.phone ||
+    //   value2.email !== undefined
+    // ) {
+    //   dispatch(addStudent(value2));
+    // } else {
+    //   setAlert(true);
+    // }
+    dispatch(openEditStudentModal(false));
 
     //TODO: redux result reflect into JSON server
     //TODO: format phone and email check and alert
@@ -56,25 +50,25 @@ const AddStudentModal = (props) => {
     <div>
       <Modal
         {...props}
-        show={showAddModal}
+        show={showeditmodal}
         aria-labelledby="contained-modal-title-vcenter"
         centered>
         <Modal.Header>
           <Modal.Title>
             Add{" "}
-            {value.firstName !== undefined
+            {/* {value.firstName !== undefined
               ? `${value2.firstName} ${value2.lastName}`
-              : "Student"}
+              : "Student"} */}
           </Modal.Title>
           <CloseButton onClick={handleClose} />
         </Modal.Header>
         <Modal.Body>
           <MDBContainer>
-            <AddStudentForm
+            {/* <AddStudentForm
               value={value2}
               setValue={setValue2}
               onSubmit={onSubmit}
-            />
+            /> */}
           </MDBContainer>
         </Modal.Body>
 
@@ -92,4 +86,4 @@ const AddStudentModal = (props) => {
   );
 };
 
-export default AddStudentModal;
+export default EditStudentModal;

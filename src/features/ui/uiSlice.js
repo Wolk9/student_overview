@@ -4,7 +4,8 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: {
     addStudentModalOpen: false,
-    selectedStudent: "",
+    editStudentModalOpen: false,
+    selectedStudent: {},
     isFunColorPickerOpen: false,
     isDifficultyColorPickerOpen: false,
     funColor: "#334455",
@@ -14,8 +15,14 @@ const uiSlice = createSlice({
     openAddStudentModal(state, action) {
       state.addStudentModalOpen = action.payload;
     },
+    openEditStudentModal(state, action) {
+      state.editStudentModalOpen = action.payload;
+    },
     selectedStudent(state, action) {
       state.selectedStudent = action.payload;
+    },
+    editStudent(state, action) {
+      state.electedStudent = action.payload;
     },
     toggleFunColorPicker(state) {
       state.isFunColorPickerOpen = !state.isFunColorPickerOpen;
@@ -34,10 +41,12 @@ const uiSlice = createSlice({
 
 export const {
   openAddStudentModal,
+  openEditStudentModal,
   selectedStudent,
   toggleFunColorPicker,
   toggleDifficultyColorPicker,
   setFunColor,
   setDifficultyColor,
+  editStudent,
 } = uiSlice.actions;
 export default uiSlice.reducer;
