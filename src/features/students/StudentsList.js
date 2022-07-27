@@ -19,7 +19,7 @@ const StudentsList = ({ students, show }) => {
 
   return (
     <div>
-      {show && <AddStudentModal show={show} />}
+      {show && <AddStudentModal show={show} students={students} />}
       <MDBContainer fluid className="p-4 m4">
         <Card xs={4}>
           <Card.Header as="h5">List of Students</Card.Header>
@@ -30,6 +30,7 @@ const StudentsList = ({ students, show }) => {
                   <th>Name</th>
                   <th>Phone</th>
                   <th>Email</th>
+                  <th>Color</th>
                   <th>
                     <Icon
                       path={mdiAccountPlus}
@@ -49,6 +50,8 @@ const StudentsList = ({ students, show }) => {
                     lastName={student.lastName}
                     phone={student.phone}
                     email={student.email}
+                    color={student.color}
+                    color2={student.color2}
                   />
                 ))}
               </tbody>

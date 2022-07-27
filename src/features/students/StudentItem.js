@@ -5,13 +5,23 @@ import { editStudent } from "./studentSlice";
 import { mdiPencil } from "@mdi/js";
 import Icon from "@mdi/react";
 
-const StudentItem = ({ id, firstName, lastName, phone, email }) => {
+const StudentItem = ({
+  id,
+  firstName,
+  lastName,
+  phone,
+  email,
+  color,
+  color2,
+}) => {
   const dispatch = useDispatch();
 
   const handleEditClick = () => {
     console.log("Click on StudentEdit " + id + " happend");
     dispatch(editStudent({ id }));
   };
+
+  const colorSet = [color, color2];
 
   return (
     <tr key={id}>
@@ -20,6 +30,7 @@ const StudentItem = ({ id, firstName, lastName, phone, email }) => {
       </td>
       <td>{phone}</td>
       <td>{email}</td>
+      <td></td>
       <td>
         <Icon path={mdiPencil} size={1} onClick={handleEditClick} />
       </td>

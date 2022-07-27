@@ -21,7 +21,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Chart } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 
 ChartJS.register(
@@ -39,7 +39,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
     responsive: true,
     plugins: {
       legend: {
-        position: "right",
+        display: false,
       },
       title: {
         display: false,
@@ -103,7 +103,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
                 <MDBCardTitle>Overview</MDBCardTitle>
               </MDBCardHeader>
               <MDBCardBody>
-                <Bar options={options} data={data} />
+                <Chart type="bar" options={options} data={data} />
               </MDBCardBody>
               <MDBCardFooter></MDBCardFooter>
             </MDBCard>
