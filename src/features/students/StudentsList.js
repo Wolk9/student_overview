@@ -141,38 +141,6 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
             onRowClicked={(e) => handleEditClick(e)}
           />
         </MDBCol>
-        {/* <Table striped="columns" size="sm" className="p-4 m4">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Email</th>
-                  <th>Color</th>
-                  <th>
-                    <Icon
-                      path={mdiAccountPlus}
-                      size={1}
-                      onClick={handleAddClick}
-                      color="primary"
-                    />
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {students.map((student) => (
-                  <StudentItem
-                    key={student.id}
-                    id={student.id}
-                    firstName={student.firstName}
-                    lastName={student.lastName}
-                    phone={student.phone}
-                    email={student.email}
-                    color={student.color}
-                    color2={student.color2}
-                  />
-                ))}
-              </tbody>
-            </Table> */}
       </MDBContainer>
     </div>
   );
