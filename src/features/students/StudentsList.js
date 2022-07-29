@@ -55,6 +55,7 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
   const difficultyColor = students.color2;
 
   const handleEditClick = (e) => {
+    console.log(e);
     console.log("Click on StudentEdit " + e.id + " happend");
     dispatch(toggleEditStudentModal());
   };
@@ -99,7 +100,7 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
           path={mdiPencil}
           size={1}
           key={row.id}
-          onClick={(e) => handleEditClick(e)}
+          onClick={(e) => handleEditClick(e.id)}
         />
       ),
       width: "10%",
