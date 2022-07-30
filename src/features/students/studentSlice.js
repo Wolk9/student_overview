@@ -14,7 +14,17 @@ const studentSlice = createSlice({
         return { payload: action };
       },
     },
-    editStudent(state, action) {},
+    editStudent(state, action) {
+      const id = action.id;
+      const studentToEdit = state.find((s) => s.id === id);
+      const editedThings = {
+        ...state,
+        action,
+      };
+      return state.map((student) =>
+        student.id !== id ? student : editedThings
+      );
+    },
     setStudents: {
       reducer: (state, action) => {
         return action.payload;

@@ -11,11 +11,9 @@ import {
   MDBContainer,
   MDBNavbar,
   MDBNavbarBrand,
-  MDBNavbarItem,
   MDBNavbarLink,
   MDBNavbarNav,
 } from "mdb-react-ui-kit";
-import { selectedStudent } from "../src/features/ui/uiSlice";
 
 const App = () => {
   const students = useSelector((state) => state.students);

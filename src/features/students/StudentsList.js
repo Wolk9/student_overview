@@ -4,43 +4,16 @@ import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 import styled, { keyframes } from "styled-components";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { toggleAddStudentModal, toggleEditStudentModal } from "../ui/uiSlice";
-import { editStudent } from "./studentSlice";
+import {
+  toggleAddStudentModal,
+  toggleEditStudentModal,
+  setSelectedStudent,
+} from "../ui/uiSlice";
 import AddStudentModal from "./AddStudentModal";
 import EditStudentModal from "./EditStudentModal";
 import { mdiAccountPlus, mdiPencil } from "@mdi/js";
 import Icon from "@mdi/react";
 import DataTable from "react-data-table-component";
-
-const rotate360 = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-const Spinner = styled.div`
-  margin: 16px;
-  animation: ${rotate360} 1s linear infinite;
-  transform: translateZ(0);
-  border-top: 2px solid grey;
-  border-right: 2px solid grey;
-  border-bottom: 2px solid grey;
-  border-left: 4px solid black;
-  background: transparent;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-`;
-
-const CustomLoader = () => (
-  <div style={{ padding: "24px" }}>
-    <Spinner />
-  </div>
-);
 
 const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
   const selectedStudent = useSelector((state) => state.ui.selectedStudent);
@@ -51,16 +24,16 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
     dispatch(toggleAddStudentModal());
   };
 
-  const funColor = students.color;
-  const difficultyColor = students.color2;
-
   const handleEditClick = (e) => {
     console.log(e);
     console.log("Click on StudentEdit " + e.id + " happend");
     dispatch(toggleEditStudentModal());
+    const pickedStudent = students.filter((student) => student.id === e.id);
+    console.log("pickedStudent", pickedStudent);
+    dispatch(setSelectedStudent(pickedStudent));
   };
 
-  console.log(showaddmodal, showeditmodal);
+  console.log(showaddmodal, showeditmodal, selectedStudent);
 
   const columns = [
     {
@@ -84,24 +57,15 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
       selector: (row) => (
         <MDBRow>
           <MDBCol>
-            <div className="swatch" style={{ backgroundColor: row.color }} />
+            <div
+              className="swatch"
+              style={{ backgroundColor: row.colorDifficulty }}
+            />
           </MDBCol>
           <MDBCol>
-            <div className="swatch" style={{ backgroundColor: row.color2 }} />
+            <div className="swatch" style={{ backgroundColor: row.colorFun }} />
           </MDBCol>
         </MDBRow>
-      ),
-      width: "10%",
-    },
-    {
-      name: "",
-      selector: (row) => (
-        <Icon
-          path={mdiPencil}
-          size={1}
-          key={row.id}
-          onClick={(e) => handleEditClick(e.id)}
-        />
       ),
       width: "10%",
     },
@@ -113,22 +77,24 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
         <AddStudentModal showaddmodal={showaddmodal} students={students} />
       )}
       {showeditmodal && (
-        <EditStudentModal showeditmodal={showeditmodal} students={students} />
+        <EditStudentModal
+          showeditmodal={showeditmodal}
+          students={students}
+          selectedStudent={selectedStudent}
+        />
       )}
       <MDBContainer fluid className="p-4 m4">
-        <MDBRow className="justify-content-end">
-          <MDBCol className="col-md-8"></MDBCol>
-          <MDBCol className="col-md-2">Add student</MDBCol>
-
-          <MDBCol className="col-md-1">
-            <Icon
-              path={mdiAccountPlus}
-              size={1}
-              onClick={handleAddClick}
-              color="primary"
-            />
+        <MDBRow className="p-4">
+          <MDBCol>
+            <div align="right">
+              <Icon
+                path={mdiAccountPlus}
+                size={1}
+                onClick={handleAddClick}
+                color="#0077ff"
+              />
+            </div>
           </MDBCol>
-          <MDBCol className="col-md-1"></MDBCol>
         </MDBRow>
         <MDBCol>
           <DataTable
@@ -138,7 +104,6 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
             pagination
             dense
             responsive
-            progressComponent={<CustomLoader />}
             onRowClicked={(e) => handleEditClick(e)}
           />
         </MDBCol>

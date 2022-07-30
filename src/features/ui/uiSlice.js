@@ -5,11 +5,22 @@ const uiSlice = createSlice({
   initialState: {
     addStudentModalOpen: false,
     editStudentModalOpen: false,
-    selectedStudent: {},
+    selectedStudent: [
+      {
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        id: 0,
+        photo: "",
+        color: "",
+        colorFun: "",
+      },
+    ],
     isFunColorPickerOpen: false,
     isDifficultyColorPickerOpen: false,
-    funColor: "#334455",
-    difficultyColor: "#554433",
+    colorFun: "#334455",
+    colorDifficulty: "#554433",
   },
   reducers: {
     toggleAddStudentModal(state, action) {
@@ -18,11 +29,8 @@ const uiSlice = createSlice({
     toggleEditStudentModal(state, action) {
       state.editStudentModalOpen = !state.editStudentModalOpen;
     },
-    selectedStudent(state, action) {
+    setSelectedStudent(state, action) {
       state.selectedStudent = action.payload;
-    },
-    editStudent(state, action) {
-      state.electedStudent = action.payload;
     },
     toggleFunColorPicker(state) {
       state.isFunColorPickerOpen = !state.isFunColorPickerOpen;
@@ -31,10 +39,10 @@ const uiSlice = createSlice({
       state.isDifficultyColorPickerOpen = !state.isDifficultyColorPickerOpen;
     },
     setFunColor(state, action) {
-      state.funColor = action.payload;
+      state.colorFun = action.payload;
     },
     setDifficultyColor(state, action) {
-      state.difficultyColor = action.payload;
+      state.colorDifficulty = action.payload;
     },
   },
 });
@@ -42,11 +50,10 @@ const uiSlice = createSlice({
 export const {
   toggleAddStudentModal,
   toggleEditStudentModal,
-  selectedStudent,
+  setSelectedStudent,
   toggleFunColorPicker,
   toggleDifficultyColorPicker,
   setFunColor,
   setDifficultyColor,
-  editStudent,
 } = uiSlice.actions;
 export default uiSlice.reducer;

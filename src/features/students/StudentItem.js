@@ -13,12 +13,12 @@ const StudentItem = ({
   phone,
   email,
   color,
-  color2,
+  colorFun,
 }) => {
   const dispatch = useDispatch();
 
-  let funColor = color;
-  let difficultyColor = color2;
+  let colorFun = color;
+  let colorDifficulty = colorFun;
 
   const handleEditClick = () => {
     console.log("Click on StudentEdit " + id + " happend");
@@ -37,11 +37,11 @@ const StudentItem = ({
           <MDBCol>
             <div
               className="swatch"
-              style={{ backgroundColor: difficultyColor }}
+              style={{ backgroundColor: colorDifficulty }}
             />
           </MDBCol>
           <MDBCol>
-            <div className="swatch" style={{ backgroundColor: funColor }} />
+            <div className="swatch" style={{ backgroundColor: colorFun }} />
           </MDBCol>
         </MDBRow>
       </td>

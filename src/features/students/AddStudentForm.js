@@ -30,13 +30,13 @@ const AddStudentForm = (props) => {
   const isDifficultyColorPickerOpen = useSelector(
     (state) => state.ui.isDifficultyColorPickerOpen
   );
-  const difficultyColor = useSelector((state) => state.ui.difficultyColor);
-  const funColor = useSelector((state) => state.ui.funColor);
+  const colorDifficulty = useSelector((state) => state.ui.colorDifficulty);
+  const colorFun = useSelector((state) => state.ui.colorFun);
   console.log(
     isFunColorPickerOpen,
     isDifficultyColorPickerOpen,
-    funColor,
-    difficultyColor
+    colorFun,
+    colorDifficulty
   );
 
   const onClickDifficultySwatch = () => {
@@ -134,7 +134,7 @@ const AddStudentForm = (props) => {
               Difficulty
               <div
                 className="swatch"
-                style={{ backgroundColor: difficultyColor }}
+                style={{ backgroundColor: colorDifficulty }}
                 onClick={() => {
                   onClickDifficultySwatch();
                 }}
@@ -142,7 +142,7 @@ const AddStudentForm = (props) => {
               {isDifficultyColorPickerOpen && (
                 <div className="popover">
                   <HexColorPicker
-                    color={difficultyColor}
+                    color={colorDifficulty}
                     onChange={(x) => onChangeDifficultyColor(x)}
                   />
                   <button
@@ -161,13 +161,13 @@ const AddStudentForm = (props) => {
               Fun
               <div
                 className="swatch"
-                style={{ backgroundColor: funColor }}
+                style={{ backgroundColor: colorFun }}
                 onClick={() => onClickFunSwatch()}
               />
               {isFunColorPickerOpen && (
                 <div className="popover">
                   <HexColorPicker
-                    color={funColor}
+                    color={colorFun}
                     onChange={(x) => onChangeFunColor(x)}
                   />
                   <button

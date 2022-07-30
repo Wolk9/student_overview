@@ -1,12 +1,5 @@
 import React from "react";
-import { Table, Card, Nav, NavDropdown, Col, Row } from "react-bootstrap";
 import { MDBContainer } from "mdb-react-ui-kit";
-// import { useSelector } from "react-redux";
-
-import AssignmentItem from "./AssignmentItem";
-import { useDispatch } from "react-redux";
-import StudentsList from "../students/StudentsList";
-import { selectedStudent } from "../ui/uiSlice";
 import DataTable from "react-data-table-component";
 import { Rating } from "react-simple-star-rating";
 
@@ -23,13 +16,11 @@ const AssignmentsList = ({
   courses,
   show,
 }) => {
-  const dispatch = useDispatch();
-
-  const selectStudent = (picked) => {
-    const pickedStudent = students.filter((student) => student.id === picked);
-    console.log("pickedStudent", pickedStudent);
-    dispatch(selectedStudent(pickedStudent));
-  };
+  // const selectStudent = (picked) => {
+  //   const pickedStudent = students.filter((student) => student.id === picked);
+  //   console.log("pickedStudent", pickedStudent);
+  //   dispatch(setSelectedStudent(pickedStudent));
+  // };
 
   const getNamesUser = (user_id) => {
     const [result] = students.filter((student) => student.id === user_id);
