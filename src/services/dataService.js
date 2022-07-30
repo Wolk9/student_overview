@@ -3,7 +3,6 @@ import axios from "axios";
 const baseUrl = "http://localhost:3005/";
 
 const getAll = (subset) => {
-  console.group(subset);
   return axios.get(baseUrl + subset + "/");
 };
 
