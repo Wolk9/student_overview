@@ -13,21 +13,116 @@ import {
 import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
+const SelectorCard = (props) => {
+  const { students } = props;
+  return (
+    <MDBCol size="4">
+      <MDBCard>
+        <MDBCardHeader>
+          <MDBCardTitle>Students</MDBCardTitle>
+        </MDBCardHeader>
+        <MDBCardBody>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol className="ml-auto"></MDBCol>
+              <MDBCol size="1">
+                <MDBCheckbox defaultChecked />
+              </MDBCol>
+              <MDBCol size="1">
+                <MDBCheckbox defaultChecked />
+              </MDBCol>
+              <MDBCol size="1"></MDBCol>
+            </MDBRow>
+            <MDBRow>
+              <MDBCol className="ml-auto">
+                <MDBCheckbox label="all" defaultChecked />
+              </MDBCol>
+              <MDBCol size="1">
+                <h5 align="center">
+                  <div className="swatch">D</div>
+                </h5>
+              </MDBCol>
+              <MDBCol size="1">
+                <h5 align="center">
+                  <div className="swatch">F</div>
+                </h5>
+              </MDBCol>
+              <MDBCol size="1"></MDBCol>
+            </MDBRow>
+            {students.map((student) => (
+              <MDBRow key={student.id}>
+                <MDBCol className="ml-auto">
+                  <MDBCheckbox
+                    // btn={true}
+                    size="sm"
+                    id={student.id}
+                    value={student.id}
+                    name={student.id}
+                    label={student.firstName + " " + student.lastName}
+                    // labelStyle={{
+                    //   background: student.color,
+                    //   color: "white",
+                    //   padding: "3px",
+                    //   marginTop: "3px",
+                    //   fontSize: "11px",
+                    //   minWidth: "100%",
+                    //   borderRadius: "5px",
+                    // }}
+                    defaultChecked
+                  />
+                </MDBCol>
+                <MDBCol size="1">
+                  <div
+                    className="swatch"
+                    style={{ backgroundColor: student.colorDifficulty }}
+                  />
+                </MDBCol>
+                <MDBCol size="1">
+                  <div
+                    className="swatch"
+                    style={{ backgroundColor: student.colorFun }}
+                  />
+                </MDBCol>
+                <MDBCol size="1"></MDBCol>
+              </MDBRow>
+            ))}
+          </MDBCardBody>
+        </MDBCardBody>
+      </MDBCard>
+    </MDBCol>
+  );
+};
+
 export const Overview = ({ studentNames, courses, students, assignments }) => {
   const options = {
+    maintainAspectRatio: false,
+    responsive: true,
+    layout: { padding: -1 },
     indexAxis: "y",
+    scales: {
+      x: {
+        min: 0,
+        max: 5,
+      },
+      x2: {
+        type: "linear",
+        min: 0,
+        max: 5,
+        reverse: true,
+        position: "center",
+      },
+    },
     elements: {
       bar: {
         borderWidth: 2,
       },
     },
-    responsive: true,
     plugins: {
       legend: {
         position: "bottom",
       },
       title: {
-        display: true,
+        display: false,
         text: "Chart.js Horizontal Bar Chart",
       },
     },
@@ -61,6 +156,8 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
         )
       ),
       backgroundColor: s.colorDifficulty,
+      borderWidth: 0,
+      xAxisID: "x2",
     })),
   };
 
@@ -75,66 +172,13 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
               <MDBCardHeader>
                 <MDBCardTitle>Overview</MDBCardTitle>
               </MDBCardHeader>
-              <MDBCardBody>
+              <MDBCardBody height="800px">
                 <Bar options={options} data={dataset} />
               </MDBCardBody>
               <MDBCardFooter></MDBCardFooter>
             </MDBCard>
           </MDBCol>
-          <MDBCol size="4">
-            <MDBCard>
-              <MDBCardHeader>
-                <MDBCardTitle>Students</MDBCardTitle>
-              </MDBCardHeader>
-              <MDBCardBody>
-                <MDBCard>
-                  <MDBCardBody>
-                    <MDBCheckbox label="all" defaultChecked />
-                  </MDBCardBody>
-                </MDBCard>
-                <MDBCard>
-                  <MDBCardBody>
-                    {students.map((student) => (
-                      <MDBRow key={student.id}>
-                        <MDBCol>
-                          <MDBCheckbox
-                            // btn={true}
-                            size="sm"
-                            id={student.id}
-                            value={student.id}
-                            name={student.id}
-                            label={student.firstName + " " + student.lastName}
-                            // labelStyle={{
-                            //   background: student.color,
-                            //   color: "white",
-                            //   padding: "3px",
-                            //   marginTop: "3px",
-                            //   fontSize: "11px",
-                            //   minWidth: "100%",
-                            //   borderRadius: "5px",
-                            // }}
-                            defaultChecked
-                          />
-                        </MDBCol>
-                        <MDBCol>
-                          <div
-                            className="swatch"
-                            style={{ backgroundColor: student.colorDifficulty }}
-                          />
-                        </MDBCol>
-                        <MDBCol>
-                          <div
-                            className="swatch"
-                            style={{ backgroundColor: student.colorFun }}
-                          />
-                        </MDBCol>
-                      </MDBRow>
-                    ))}
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
+          <SelectorCard students={students} />
         </MDBRow>
       </MDBContainer>
     </div>
