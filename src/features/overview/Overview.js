@@ -101,15 +101,8 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
     indexAxis: "y",
     scales: {
       x: {
-        min: 0,
+        min: -5,
         max: 5,
-      },
-      x2: {
-        type: "linear",
-        min: 0,
-        max: 5,
-        reverse: true,
-        position: "center",
       },
     },
     elements: {
@@ -148,7 +141,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
           assignments
             .filter((a) => a.assignment.course_id === c.id)
             .filter((x) => x.user_id === s.id)
-            .map((a) => a.assignment.difficulty),
+            .map((a) => a.assignment.difficulty * -1),
           assignments
             .filter((a) => a.assignment.course_id === c.id)
             .filter((x) => x.user_id === s.id)
@@ -157,11 +150,10 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
       ),
       backgroundColor: s.colorDifficulty,
       borderWidth: 0,
-      xAxisID: "x2",
     })),
   };
 
-  console.log("dataset", dataset);
+  console.log("dataset", dataset.datasets);
 
   return (
     <div>
