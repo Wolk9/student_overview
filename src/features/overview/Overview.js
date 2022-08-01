@@ -10,8 +10,7 @@ import {
   MDBRow,
   MDBCheckbox,
 } from "mdb-react-ui-kit";
-import "chart.js/auto";
-import { Bar, Chart } from "react-chartjs-2";
+import { BarChart, Bar, ResponsiveContainer, XAxis } from "recharts";
 
 const SelectorCard = (props) => {
   const { students } = props;
@@ -57,7 +56,7 @@ const SelectorCard = (props) => {
                     size="sm"
                     id={student.id}
                     value={student.id}
-                    name={student.id}
+                    course={student.id}
                     label={student.firstName + " " + student.lastName}
                     // labelStyle={{
                     //   background: student.color,
@@ -93,97 +92,19 @@ const SelectorCard = (props) => {
   );
 };
 
+const StudentResultGraph = (props) => {
+  const { data } = props;
+  return (
+    <div>
+      <BarChart width={500} height={500} data={data}>
+        <Bar dataKey="uv" fill="#8884d8" />
+        <XAxis dataKey="course" />
+      </BarChart>
+    </div>
+  );
+};
+
 export const Overview = ({ studentNames, courses, students, assignments }) => {
-  // const options = {
-  //   maintainAspectRatio: false,
-  //   responsive: true,
-  //   layout: { padding: -1 },
-  //   indexAxis: "y",
-  //   scales: {
-  //     x: {
-  //       min: -5,
-  //       max: 5,
-  //     },
-  //     y: {
-  //       label: "courses",
-  //     },
-  //   },
-  //   elements: {
-  //     bar: {
-  //       borderWidth: 2,
-  //     },
-  //   },
-  //   plugins: {
-  //     legend: {
-  //       position: "bottom",
-  //     },
-  //     title: {
-  //       display: false,
-  //       text: "Chart.js Horizontal Bar Chart",
-  //     },
-  //   },
-  // };
-
-  // const data = [
-  //   { x: "Jan", net: 100, cogs: 50, gm: 50 },
-  //   { x: "Feb", net: 120, cogs: 55, gm: 75 },
-  // ];
-  // const options = {
-  //   data: {
-  //     labels: ["Jan", "Feb"],
-  //     datasets: [
-  //       {
-  //         label: "Net sales",
-  //         data: data,
-  //         parsing: {
-  //           yAxisKey: "net",
-  //         },
-  //       },
-  //       {
-  //         label: "Cost of goods sold",
-  //         data: data,
-  //         parsing: {
-  //           yAxisKey: "cogs",
-  //         },
-  //       },
-  //       {
-  //         label: "Gross margin",
-  //         data: data,
-  //         parsing: {
-  //           yAxisKey: "gm",
-  //         },
-  //       },
-  //     ],
-  //   },
-  // };
-
-  // console.log(
-  //   courses.map((c) =>
-  //     students.map((s) =>
-  //       assignments
-  //         .filter((a) => a.assignment.course_id === c.id)
-  //         .map((a) => [a.assignment.fun])
-  //     )
-  //   )
-  // );
-
-  //     const dataset2 = {
-  //         {
-  //         labels: ['Jun', 'Jul', 'Aug'],
-  //             datasets: [
-  //       {
-  //         id: 1,
-  //         label: 'fun',
-  //         data: [5, 6, 7],
-  //       },
-  //       {
-  //         id: 2,
-  //         label: 'difficulty',
-  //         data: [3, 2, 1],
-  //       },
-  //     ],
-  //   }};
-
   const dataDifficulty = (s) => {
     return {
       id: 1,
@@ -210,21 +131,52 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
     };
   };
 
-  // const dataset = {
-  //   labels: courses.map((c) => c.code),
-  //   datasets: students.map((s) => ({
-  //     id: s.id,
-  //     label: s.firstName + " " + s.lastName,
-  //     data: [
-  //       [1, 3, 5],
-  //       [3, 2, 1],
-  //     ],
-  //     backgroundColor: s.colorDifficulty,
-  //     borderWidth: 0,
-  //   })),
-  // };
+  const data = [
+    {
+      course: "Page A",
+      uv: 4000,
+      pv: 2400,
+      amt: 2400,
+    },
+    {
+      course: "Page B",
+      uv: 3000,
+      pv: 1398,
+      amt: 2210,
+    },
+    {
+      course: "Page C",
+      uv: 2000,
+      pv: 9800,
+      amt: 2290,
+    },
+    {
+      course: "Page D",
+      uv: 2780,
+      pv: 3908,
+      amt: 2000,
+    },
+    {
+      course: "Page E",
+      uv: 1890,
+      pv: 4800,
+      amt: 2181,
+    },
+    {
+      course: "Page F",
+      uv: 2390,
+      pv: 3800,
+      amt: 2500,
+    },
+    {
+      course: "Page G",
+      uv: 3490,
+      pv: 4300,
+      amt: 2100,
+    },
+  ];
 
-  console.log("dataset");
+  console.log("dataset", data);
 
   return (
     <div>
@@ -235,8 +187,8 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
               <MDBCardHeader>
                 <MDBCardTitle>Overview</MDBCardTitle>
               </MDBCardHeader>
-              <MDBCardBody height="800px">
-                {/* <Bar data={dataset} options={options} /> */}
+              <MDBCardBody>
+                <StudentResultGraph data={data} />
               </MDBCardBody>
               <MDBCardFooter></MDBCardFooter>
             </MDBCard>
