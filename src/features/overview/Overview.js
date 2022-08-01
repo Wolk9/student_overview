@@ -94,65 +94,68 @@ const SelectorCard = (props) => {
 };
 
 export const Overview = ({ studentNames, courses, students, assignments }) => {
-  //   const options = {
-  //     maintainAspectRatio: false,
-  //     responsive: true,
-  //     layout: { padding: -1 },
-  //     indexAxis: "y",
-  //     scales: {
-  //       x: {
-  //         min: -5,
-  //         max: 5,
-  //       },
+  // const options = {
+  //   maintainAspectRatio: false,
+  //   responsive: true,
+  //   layout: { padding: -1 },
+  //   indexAxis: "y",
+  //   scales: {
+  //     x: {
+  //       min: -5,
+  //       max: 5,
   //     },
-  //     elements: {
-  //       bar: {
-  //         borderWidth: 2,
-  //       },
+  //     y: {
+  //       label: "courses",
   //     },
-  //     plugins: {
-  //       legend: {
-  //         position: "bottom",
-  //       },
-  //       title: {
-  //         display: false,
-  //         text: "Chart.js Horizontal Bar Chart",
-  //       },
+  //   },
+  //   elements: {
+  //     bar: {
+  //       borderWidth: 2,
   //     },
-  //   };
+  //   },
+  //   plugins: {
+  //     legend: {
+  //       position: "bottom",
+  //     },
+  //     title: {
+  //       display: false,
+  //       text: "Chart.js Horizontal Bar Chart",
+  //     },
+  //   },
+  // };
 
-  const data = [
-    { x: "Jan", net: 100, cogs: 50, gm: 50 },
-    { x: "Feb", net: 120, cogs: 55, gm: 75 },
-  ];
-  const options = {
-    data: {
-      labels: ["Jan", "Feb"],
-      datasets: [
-        {
-          label: "Net sales",
-          data: data,
-          parsing: {
-            yAxisKey: "net",
-          },
-        },
-        {
-          label: "Cost of goods sold",
-          data: data,
-          parsing: {
-            yAxisKey: "cogs",
-          },
-        },
-        {
-          label: "Gross margin",
-          data: data,
-          parsing: {
-            yAxisKey: "gm",
-          },
-        },
-      ],
-    },
-  };
+  // const data = [
+  //   { x: "Jan", net: 100, cogs: 50, gm: 50 },
+  //   { x: "Feb", net: 120, cogs: 55, gm: 75 },
+  // ];
+  // const options = {
+  //   data: {
+  //     labels: ["Jan", "Feb"],
+  //     datasets: [
+  //       {
+  //         label: "Net sales",
+  //         data: data,
+  //         parsing: {
+  //           yAxisKey: "net",
+  //         },
+  //       },
+  //       {
+  //         label: "Cost of goods sold",
+  //         data: data,
+  //         parsing: {
+  //           yAxisKey: "cogs",
+  //         },
+  //       },
+  //       {
+  //         label: "Gross margin",
+  //         data: data,
+  //         parsing: {
+  //           yAxisKey: "gm",
+  //         },
+  //       },
+  //     ],
+  //   },
+  // };
 
   // console.log(
   //   courses.map((c) =>
@@ -181,34 +184,45 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
   //     ],
   //   }};
 
+  const dataDifficulty = (s) => {
+    return {
+      id: 1,
+      label: "difficulty",
+      data: courses.map((c) =>
+        assignments
+          .filter((a) => a.assignment.course_id === c.id)
+          .filter((x) => x.user_id === s.id)
+          .map((a) => a.assignment.difficulty * -1)
+      ),
+    };
+  };
+
+  const dataFun = (s) => {
+    return {
+      id: 2,
+      label: "fun",
+      data: courses.map((c) =>
+        assignments
+          .filter((a) => a.assignment.course_id === c.id)
+          .filter((x) => x.user_id === s.id)
+          .map((a) => a.assignment.fun)
+      ),
+    };
+  };
+
   // const dataset = {
-  //     labels: courses.map((c) => c.code),
-  //     datasets: students.map((s) => ({
-  //         id: s.id,
-  //         label: s.firstName + " " + s.lastName,
-  //         data: {{
-  //         id: 1,
-  //         label: 'difficulty',
-  //         data: courses.map(
-  //             (c) => (
-  //                 assignments
-  //                     .filter((a) => a.assignment.course_id === c.id)
-  //                     .filter((x) => x.user_id === s.id)
-  //                     .map((a) => a.assignment.difficulty * -1))),
-  //     },
-  //         {
-  //             id: 2,
-  //             label: 'fun',
-  //             data: courses.map((c) => (
-  //                 assignments
-  //                     .filter((a) => a.assignment.course_id === c.id)
-  //                     .filter((x) => x.user_id === s.id)
-  //                     .map((a) => a.assignment.fun)
-  //             )),
-  //         }})),
-  //         backgroundColor: s.colorDifficulty,
-  //         borderWidth: 0,
-  //     )};
+  //   labels: courses.map((c) => c.code),
+  //   datasets: students.map((s) => ({
+  //     id: s.id,
+  //     label: s.firstName + " " + s.lastName,
+  //     data: [
+  //       [1, 3, 5],
+  //       [3, 2, 1],
+  //     ],
+  //     backgroundColor: s.colorDifficulty,
+  //     borderWidth: 0,
+  //   })),
+  // };
 
   console.log("dataset");
 
@@ -222,7 +236,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
                 <MDBCardTitle>Overview</MDBCardTitle>
               </MDBCardHeader>
               <MDBCardBody height="800px">
-                <Bar data={data} />
+                {/* <Bar data={dataset} options={options} /> */}
               </MDBCardBody>
               <MDBCardFooter></MDBCardFooter>
             </MDBCard>
