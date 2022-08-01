@@ -10,7 +10,14 @@ import {
   MDBRow,
   MDBCheckbox,
 } from "mdb-react-ui-kit";
-import { BarChart, Bar, ResponsiveContainer, XAxis } from "recharts";
+import {
+  BarChart,
+  Bar,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  Legend,
+} from "recharts";
 
 const SelectorCard = (props) => {
   const { students } = props;
@@ -93,12 +100,17 @@ const SelectorCard = (props) => {
 };
 
 const StudentResultGraph = (props) => {
-  const { data } = props;
+  const { students } = props;
   return (
     <div>
-      <BarChart width={500} height={500} data={data}>
-        <Bar dataKey="uv" fill="#8884d8" />
-        <XAxis dataKey="course" />
+      <BarChart width={500} height={500} data={students}>
+        <XAxis />
+        <YAxis dataKey="course" />
+        <Legend />
+        {}
+        <Bar dataKey="pv" fill="#8884d8" />
+        <Bar dataKey="amt" fill="#82ca9d" />
+        <Bar dataKey="uv" fill="#ffc659" />
       </BarChart>
     </div>
   );
@@ -188,7 +200,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
                 <MDBCardTitle>Overview</MDBCardTitle>
               </MDBCardHeader>
               <MDBCardBody>
-                <StudentResultGraph data={data} />
+                <StudentResultGraph data={students} />
               </MDBCardBody>
               <MDBCardFooter></MDBCardFooter>
             </MDBCard>
