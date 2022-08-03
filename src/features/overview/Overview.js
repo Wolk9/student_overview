@@ -196,13 +196,9 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
         <MDBRow>
           <MDBCol size="8">
             <MDBCard>
-              <MDBCardHeader>
-                <MDBCardTitle>Overview</MDBCardTitle>
-              </MDBCardHeader>
-              <MDBCardBody>
-                <StudentResultGraph data={students} />
-              </MDBCardBody>
-              <MDBCardFooter></MDBCardFooter>
+              <MDBCardTitle>Overview</MDBCardTitle>
+              Hier komt een gafiek
+              {/* <Bar options={options} data={data} /> */}
             </MDBCard>
           </MDBCol>
           <SelectorCard students={students} />
