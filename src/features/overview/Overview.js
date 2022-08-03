@@ -13,9 +13,15 @@ import {
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleDifficultyCheckBox, toggleFunCheckBox } from "../ui/uiSlice";
+import {
+  toggleDifficultyCheckBox,
+  toggleFunCheckBox,
+  selectedStudentsList,
+  setSelectedStudentsList,
+} from "../ui/uiSlice";
 
 const SelectorCard = (props) => {
+  const { students } = props;
   const dispatch = useDispatch();
   const isFunBoxChecked = useSelector((state) => state.ui.isFunBoxChecked);
   const isDifficultyBoxChecked = useSelector(
@@ -23,7 +29,28 @@ const SelectorCard = (props) => {
   );
 
   console.log(isFunBoxChecked, isDifficultyBoxChecked);
-  const { students } = props;
+
+  const handleFunCheckboxChange = () => {
+    console.log("fun clicked");
+    dispatch(toggleFunCheckBox());
+  };
+  const handleDifficultyCheckBoxChange = () => {
+    console.log("difficulty clicked");
+    dispatch(toggleDifficultyCheckBox());
+  };
+
+  const populateSelectedStudentList = () => {
+    students.map((student) =>
+      dispatch(setSelectedStudentsList({ id: student.id }))
+    );
+  };
+
+  populateSelectedStudentList();
+
+  const handleSelectedStudentsChange = (e) => {
+    console.log("Selected Students Changed", e);
+  };
+
   return (
     <MDBCol size="4">
       <MDBCard>
@@ -36,14 +63,14 @@ const SelectorCard = (props) => {
               <MDBCol className="ml-auto"></MDBCol>
               <MDBCol size="1">
                 <MDBCheckbox
-                  value={isFunBoxChecked}
-                  onChange={() => dispatch(toggleFunCheckBox)}
+                  checked={isFunBoxChecked}
+                  onChange={() => handleFunCheckboxChange()}
                 />
               </MDBCol>
               <MDBCol size="1">
                 <MDBCheckbox
-                  value={isDifficultyBoxChecked}
-                  onChange={() => dispatch(toggleDifficultyCheckBox)}
+                  checked={isDifficultyBoxChecked}
+                  onChange={() => handleDifficultyCheckBoxChange()}
                 />
               </MDBCol>
               <MDBCol size="1"></MDBCol>
@@ -71,9 +98,13 @@ const SelectorCard = (props) => {
                     // btn={true}
                     size="sm"
                     id={student.id}
-                    value={student.id}
+                    checked={student.id}
                     course={student.id}
+                    value={student.id}
                     label={student.firstName + " " + student.lastName}
+                    onChange={() =>
+                      handleSelectedStudentsChange({ id: student.id })
+                    }
                     // labelStyle={{
                     //   background: student.color,
                     //   color: "white",
@@ -83,7 +114,6 @@ const SelectorCard = (props) => {
                     //   minWidth: "100%",
                     //   borderRadius: "5px",
                     // }}
-                    defaultChecked
                   />
                 </MDBCol>
                 <MDBCol size="1">

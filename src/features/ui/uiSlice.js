@@ -17,6 +17,7 @@ const uiSlice = createSlice({
         colorFun: "",
       },
     ],
+    selectedStudentsList: [],
     isFunColorPickerOpen: false,
     isDifficultyColorPickerOpen: false,
     isFunBoxChecked: true,
@@ -46,12 +47,21 @@ const uiSlice = createSlice({
     setDifficultyColor(state, action) {
       state.colorDifficulty = action.payload;
     },
-    toggleDifficultyCheckBox(state) {
+    toggleDifficultyCheckBox(state, action) {
       state.isDifficultyBoxChecked = !state.isDifficultyBoxChecked;
     },
-    toggleFunCheckBox(state) {
+    toggleFunCheckBox(state, action) {
       state.isFunBoxChecked = !state.isFunBoxChecked;
     },
+    setSelectedStudentsList(state, action) {
+      const student = action.payload;
+      console.log(student);
+      
+      return {
+        ...state.selectedStudentsList,
+        student;
+    },
+    changeSelectedStudentsList(state, action) {},
   },
 });
 
@@ -65,5 +75,6 @@ export const {
   setDifficultyColor,
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
+  setSelectedStudentsList,
 } = uiSlice.actions;
 export default uiSlice.reducer;
