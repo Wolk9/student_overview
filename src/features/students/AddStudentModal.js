@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Modal,
-  Button,
-  CloseButton,
-  Form,
-  Col,
-  Row,
-  Alert,
-} from "react-bootstrap";
+import { Modal, Button, CloseButton } from "react-bootstrap";
 import { MDBContainer } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleAddStudentModal } from "../ui/uiSlice";
@@ -17,15 +9,10 @@ import { addStudent } from "./studentSlice";
 const AddStudentModal = (props) => {
   const { showaddmodal } = props;
   const value2 = useSelector((state) => state.ui.selectedStudent);
-  const [value, setValue] = useState({
-    id: "",
-    firstName: undefined,
-    lastName: undefined,
-    phone: undefined,
-    email: undefined,
-  });
   const [alert, setAlert] = useState(false);
   const dispatch = useDispatch();
+
+  console.log(alert);
 
   const handleClose = () => {
     console.log("Click on closed");
@@ -61,7 +48,7 @@ const AddStudentModal = (props) => {
         <Modal.Header>
           <Modal.Title>
             Add{" "}
-            {value.firstName !== undefined
+            {value2.firstName !== undefined
               ? `${value2.firstName} ${value2.lastName}`
               : "Student"}
           </Modal.Title>

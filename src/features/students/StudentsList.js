@@ -1,7 +1,7 @@
 import React from "react";
 
 import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
-import styled, { keyframes } from "styled-components";
+
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
@@ -11,7 +11,7 @@ import {
 } from "../ui/uiSlice";
 import AddStudentModal from "./AddStudentModal";
 import EditStudentModal from "./EditStudentModal";
-import { mdiAccountPlus, mdiPencil } from "@mdi/js";
+import { mdiAccountPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import DataTable from "react-data-table-component";
 

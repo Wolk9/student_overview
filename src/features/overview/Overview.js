@@ -10,8 +10,19 @@ import {
   MDBRow,
   MDBCheckbox,
 } from "mdb-react-ui-kit";
+import { Bar } from "react-chartjs-2";
+import "chart.js/auto";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleDifficultyCheckBox, toggleFunCheckBox } from "../ui/uiSlice";
 
 const SelectorCard = (props) => {
+  const dispatch = useDispatch();
+  const isFunBoxChecked = useSelector((state) => state.ui.isFunBoxChecked);
+  const isDifficultyBoxChecked = useSelector(
+    (state) => state.ui.isDifficultyBoxChecked
+  );
+
+  console.log(isFunBoxChecked, isDifficultyBoxChecked);
   const { students } = props;
   return (
     <MDBCol size="4">
@@ -24,10 +35,16 @@ const SelectorCard = (props) => {
             <MDBRow>
               <MDBCol className="ml-auto"></MDBCol>
               <MDBCol size="1">
-                <MDBCheckbox defaultChecked />
+                <MDBCheckbox
+                  value={isFunBoxChecked}
+                  onChange={() => dispatch(toggleFunCheckBox)}
+                />
               </MDBCol>
               <MDBCol size="1">
-                <MDBCheckbox defaultChecked />
+                <MDBCheckbox
+                  value={isDifficultyBoxChecked}
+                  onChange={() => dispatch(toggleDifficultyCheckBox)}
+                />
               </MDBCol>
               <MDBCol size="1"></MDBCol>
             </MDBRow>
@@ -92,31 +109,127 @@ const SelectorCard = (props) => {
 };
 
 export const Overview = ({ studentNames, courses, students, assignments }) => {
-  const dataDifficulty = (s) => {
-    return {
-      id: 1,
-      label: "difficulty",
-      data: courses.map((c) =>
-        assignments
-          .filter((a) => a.assignment.course_id === c.id)
-          .filter((x) => x.user_id === s.id)
-          .map((a) => a.assignment.difficulty * -1)
-      ),
-    };
+  const options = {
+    responsive: true,
+    // plugins: {
+    //   legend: {
+    //     position: "top",
+    //   },
+    //   title: {
+    //     display: true,
+    //     text: "Chart.js Bar Chart",
+    //   },
+    // },
   };
 
-  const dataFun = (s) => {
-    return {
-      id: 2,
-      label: "fun",
-      data: courses.map((c) =>
-        assignments
-          .filter((a) => a.assignment.course_id === c.id)
-          .filter((x) => x.user_id === s.id)
-          .map((a) => a.assignment.fun)
-      ),
-    };
+  const graphDataPerStudent = (s) => {
+    return (
+      {
+        data: courses.map((c) =>
+          assignments
+            .filter((a) => a.assignment.course_id === c.id)
+            .filter((x) => x.user_id === s.id)
+            .map((a) => a.assignment.fun)
+        ),
+        backgroundColor: s.colorFun,
+      },
+      {
+        data: courses.map((c) =>
+          assignments
+            .filter((a) => a.assignment.course_id === c.id)
+            .filter((x) => x.user_id === s.id)
+            .map((a) => a.assignment.fun)
+        ),
+        backgroundColor: s.colorDifficulty,
+      }
+    );
   };
+
+  // const studentsOfChoice = (selection) => {
+  //   console.log(selection);
+  //   selection.map(
+  //     (selected) => (
+  //       console.log(selected),
+  //       graphDataPerStudent(
+  //         students.filter((s) => console.log(s), selected.id === s.id)
+  //       )
+  //     )
+  //   );
+  // };
+
+  // console.log(
+  //   studentsOfChoice([
+  //     {
+  //       id: 1,
+  //       firstName: "Evelyn",
+  //       lastName: "McGuire",
+  //       phone: "+31 6 1234 5678",
+  //       email: "mcguire@gmail.com",
+  //       photo: "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
+  //       colorDifficulty: "#111184",
+  //       colorFun: "rgb(255, 99, 232)",
+  //     },
+  //     {
+  //       id: 2,
+  //       firstName: "Aranka",
+  //       lastName: "Smith",
+  //       phone: "+31 6 1234 7618",
+  //       email: "smith@gmail.com",
+  //       photo: "http://dummyimage.com/128x100.png/dddddd/000000",
+  //       colorDifficulty: "rgb(0, 60, 255)",
+  //       colorFun: "rgb(0,60, 155)",
+  //     },
+  //   ])
+  // );
+
+  const data = {
+    labels: courses.map((c) => c.code),
+    datasets: [
+      {
+        data: courses.map((c) =>
+          assignments
+            .filter((a) => a.assignment.course_id === c.id)
+            .filter((x) => x.user_id === 1)
+            .map((a) => a.assignment.fun)
+        ),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        data: courses.map((c) =>
+          assignments
+            .filter((a) => a.assignment.course_id === c.id)
+            .filter((x) => x.user_id === 1)
+            .map((a) => a.assignment.fun)
+        ),
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  };
+  // const dataDifficulty = (s) => {
+  //   return {
+  //     id: 1,
+  //     label: "difficulty",
+  //     data: courses.map((c) =>
+  //       assignments
+  //         .filter((a) => a.assignment.course_id === c.id)
+  //         .filter((x) => x.user_id === s.id)
+  //         .map((a) => a.assignment.difficulty * -1)
+  //     ),
+  //   };
+  // };
+
+  // const dataFun = (s) => {
+  //   return {
+  //     id: 2,
+  //     label: "fun",
+  //     data: courses.map((c) =>
+  //       assignments
+  //         .filter((a) => a.assignment.course_id === c.id)
+  //         .filter((x) => x.user_id === s.id)
+  //         .map((a) => a.assignment.fun)
+  //     ),
+  //   };
+  // };
 
   return (
     <div>
@@ -127,6 +240,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
               <MDBCardTitle>Overview</MDBCardTitle>
               Hier komt een gafiek
               {/* <Bar options={options} data={data} /> */}
+              <Bar data={data} />
             </MDBCard>
           </MDBCol>
           <SelectorCard students={students} />

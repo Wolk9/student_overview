@@ -19,6 +19,8 @@ const uiSlice = createSlice({
     ],
     isFunColorPickerOpen: false,
     isDifficultyColorPickerOpen: false,
+    isFunBoxChecked: true,
+    isDifficultyBoxChecked: true,
     colorFun: "#334455",
     colorDifficulty: "#554433",
   },
@@ -44,6 +46,12 @@ const uiSlice = createSlice({
     setDifficultyColor(state, action) {
       state.colorDifficulty = action.payload;
     },
+    toggleDifficultyCheckBox(state) {
+      state.isDifficultyBoxChecked = !state.isDifficultyBoxChecked;
+    },
+    toggleFunCheckBox(state) {
+      state.isFunBoxChecked = !state.isFunBoxChecked;
+    },
   },
 });
 
@@ -55,5 +63,7 @@ export const {
   toggleDifficultyColorPicker,
   setFunColor,
   setDifficultyColor,
+  toggleDifficultyCheckBox,
+  toggleFunCheckBox,
 } = uiSlice.actions;
 export default uiSlice.reducer;

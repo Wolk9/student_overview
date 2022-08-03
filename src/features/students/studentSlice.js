@@ -16,7 +16,7 @@ const studentSlice = createSlice({
     },
     editStudent(state, action) {
       const id = action.id;
-      const studentToEdit = state.find((s) => s.id === id);
+      //const studentToEdit = state.find((s) => s.id === id);
       const editedThings = {
         ...state,
         action,

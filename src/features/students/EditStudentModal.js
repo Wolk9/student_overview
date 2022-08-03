@@ -14,7 +14,6 @@ import {
   MDBCardBody,
 } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
-import { editStudent } from "./studentSlice";
 import { HexColorPicker } from "react-colorful";
 import {
   toggleDifficultyColorPicker,
@@ -25,7 +24,7 @@ import {
 } from "../ui/uiSlice";
 
 const EditStudentModal = (props) => {
-  const { showeditmodal, students } = props;
+  const { showeditmodal } = props;
   const dispatch = useDispatch();
   const pickedStudent = useSelector((state) => state.ui.selectedStudent[0]);
   const [selectedStudent, editSelectedStudent] = useState(pickedStudent);

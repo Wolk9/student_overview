@@ -1,29 +1,20 @@
-import React, { useCallback, useState, useRef } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addStudent } from "./studentSlice";
+
 import { HexColorPicker } from "react-colorful";
-import { Card } from "react-bootstrap";
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCol,
-  MDBInput,
-  MDBInputGroup,
-  MDBRow,
-} from "mdb-react-ui-kit";
+
+import { MDBCardBody, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import {
   toggleDifficultyColorPicker,
   setDifficultyColor,
   toggleFunColorPicker,
   setFunColor,
 } from "../ui/uiSlice";
-import { mdiSortNumericDescendingVariant } from "@mdi/js";
-import useClickOutside from "../ui/useClickOutside";
 
 const AddStudentForm = (props) => {
   const { value, setValue, onSubmit } = props;
   const dispatch = useDispatch();
-  const popover = useRef();
+
   const isFunColorPickerOpen = useSelector(
     (state) => state.ui.isFunColorPickerOpen
   );

@@ -1,6 +1,4 @@
 import React from "react";
-
-import { useDispatch } from "react-redux";
 import { MDBContainer, MDBCol } from "mdb-react-ui-kit";
 import DataTable from "react-data-table-component";
 
