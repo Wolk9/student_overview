@@ -51,6 +51,12 @@ const SelectorCard = (props) => {
     dispatch(setSelectedStudentsList(selectedStudent));
   };
 
+  const isStudentChecked = (e) => {
+    const checked = selectedStudentsList.some((s) => s === e.id);
+    console.log(e, checked);
+    return checked;
+  };
+
   return (
     <MDBCol size="4">
       <MDBCard>
@@ -98,9 +104,7 @@ const SelectorCard = (props) => {
                     // btn={true}
                     size="sm"
                     id={student.id}
-                    checked={student.checked}
-                    course={student.id}
-                    value={student.id}
+                    checked={isStudentChecked({ id: student.id })}
                     label={student.firstName + " " + student.lastName}
                     onChange={() =>
                       handleSelectedStudentsChange({ id: student.id })
@@ -159,71 +163,14 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
     // },
   };
 
-  const graphDataPerStudent = (s) => {
-    return (
-      {
-        data: courses.map((c) =>
-          assignments
-            .filter((a) => a.assignment.course_id === c.id)
-            .filter((x) => x.user_id === s.id)
-            .map((a) => a.assignment.fun)
-        ),
-        backgroundColor: s.colorFun,
-      },
-      {
-        data: courses.map((c) =>
-          assignments
-            .filter((a) => a.assignment.course_id === c.id)
-            .filter((x) => x.user_id === s.id)
-            .map((a) => a.assignment.fun)
-        ),
-        backgroundColor: s.colorDifficulty,
-      }
-    );
-  };
-
-  // const studentsOfChoice = (selection) => {
-  //   console.log(selection);
-  //   selection.map(
-  //     (selected) => (
-  //       console.log(selected),
-  //       graphDataPerStudent(
-  //         students.filter((s) => console.log(s), selected.id === s.id)
-  //       )
-  //     )
-  //   );
-  // };
-
-  // console.log(
-  //   studentsOfChoice([
-  //     {
-  //       id: 1,
-  //       firstName: "Evelyn",
-  //       lastName: "McGuire",
-  //       phone: "+31 6 1234 5678",
-  //       email: "mcguire@gmail.com",
-  //       photo: "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
-  //       colorDifficulty: "#111184",
-  //       colorFun: "rgb(255, 99, 232)",
-  //     },
-  //     {
-  //       id: 2,
-  //       firstName: "Aranka",
-  //       lastName: "Smith",
-  //       phone: "+31 6 1234 7618",
-  //       email: "smith@gmail.com",
-  //       photo: "http://dummyimage.com/128x100.png/dddddd/000000",
-  //       colorDifficulty: "rgb(0, 60, 255)",
-  //       colorFun: "rgb(0,60, 155)",
-  //     },
-  //   ])
-  // );
-
   const data = {
     labels: courses.map((c) => c.code),
     datasets: selectedStudentsList.map(
       (s) => (
         {
+          label: students
+            .filter((x) => x.id === s)
+            .map((x) => x.firstName + " " + x.lastName + " fun"),
           data: courses.map((c) =>
             assignments
               .filter((a) => a.assignment.course_id === c.id)
@@ -235,11 +182,14 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
             .map((x) => x.colorFun),
         },
         {
+          label: students
+            .filter((x) => x.id === s)
+            .map((x) => x.firstName + " " + x.lastName + " difficulty"),
           data: courses.map((c) =>
             assignments
               .filter((a) => a.assignment.course_id === c.id)
               .filter((x) => x.user_id === s)
-              .map((a) => a.assignment.fun)
+              .map((a) => a.assignment.difficulty)
           ),
           backgroundColor: students
             .filter((x) => x.id === s)
