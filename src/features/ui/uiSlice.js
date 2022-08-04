@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const uiSlice = createSlice({
   name: "ui",
@@ -54,14 +54,25 @@ const uiSlice = createSlice({
       state.isFunBoxChecked = !state.isFunBoxChecked;
     },
     setSelectedStudentsList(state, action) {
-      const student = action.payload;
-      console.log(student);
-      
-      return {
-        ...state.selectedStudentsList,
-        student;
+      console.log(action.payload);
+      const index = state.selectedStudentsList.findIndex(
+        (s) => s === action.payload.id
+      );
+      console.log(index);
+      if (index === -1) {
+        console.log("index = -1");
+        state.selectedStudentsList.push(action.payload.id);
+      } else {
+        console.log("index is not -1 but", index);
+        const indexToDelete = state.selectedStudentsList.indexOf(
+          (e) => e.id === action.payload.id
+        );
+        state.selectedStudentsList.splice(indexToDelete, 1);
+      }
     },
-    changeSelectedStudentsList(state, action) {},
+    toggleStudentChecked(state, action) {
+      console.log("reducer toggleStudentChecked fired", action.payload);
+    },
   },
 });
 
@@ -76,5 +87,6 @@ export const {
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
   setSelectedStudentsList,
+  toggleStudentChecked,
 } = uiSlice.actions;
 export default uiSlice.reducer;

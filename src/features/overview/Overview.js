@@ -16,19 +16,19 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
-  selectedStudentsList,
   setSelectedStudentsList,
 } from "../ui/uiSlice";
 
 const SelectorCard = (props) => {
-  const { students } = props;
+  const {
+    students,
+    isFunBoxChecked,
+    isDifficultyBoxChecked,
+    selectedStudentsList,
+  } = props;
   const dispatch = useDispatch();
-  const isFunBoxChecked = useSelector((state) => state.ui.isFunBoxChecked);
-  const isDifficultyBoxChecked = useSelector(
-    (state) => state.ui.isDifficultyBoxChecked
-  );
 
-  console.log(isFunBoxChecked, isDifficultyBoxChecked);
+  console.log(isFunBoxChecked, isDifficultyBoxChecked, selectedStudentsList);
 
   const handleFunCheckboxChange = () => {
     console.log("fun clicked");
@@ -45,10 +45,10 @@ const SelectorCard = (props) => {
     );
   };
 
-  populateSelectedStudentList();
-
   const handleSelectedStudentsChange = (e) => {
     console.log("Selected Students Changed", e);
+    const selectedStudent = students.find((s) => s.id === e.id);
+    dispatch(setSelectedStudentsList(selectedStudent));
   };
 
   return (
@@ -98,7 +98,7 @@ const SelectorCard = (props) => {
                     // btn={true}
                     size="sm"
                     id={student.id}
-                    checked={student.id}
+                    checked={student.checked}
                     course={student.id}
                     value={student.id}
                     label={student.firstName + " " + student.lastName}
@@ -139,6 +139,13 @@ const SelectorCard = (props) => {
 };
 
 export const Overview = ({ studentNames, courses, students, assignments }) => {
+  const isFunBoxChecked = useSelector((state) => state.ui.isFunBoxChecked);
+  const isDifficultyBoxChecked = useSelector(
+    (state) => state.ui.isDifficultyBoxChecked
+  );
+  const selectedStudentsList = useSelector(
+    (state) => state.ui.selectedStudentsList
+  );
   const options = {
     responsive: true,
     // plugins: {
@@ -214,26 +221,32 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
 
   const data = {
     labels: courses.map((c) => c.code),
-    datasets: [
-      {
-        data: courses.map((c) =>
-          assignments
-            .filter((a) => a.assignment.course_id === c.id)
-            .filter((x) => x.user_id === 1)
-            .map((a) => a.assignment.fun)
-        ),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        data: courses.map((c) =>
-          assignments
-            .filter((a) => a.assignment.course_id === c.id)
-            .filter((x) => x.user_id === 1)
-            .map((a) => a.assignment.fun)
-        ),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
-    ],
+    datasets: selectedStudentsList.map(
+      (s) => (
+        {
+          data: courses.map((c) =>
+            assignments
+              .filter((a) => a.assignment.course_id === c.id)
+              .filter((x) => x.user_id === s)
+              .map((a) => a.assignment.fun)
+          ),
+          backgroundColor: students
+            .filter((x) => x.id === s)
+            .map((x) => x.colorFun),
+        },
+        {
+          data: courses.map((c) =>
+            assignments
+              .filter((a) => a.assignment.course_id === c.id)
+              .filter((x) => x.user_id === s)
+              .map((a) => a.assignment.fun)
+          ),
+          backgroundColor: students
+            .filter((x) => x.id === s)
+            .map((x) => x.colorDifficulty),
+        }
+      )
+    ),
   };
   // const dataDifficulty = (s) => {
   //   return {
@@ -269,11 +282,15 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
             <MDBCard>
               <MDBCardTitle>Overview</MDBCardTitle>
               Hier komt een gafiek
-              {/* <Bar options={options} data={data} /> */}
               <Bar data={data} />
             </MDBCard>
           </MDBCol>
-          <SelectorCard students={students} />
+          <SelectorCard
+            students={students}
+            isFunBoxChecked={isFunBoxChecked}
+            isDifficultyBoxChecked={isDifficultyBoxChecked}
+            selectedStudentsList={selectedStudentsList}
+          />
         </MDBRow>
       </MDBContainer>
     </div>
