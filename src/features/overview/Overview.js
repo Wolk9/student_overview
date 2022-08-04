@@ -69,15 +69,16 @@ const SelectorCard = (props) => {
             <MDBRow>
               <MDBCol className="ml-auto"></MDBCol>
               <MDBCol size="1">
+                {" "}
                 <MDBCheckbox
-                  checked={isFunBoxChecked}
-                  onChange={() => handleFunCheckboxChange()}
+                  checked={isDifficultyBoxChecked}
+                  onChange={() => handleDifficultyCheckBoxChange()}
                 />
               </MDBCol>
               <MDBCol size="1">
                 <MDBCheckbox
-                  checked={isDifficultyBoxChecked}
-                  onChange={() => handleDifficultyCheckBoxChange()}
+                  checked={isFunBoxChecked}
+                  onChange={() => handleFunCheckboxChange()}
                 />
               </MDBCol>
               <MDBCol size="1"></MDBCol>
@@ -87,13 +88,13 @@ const SelectorCard = (props) => {
                 <MDBCheckbox label="all" defaultChecked />
               </MDBCol>
               <MDBCol size="1">
-                <h5 align="center">
-                  <div className="swatch">D</div>
+                <h5 align="right">
+                  <div>D</div>
                 </h5>
               </MDBCol>
               <MDBCol size="1">
-                <h5 align="center">
-                  <div className="swatch">F</div>
+                <h5 align="right">
+                  <div>F</div>
                 </h5>
               </MDBCol>
               <MDBCol size="1"></MDBCol>
@@ -198,22 +199,6 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
     };
   });
 
-  // Dit moet ook achter een selectedStudentsList.map
-  // {
-  //       label: students
-  //         .filter((x) => x.id === s)
-  //         .map((x) => x.firstName + " " + x.lastName + " difficulty"),
-  //       data: courses.map((c) =>
-  //         assignments
-  //           .filter((a) => a.assignment.course_id === c.id)
-  //           .filter((x) => x.user_id === s)
-  //           .map((a) => a.assignment.difficulty)
-  //       ),
-  //       backgroundColor: students
-  //         .filter((x) => x.id === s)
-  //         .map((x) => x.colorDifficulty),
-  //     }
-
   const selectedData2 = () => {
     if (isFunBoxChecked && isDifficultyBoxChecked) {
       console.log("D & F checked");
@@ -227,38 +212,12 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
     } else return;
   };
 
-  //const selectedData = funData.concat(difficultyData);
   const selectedData = selectedData2();
 
   const data = {
     labels: courses.map((c) => c.code),
     datasets: selectedData,
   };
-  // const dataDifficulty = (s) => {
-  //   return {
-  //     id: 1,
-  //     label: "difficulty",
-  //     data: courses.map((c) =>
-  //       assignments
-  //         .filter((a) => a.assignment.course_id === c.id)
-  //         .filter((x) => x.user_id === s.id)
-  //         .map((a) => a.assignment.difficulty * -1)
-  //     ),
-  //   };
-  // };
-
-  // const dataFun = (s) => {
-  //   return {
-  //     id: 2,
-  //     label: "fun",
-  //     data: courses.map((c) =>
-  //       assignments
-  //         .filter((a) => a.assignment.course_id === c.id)
-  //         .filter((x) => x.user_id === s.id)
-  //         .map((a) => a.assignment.fun)
-  //     ),
-  //   };
-  // };
 
   return (
     <div>
