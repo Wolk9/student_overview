@@ -163,40 +163,44 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
     // },
   };
 
+  const setOfData = selectedStudentsList.map((s) => {
+    return {
+      label: students
+        .filter((x) => x.id === s)
+        .map((x) => x.firstName + " " + x.lastName + " fun"),
+      data: courses.map((c) =>
+        assignments
+          .filter((a) => a.assignment.course_id === c.id)
+          .filter((x) => x.user_id === s)
+          .map((a) => a.assignment.fun)
+      ),
+      backgroundColor: students
+        .filter((x) => x.id === s)
+        .map((x) => x.colorFun),
+    };
+  });
+
+  // Dit moet ook achter een selectedStudentsList.map
+  // {
+  //       label: students
+  //         .filter((x) => x.id === s)
+  //         .map((x) => x.firstName + " " + x.lastName + " difficulty"),
+  //       data: courses.map((c) =>
+  //         assignments
+  //           .filter((a) => a.assignment.course_id === c.id)
+  //           .filter((x) => x.user_id === s)
+  //           .map((a) => a.assignment.difficulty)
+  //       ),
+  //       backgroundColor: students
+  //         .filter((x) => x.id === s)
+  //         .map((x) => x.colorDifficulty),
+  //     }
+
+  console.log(setOfData);
+
   const data = {
     labels: courses.map((c) => c.code),
-    datasets: selectedStudentsList.map(
-      (s) => (
-        {
-          label: students
-            .filter((x) => x.id === s)
-            .map((x) => x.firstName + " " + x.lastName + " fun"),
-          data: courses.map((c) =>
-            assignments
-              .filter((a) => a.assignment.course_id === c.id)
-              .filter((x) => x.user_id === s)
-              .map((a) => a.assignment.fun)
-          ),
-          backgroundColor: students
-            .filter((x) => x.id === s)
-            .map((x) => x.colorFun),
-        },
-        {
-          label: students
-            .filter((x) => x.id === s)
-            .map((x) => x.firstName + " " + x.lastName + " difficulty"),
-          data: courses.map((c) =>
-            assignments
-              .filter((a) => a.assignment.course_id === c.id)
-              .filter((x) => x.user_id === s)
-              .map((a) => a.assignment.difficulty)
-          ),
-          backgroundColor: students
-            .filter((x) => x.id === s)
-            .map((x) => x.colorDifficulty),
-        }
-      )
-    ),
+    datasets: {},
   };
   // const dataDifficulty = (s) => {
   //   return {
@@ -232,7 +236,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
             <MDBCard>
               <MDBCardTitle>Overview</MDBCardTitle>
               Hier komt een gafiek
-              <Bar data={data} />
+              {/* <Bar data={data} /> */}
             </MDBCard>
           </MDBCol>
           <SelectorCard
