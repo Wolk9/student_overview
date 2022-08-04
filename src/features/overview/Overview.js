@@ -18,6 +18,7 @@ import {
   toggleFunCheckBox,
   setSelectedStudentsList,
 } from "../ui/uiSlice";
+import { mdiCogSyncOutline } from "@mdi/js";
 
 const SelectorCard = (props) => {
   const {
@@ -163,7 +164,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
     // },
   };
 
-  const setOfData = selectedStudentsList.map((s) => {
+  const funData = selectedStudentsList.map((s) => {
     return {
       label: students
         .filter((x) => x.id === s)
@@ -177,6 +178,23 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
       backgroundColor: students
         .filter((x) => x.id === s)
         .map((x) => x.colorFun),
+    };
+  });
+
+  const difficultyData = selectedStudentsList.map((s) => {
+    return {
+      label: students
+        .filter((x) => x.id === s)
+        .map((x) => x.firstName + " " + x.lastName + " difficulty"),
+      data: courses.map((c) =>
+        assignments
+          .filter((a) => a.assignment.course_id === c.id)
+          .filter((x) => x.user_id === s)
+          .map((a) => a.assignment.difficulty)
+      ),
+      backgroundColor: students
+        .filter((x) => x.id === s)
+        .map((x) => x.colorDifficulty),
     };
   });
 
@@ -196,11 +214,25 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
   //         .map((x) => x.colorDifficulty),
   //     }
 
-  console.log(setOfData);
+  const selectedData2 = () => {
+    if (isFunBoxChecked && isDifficultyBoxChecked) {
+      console.log("D & F checked");
+      return funData.concat(difficultyData);
+    } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
+      console.log("F checked");
+      return funData;
+    } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
+      console.log("D checked");
+      return difficultyData;
+    } else return;
+  };
+
+  //const selectedData = funData.concat(difficultyData);
+  const selectedData = selectedData2();
 
   const data = {
     labels: courses.map((c) => c.code),
-    datasets: {},
+    datasets: selectedData,
   };
   // const dataDifficulty = (s) => {
   //   return {
@@ -236,7 +268,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
             <MDBCard>
               <MDBCardTitle>Overview</MDBCardTitle>
               Hier komt een gafiek
-              {/* <Bar data={data} /> */}
+              <Bar data={data} />
             </MDBCard>
           </MDBCol>
           <SelectorCard
