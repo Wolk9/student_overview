@@ -17,6 +17,7 @@ import {
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
   setSelectedStudentsList,
+  toggleAllStudentsChecked,
 } from "../ui/uiSlice";
 import { mdiCogSyncOutline } from "@mdi/js";
 
@@ -25,11 +26,17 @@ const SelectorCard = (props) => {
     students,
     isFunBoxChecked,
     isDifficultyBoxChecked,
+    isAllBoxChecked,
     selectedStudentsList,
   } = props;
   const dispatch = useDispatch();
 
-  console.log(isFunBoxChecked, isDifficultyBoxChecked, selectedStudentsList);
+  console.log(
+    isFunBoxChecked,
+    isDifficultyBoxChecked,
+    isAllBoxChecked,
+    selectedStudentsList
+  );
 
   const handleFunCheckboxChange = () => {
     console.log("fun clicked");
@@ -56,6 +63,11 @@ const SelectorCard = (props) => {
     const checked = selectedStudentsList.some((s) => s === e.id);
     console.log(e, checked);
     return checked;
+  };
+
+  const handleAllBoxChange = (e) => {
+    console.log("handleAllBoxChange");
+    dispatch(toggleAllStudentsChecked());
   };
 
   return (
@@ -85,7 +97,11 @@ const SelectorCard = (props) => {
             </MDBRow>
             <MDBRow>
               <MDBCol className="ml-auto">
-                <MDBCheckbox label="all" defaultChecked />
+                <MDBCheckbox
+                  label="all"
+                  checked={isAllBoxChecked}
+                  onChange={() => handleAllBoxChange()}
+                />
               </MDBCol>
               <MDBCol size="1">
                 <h5 align="right">

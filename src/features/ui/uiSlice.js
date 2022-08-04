@@ -22,6 +22,7 @@ const uiSlice = createSlice({
     isDifficultyColorPickerOpen: false,
     isFunBoxChecked: true,
     isDifficultyBoxChecked: true,
+    isAllBoxChecked: false,
     colorFun: "#334455",
     colorDifficulty: "#554433",
   },
@@ -70,8 +71,14 @@ const uiSlice = createSlice({
         state.selectedStudentsList.splice(indexToDelete, 1);
       }
     },
-    toggleStudentChecked(state, action) {
-      console.log("reducer toggleStudentChecked fired", action.payload);
+    toggleAllStudentsChecked(state, action) {
+      console.log("reducer toggleAllStudentsChecked fired", action.payload);
+      state.isAllBoxChecked = !state.isAllBoxChecked;
+      if (state.selectedStudentsList.length < 10) {
+        state.selectedStudentsList.forEach((s, i) =>
+          state.selectedStudentsList.push(i)
+        );
+      }
     },
   },
 });
@@ -87,6 +94,6 @@ export const {
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
   setSelectedStudentsList,
-  toggleStudentChecked,
+  toggleAllStudentsChecked,
 } = uiSlice.actions;
 export default uiSlice.reducer;
