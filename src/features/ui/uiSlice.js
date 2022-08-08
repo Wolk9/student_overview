@@ -65,19 +65,19 @@ const uiSlice = createSlice({
         state.selectedStudentsList.push(action.payload.id);
       } else {
         console.log("index is not -1 but", index);
-        const indexToDelete = state.selectedStudentsList.indexOf(
-          (e) => e.id === action.payload.id
-        );
-        state.selectedStudentsList.splice(indexToDelete, 1);
+        // const indexToDelete = state.selectedStudentsList.indexOf(
+        //   (e) => e.id === action.payload.id
+        // );
+        state.selectedStudentsList.splice(index, 1);
       }
     },
     toggleAllStudentsChecked(state, action) {
       console.log("reducer toggleAllStudentsChecked fired", action.payload);
       state.isAllBoxChecked = !state.isAllBoxChecked;
-      if (state.selectedStudentsList.length < 10) {
-        state.selectedStudentsList.forEach((s, i) =>
-          state.selectedStudentsList.push(i)
-        );
+      if (state.selectedStudentsList.length !== 0) {
+        state.selectedStudentsList = [];
+      } else {
+        console.log("dus de lengte van de lijst is 0");
       }
     },
   },

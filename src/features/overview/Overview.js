@@ -9,6 +9,7 @@ import {
   MDBCol,
   MDBRow,
   MDBCheckbox,
+  MDBCardText,
 } from "mdb-react-ui-kit";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
@@ -40,11 +41,22 @@ const SelectorCard = (props) => {
 
   const handleFunCheckboxChange = () => {
     console.log("fun clicked");
-    dispatch(toggleFunCheckBox());
+    if (isDifficultyBoxChecked === true) {
+      dispatch(toggleFunCheckBox());
+    } else {
+      dispatch(toggleFunCheckBox());
+      dispatch(toggleDifficultyCheckBox());
+    }
   };
+
   const handleDifficultyCheckBoxChange = () => {
     console.log("difficulty clicked");
-    dispatch(toggleDifficultyCheckBox());
+    if (isFunBoxChecked === true) {
+      dispatch(toggleDifficultyCheckBox());
+    } else {
+      dispatch(toggleDifficultyCheckBox());
+      dispatch(toggleFunCheckBox());
+    }
   };
 
   const populateSelectedStudentList = () => {
@@ -61,13 +73,17 @@ const SelectorCard = (props) => {
 
   const isStudentChecked = (e) => {
     const checked = selectedStudentsList.some((s) => s === e.id);
-    console.log(e, checked);
+    // console.log(e, checked);
     return checked;
   };
 
-  const handleAllBoxChange = (e) => {
+  const handleAllBoxChange = () => {
     console.log("handleAllBoxChange");
-    dispatch(toggleAllStudentsChecked());
+
+    dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
+    if (selectedStudentsList.length === 0) {
+      populateSelectedStudentList();
+    }
   };
 
   return (
@@ -165,6 +181,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
   const isDifficultyBoxChecked = useSelector(
     (state) => state.ui.isDifficultyBoxChecked
   );
+  const isAllBoxChecked = useSelector((state) => state.ui.isAllBoxChecked);
   const selectedStudentsList = useSelector(
     (state) => state.ui.selectedStudentsList
   );
@@ -242,8 +259,15 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
           <MDBCol size="8">
             <MDBCard>
               <MDBCardTitle>Overview</MDBCardTitle>
-              Hier komt een gafiek
-              <Bar data={data} />
+              <MDBCardBody>
+                {selectedStudentsList.length < 1 ? (
+                  <MDBCardText>
+                    Selecteer 1 of meerdere studenten uit de lijst hiernaast
+                  </MDBCardText>
+                ) : (
+                  <Bar data={data} />
+                )}
+              </MDBCardBody>
             </MDBCard>
           </MDBCol>
           <SelectorCard
@@ -251,6 +275,7 @@ export const Overview = ({ studentNames, courses, students, assignments }) => {
             isFunBoxChecked={isFunBoxChecked}
             isDifficultyBoxChecked={isDifficultyBoxChecked}
             selectedStudentsList={selectedStudentsList}
+            isAllBoxChecked={isAllBoxChecked}
           />
         </MDBRow>
       </MDBContainer>
