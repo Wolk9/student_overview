@@ -4,7 +4,7 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: {
     addStudentModalOpen: false,
-    editStudentModalOpen: false,
+    editStudentCardDisplay: false,
     selectedStudent: [
       {
         firstName: "",
@@ -30,11 +30,14 @@ const uiSlice = createSlice({
     toggleAddStudentModal(state, action) {
       state.addStudentModalOpen = !state.addStudentModalOpen;
     },
-    toggleEditStudentModal(state, action) {
-      state.editStudentModalOpen = !state.editStudentModalOpen;
+    toggleEditStudentCard(state, action) {
+      state.editStudentCardDisplay = !state.editStudentCardDisplay;
     },
     setSelectedStudent(state, action) {
       state.selectedStudent = action.payload;
+    },
+    editSelectedStudent(state, action) {
+      console.log(action);
     },
     toggleFunColorPicker(state) {
       state.isFunColorPickerOpen = !state.isFunColorPickerOpen;
@@ -85,8 +88,9 @@ const uiSlice = createSlice({
 
 export const {
   toggleAddStudentModal,
-  toggleEditStudentModal,
+  toggleEditStudentCard,
   setSelectedStudent,
+  editSelectedStudent,
   toggleFunColorPicker,
   toggleDifficultyColorPicker,
   setFunColor,

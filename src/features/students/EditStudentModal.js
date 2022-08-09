@@ -20,31 +20,26 @@ import {
   setDifficultyColor,
   toggleFunColorPicker,
   setFunColor,
-  toggleEditStudentModal,
+  toggleEditStudentCard,
 } from "../ui/uiSlice";
 
 const EditStudentModal = (props) => {
-  const { showeditmodal } = props;
+  const {
+    showeditmodal,
+    isFunColorPickerOpen,
+    isDifficultyColorPickerOpen,
+    onSubmit,
+    handleChange,
+    onClickDifficultySwatch,
+    colorDifficulty,
+    colorFun,
+  } = props;
   const dispatch = useDispatch();
   const pickedStudent = useSelector((state) => state.ui.selectedStudent[0]);
   const [selectedStudent, editSelectedStudent] = useState(pickedStudent);
 
   console.log("selectedStudent: ", selectedStudent);
   console.log("pickedStudent: ", pickedStudent);
-
-  const isFunColorPickerOpen = useSelector(
-    (state) => state.ui.isFunColorPickerOpen
-  );
-  const isDifficultyColorPickerOpen = useSelector(
-    (state) => state.ui.isDifficultyColorPickerOpen
-  );
-  const colorDifficulty = useSelector((state) => state.ui.colorDifficulty);
-  const colorFun = useSelector((state) => state.ui.colorFun);
-
-  const onClickDifficultySwatch = () => {
-    console.log("Clicked on DifficultySwatch");
-    dispatch(toggleDifficultyColorPicker());
-  };
 
   const onClickFunSwatch = () => {
     console.log("Clicked on FunSwatch");
@@ -82,31 +77,9 @@ const EditStudentModal = (props) => {
 
   const handleClose = () => {
     console.log("Click on closed");
-    dispatch(toggleEditStudentModal());
+    dispatch(toggleEditStudentCard());
   };
 
-  const onSubmit = (event) => {
-    console.log("clicked on Submit");
-    event.preventDefault();
-
-    dispatch(toggleEditStudentModal());
-
-    console.log("EditStudentModal selectedStudent:", selectedStudent);
-
-    //TODO: redux result reflect into JSON server
-    //TODO: format phone and email check and alert
-  };
-
-  const handleChange = (event) => {
-    console.log(event.target.name, event.target.value);
-    console.log("handleChange selectedStudent: ", selectedStudent);
-    console.log("handleChange pickedStudent: ", pickedStudent);
-
-    editSelectedStudent({
-      ...selectedStudent,
-      [event.target.name]: event.target.value,
-    });
-  };
   return (
     <>
       <MDBModal show={showeditmodal}>

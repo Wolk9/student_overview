@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
   toggleAddStudentModal,
-  toggleEditStudentModal,
+  toggleEditStudentCard,
   setSelectedStudent,
 } from "../ui/uiSlice";
 import AddStudentModal from "./AddStudentModal";
@@ -15,22 +15,28 @@ import { mdiAccountPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import DataTable from "react-data-table-component";
 
-const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
-  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
+const StudentsList = ({
+  students,
+  showaddmodal,
+  showeditmodal,
+  handleEditClick,
+  onSubmit,
+  handleChange,
+  colorDifficulty,
+  colorFun,
+}) => {
   const dispatch = useDispatch();
+  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
+  const isFunColorPickerOpen = useSelector(
+    (state) => state.ui.isFunColorPickerOpen
+  );
+  const isDifficultyColorPickerOpen = useSelector(
+    (state) => state.ui.isDifficultyColorPickerOpen
+  );
 
   const handleAddClick = () => {
     console.log("Click on StudentAdd happend");
     dispatch(toggleAddStudentModal());
-  };
-
-  const handleEditClick = (e) => {
-    console.log(e);
-    console.log("Click on StudentEdit " + e.id + " happend");
-    dispatch(toggleEditStudentModal());
-    const pickedStudent = students.filter((student) => student.id === e.id);
-    console.log("pickedStudent", pickedStudent);
-    dispatch(setSelectedStudent(pickedStudent));
   };
 
   console.log(showaddmodal, showeditmodal, selectedStudent);
@@ -81,6 +87,12 @@ const StudentsList = ({ students, showaddmodal, showeditmodal }) => {
           showeditmodal={showeditmodal}
           students={students}
           selectedStudent={selectedStudent}
+          isFunColorPickerOpen={isFunColorPickerOpen}
+          isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+          onSubmit={onSubmit}
+          handleChange={handleChange}
+          colorDifficulty={colorDifficulty}
+          colorFun={colorFun}
         />
       )}
       <MDBContainer fluid className="p-4 m4">
