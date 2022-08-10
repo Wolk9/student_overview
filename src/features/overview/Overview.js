@@ -23,349 +23,204 @@ import {
   toggleAllStudentsChecked,
 } from "../ui/uiSlice";
 import { HexColorPicker } from "react-colorful";
+import { StudentCard } from "../students/StudentCard";
+import { SelectorCard } from "./SelectorCard";
 
-const SelectorCard = (props) => {
-  const {
-    students,
-    isFunBoxChecked,
-    isDifficultyBoxChecked,
-    isAllBoxChecked,
-    selectedStudentsList,
-    handleEditClick,
-    editStudentCardDisplay,
-  } = props;
-  const dispatch = useDispatch();
+// const SelectorCard = (props) => {
+//   const {
+//     students,
+//     isFunBoxChecked,
+//     isDifficultyBoxChecked,
+//     isAllBoxChecked,
+//     selectedStudentsList,
+//     handleEditClick,
+//     editStudentCardDisplay,
+//   } = props;
+//   const dispatch = useDispatch();
 
-  console.log(
-    isFunBoxChecked,
-    isDifficultyBoxChecked,
-    isAllBoxChecked,
-    editStudentCardDisplay,
-    selectedStudentsList
-  );
+//   console.log(
+//     isFunBoxChecked,
+//     isDifficultyBoxChecked,
+//     isAllBoxChecked,
+//     editStudentCardDisplay,
+//     selectedStudentsList
+//   );
 
-  const handleFunCheckboxChange = () => {
-    console.log("fun clicked");
-    if (isDifficultyBoxChecked === true) {
-      dispatch(toggleFunCheckBox());
-    } else {
-      dispatch(toggleFunCheckBox());
-      dispatch(toggleDifficultyCheckBox());
-    }
-  };
+//   const handleFunCheckboxChange = () => {
+//     console.log("fun clicked");
+//     if (isDifficultyBoxChecked === true) {
+//       dispatch(toggleFunCheckBox());
+//     } else {
+//       dispatch(toggleFunCheckBox());
+//       dispatch(toggleDifficultyCheckBox());
+//     }
+//   };
 
-  const handleDifficultyCheckBoxChange = () => {
-    console.log("difficulty clicked");
-    if (isFunBoxChecked === true) {
-      dispatch(toggleDifficultyCheckBox());
-    } else {
-      dispatch(toggleDifficultyCheckBox());
-      dispatch(toggleFunCheckBox());
-    }
-  };
+//   const handleDifficultyCheckBoxChange = () => {
+//     console.log("difficulty clicked");
+//     if (isFunBoxChecked === true) {
+//       dispatch(toggleDifficultyCheckBox());
+//     } else {
+//       dispatch(toggleDifficultyCheckBox());
+//       dispatch(toggleFunCheckBox());
+//     }
+//   };
 
-  const populateSelectedStudentList = () => {
-    students.map((student) =>
-      dispatch(setSelectedStudentsList({ id: student.id }))
-    );
-  };
+//   const populateSelectedStudentList = () => {
+//     students.map((student) =>
+//       dispatch(setSelectedStudentsList({ id: student.id }))
+//     );
+//   };
 
-  const handleSelectedStudentsChange = (e) => {
-    console.log("Selected Students Changed", e);
-    const selectedStudent = students.find((s) => s.id === e.id);
-    dispatch(setSelectedStudentsList(selectedStudent));
-  };
+//   const handleSelectedStudentsChange = (e) => {
+//     console.log("Selected Students Changed", e);
+//     const selectedStudent = students.find((s) => s.id === e.id);
+//     dispatch(setSelectedStudentsList(selectedStudent));
+//   };
 
-  const isStudentChecked = (e) => {
-    const checked = selectedStudentsList.some((s) => s === e.id);
-    // console.log(e, checked);
-    return checked;
-  };
+//   const isStudentChecked = (e) => {
+//     const checked = selectedStudentsList.some((s) => s === e.id);
+//     // console.log(e, checked);
+//     return checked;
+//   };
 
-  const handleAllBoxChange = () => {
-    console.log("handleAllBoxChange");
+//   const handleAllBoxChange = () => {
+//     console.log("handleAllBoxChange");
 
-    dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
-    if (selectedStudentsList.length === 0) {
-      populateSelectedStudentList();
-    }
-  };
+//     dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
+//     if (selectedStudentsList.length === 0) {
+//       populateSelectedStudentList();
+//     }
+//   };
 
-  return (
-    <MDBCol size="4">
-      <MDBCard>
-        <MDBCardHeader>
-          <MDBCardTitle>Students</MDBCardTitle>
-        </MDBCardHeader>
-        <MDBCardBody>
-          <div style={{ backgroundColor: "#fafafa", borderRadius: "10px" }}>
-            <div className="d-flex align-content-end ">
-              <div className="p-2 d-inline-flex w-100"></div>
-              <div
-                className="p-2 flex-grow-0"
-                style={{ backgroundColor: "#ffffff" }}>
-                <p className="rotate">Difficulty</p>
-              </div>
-              <div
-                className="p-2 flex-grow-0"
-                style={{ backgroundColor: "#f1f1f1" }}>
-                <p className="rotate">Fun</p>
-              </div>
-            </div>
-            <div
-              className="d-flex align-content-end"
-              style={{ borderBottom: "1px solid #e9e9e9" }}>
-              <div className="p-2 d-inline-flex w-100">
-                <div className="d-flex d-flex-shrink-0">
-                  <MDBCheckbox
-                    checked={isAllBoxChecked}
-                    onChange={() => handleAllBoxChange()}
-                  />
-                  <div className="d-flex w-100">all</div>
-                </div>
-              </div>
-              <div
-                style={{
-                  color: "white",
-                  width: "60px",
-                  textAlign: "center",
-                  backgroundColor: "#ffffff",
-                }}
-                className="p-2 flex-grow-0">
-                <div>
-                  <MDBCheckbox
-                    checked={isDifficultyBoxChecked}
-                    onChange={() => handleDifficultyCheckBoxChange()}
-                  />
-                </div>
-              </div>
-              <div
-                style={{
-                  color: "white",
-                  width: "60px",
-                  textAlign: "center",
-                  backgroundColor: "#f1f1f1",
-                }}
-                className="p-2 flex-grow-0">
-                <MDBCheckbox
-                  checked={isFunBoxChecked}
-                  onChange={() => handleFunCheckboxChange()}
-                />
-              </div>
-              <div></div>
-            </div>
-            {students.map((student) => (
-              <div key={student.id} className="d-flex align-content-end">
-                <div className="p-2 d-inline-flex w-100">
-                  <div className="d-flex flex-shrink-0">
-                    <MDBCheckbox
-                      // btn={true}
-                      size="sm"
-                      id={student.id}
-                      checked={isStudentChecked({ id: student.id })}
-                      onChange={() =>
-                        handleSelectedStudentsChange({ id: student.id })
-                      }
-                      // labelStyle={{
-                      //   background: student.color,
-                      //   color: "white",
-                      //   padding: "3px",
-                      //   marginTop: "3px",
-                      //   fontSize: "11px",
-                      //   minWidth: "100%",
-                      //   borderRadius: "5px",
-                      // }}
-                    />
-                  </div>
-                  <div
-                    key={student.id}
-                    id={student.id}
-                    className="d-flex w-100 text-nowrap studentName"
-                    onClick={() => handleEditClick({ id: student.id })}>
-                    {student.firstName + " " + student.lastName}
-                  </div>
-                </div>
+//   return (
+//     <MDBCol size="4">
+//       <MDBCard>
+//         <MDBCardHeader>
+//           <MDBCardTitle>Students</MDBCardTitle>
+//         </MDBCardHeader>
+//         <MDBCardBody>
+//           <div style={{ backgroundColor: "#fafafa", borderRadius: "10px" }}>
+//             <div className="d-flex align-content-end ">
+//               <div className="p-2 d-inline-flex w-100"></div>
+//               <div
+//                 className="p-2 flex-grow-0"
+//                 style={{ backgroundColor: "#ffffff" }}>
+//                 <p className="rotate">Difficulty</p>
+//               </div>
+//               <div
+//                 className="p-2 flex-grow-0"
+//                 style={{ backgroundColor: "#f1f1f1" }}>
+//                 <p className="rotate">Fun</p>
+//               </div>
+//             </div>
+//             <div
+//               className="d-flex align-content-end"
+//               style={{ borderBottom: "1px solid #e9e9e9" }}>
+//               <div className="p-2 d-inline-flex w-100">
+//                 <div className="d-flex d-flex-shrink-0">
+//                   <MDBCheckbox
+//                     checked={isAllBoxChecked}
+//                     onChange={() => handleAllBoxChange()}
+//                   />
+//                   <div className="d-flex w-100">all</div>
+//                 </div>
+//               </div>
+//               <div
+//                 style={{
+//                   color: "white",
+//                   width: "60px",
+//                   textAlign: "center",
+//                   backgroundColor: "#ffffff",
+//                 }}
+//                 className="p-2 flex-grow-0">
+//                 <div>
+//                   <MDBCheckbox
+//                     checked={isDifficultyBoxChecked}
+//                     onChange={() => handleDifficultyCheckBoxChange()}
+//                   />
+//                 </div>
+//               </div>
+//               <div
+//                 style={{
+//                   color: "white",
+//                   width: "60px",
+//                   textAlign: "center",
+//                   backgroundColor: "#f1f1f1",
+//                 }}
+//                 className="p-2 flex-grow-0">
+//                 <MDBCheckbox
+//                   checked={isFunBoxChecked}
+//                   onChange={() => handleFunCheckboxChange()}
+//                 />
+//               </div>
+//               <div></div>
+//             </div>
+//             {students.map((student) => (
+//               <div key={student.id} className="d-flex align-content-end">
+//                 <div className="p-2 d-inline-flex w-100">
+//                   <div className="d-flex flex-shrink-0">
+//                     <MDBCheckbox
+//                       // btn={true}
+//                       size="sm"
+//                       id={student.id}
+//                       checked={isStudentChecked({ id: student.id })}
+//                       onChange={() =>
+//                         handleSelectedStudentsChange({ id: student.id })
+//                       }
+//                       // labelStyle={{
+//                       //   background: student.color,
+//                       //   color: "white",
+//                       //   padding: "3px",
+//                       //   marginTop: "3px",
+//                       //   fontSize: "11px",
+//                       //   minWidth: "100%",
+//                       //   borderRadius: "5px",
+//                       // }}
+//                     />
+//                   </div>
+//                   <div
+//                     key={student.id}
+//                     id={student.id}
+//                     className="d-flex w-100 text-nowrap studentName"
+//                     onClick={() => handleEditClick({ id: student.id })}>
+//                     {student.firstName + " " + student.lastName}
+//                   </div>
+//                 </div>
 
-                <div
-                  className="p-2 flex-grow-0"
-                  style={{
-                    width: "60px",
-                    textAlign: "center",
-                    backgroundColor: "#ffffff",
-                  }}>
-                  <div
-                    className="swatch"
-                    style={{ backgroundColor: student.colorDifficulty }}
-                  />
-                </div>
-                <div
-                  className="p-2 flex-grow-0"
-                  style={{
-                    width: "60px",
-                    textAlign: "center",
-                    backgroundColor: "#f1f1f1",
-                  }}>
-                  <div
-                    className="swatch"
-                    style={{ backgroundColor: student.colorFun }}
-                  />
-                </div>
-                <MDBCol></MDBCol>
-              </div>
-            ))}
-          </div>
-        </MDBCardBody>
-      </MDBCard>
-    </MDBCol>
-  );
-};
-
-const StudentCard = (props) => {
-  const {
-    selectedStudent,
-    onSubmit,
-    handleChange,
-    isDifficultyColorPickerOpen,
-    isFunColorPickerOpen,
-    colorDifficulty,
-    colorFun,
-    onClickDifficultySwatch,
-    onClickFunSwatch,
-    onChangeDifficultyColor,
-    onChangeFunColor,
-    onCloseDifficultyColor,
-    onCloseFunColor,
-  } = props;
-
-  const student = selectedStudent[0];
-
-  console.log("StudentCard: ", student);
-  return (
-    <>
-      <MDBContainer>
-        <MDBCard>
-          <MDBCardHeader>
-            <MDBCardTitle>
-              {student.firstName + " " + student.lastName}
-            </MDBCardTitle>
-          </MDBCardHeader>
-          <MDBCardBody>
-            <div className="containder-fluid">
-              <form
-                onSubmit={onSubmit}
-                onChange={(event) => handleChange(event)}>
-                <div className="row-cols-auto d-flex">
-                  <div className="p-2 column">
-                    <MDBInput
-                      type="text"
-                      className="mb-4"
-                      label="First Name"
-                      value={student.firstName}
-                      name="firstName"
-                      id="firstName"
-                    />
-                  </div>
-                  <div className="p-2 column">
-                    <MDBInput
-                      type="text"
-                      className="mb-4"
-                      label="Last Name"
-                      value={student.lastName}
-                      name="lastName"
-                      id="lastName"
-                    />
-                  </div>
-                  <div>
-                    <div className="picker">
-                      Difficulty
-                      <div
-                        className="swatch"
-                        style={{
-                          backgroundColor: student.colorDifficulty,
-                        }}
-                        onClick={() => {
-                          onClickDifficultySwatch();
-                        }}
-                      />
-                      {isDifficultyColorPickerOpen && (
-                        <div className="popover">
-                          <HexColorPicker
-                            color={student.colorDifficulty}
-                            name="colorDifficulty"
-                            onChange={(x) => onChangeDifficultyColor(x)}
-                          />
-                          <MDBBtn
-                            type="button"
-                            aria-label="Close"
-                            name="colorDifficulty"
-                            onClick={() =>
-                              onCloseDifficultyColor(colorDifficulty)
-                            }>
-                            Select
-                          </MDBBtn>
-                        </div>
-                      )}
-                    </div>
-                  </div>{" "}
-                  <div className="picker">
-                    Fun
-                    <div
-                      className="swatch"
-                      style={{
-                        backgroundColor: student.colorFun,
-                      }}
-                      onClick={() => {
-                        onClickFunSwatch();
-                      }}
-                    />
-                    {isFunColorPickerOpen && (
-                      <div className="popover">
-                        <HexColorPicker
-                          color={student.colorFun}
-                          name="colorFun"
-                          onChange={(x) => onChangeFunColor(x)}
-                        />
-                        <MDBBtn
-                          type="button"
-                          aria-label="Close"
-                          name="colorFun"
-                          onClick={() => onCloseFunColor(colorFun)}>
-                          Select
-                        </MDBBtn>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className="row-cols-auto d-flex">
-                  <div className="p-2 column">
-                    <MDBInput
-                      type="text"
-                      className="mb-4"
-                      label="email"
-                      value={student.email}
-                      name="email"
-                      id="email"
-                    />
-                  </div>
-                  <div className="p-2 column">
-                    <MDBInput
-                      type="text"
-                      className="mb-4"
-                      label="phone"
-                      value={student.phone}
-                      name="phone"
-                      id="phone"
-                    />
-                  </div>
-                </div>
-              </form>
-            </div>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBContainer>
-    </>
-  );
-};
+//                 <div
+//                   className="p-2 flex-grow-0"
+//                   style={{
+//                     width: "60px",
+//                     textAlign: "center",
+//                     backgroundColor: "#ffffff",
+//                   }}>
+//                   <div
+//                     className="swatch"
+//                     style={{ backgroundColor: student.colorDifficulty }}
+//                   />
+//                 </div>
+//                 <div
+//                   className="p-2 flex-grow-0"
+//                   style={{
+//                     width: "60px",
+//                     textAlign: "center",
+//                     backgroundColor: "#f1f1f1",
+//                   }}>
+//                   <div
+//                     className="swatch"
+//                     style={{ backgroundColor: student.colorFun }}
+//                   />
+//                 </div>
+//                 <MDBCol></MDBCol>
+//               </div>
+//             ))}
+//           </div>
+//         </MDBCardBody>
+//       </MDBCard>
+//     </MDBCol>
+//   );
+// };
 
 export const Overview = ({
   studentNames,
@@ -511,6 +366,10 @@ export const Overview = ({
             isAllBoxChecked={isAllBoxChecked}
             handleEditClick={handleEditClick}
             editStudentCardDisplay={editStudentCardDisplay}
+            toggleDifficultyCheckBox={toggleDifficultyCheckBox}
+            toggleFunCheckBox={toggleFunCheckBox}
+            setSelectedStudentsList={setSelectedStudentsList}
+            toggleAllStudentsChecked={toggleAllStudentsChecked}
           />
         </MDBRow>
       </MDBContainer>

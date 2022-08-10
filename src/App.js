@@ -32,7 +32,7 @@ const App = () => {
   const assignments = useSelector((state) => state.assignments);
   const showaddmodal = useSelector((state) => state.ui.addStudentModalOpen);
   const showeditCard = useSelector((state) => state.ui.editStudentCardDisplay);
-  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
+  const selectedStudent = useSelector((state) => state.ui.selectedStudent[0]);
   const isDifficultyColorPickerOpen = useSelector(
     (state) => state.ui.isDifficultyColorPickerOpen
   );
@@ -72,10 +72,9 @@ const App = () => {
     console.log(event.target.name, event.target.value);
     console.log("handleChange selectedStudent: ", selectedStudent);
 
-    editSelectedStudent({
-      ...selectedStudent,
-      [event.target.name]: event.target.value,
-    });
+    dispatch(
+      editSelectedStudent({ key: event.target.name, value: event.target.value })
+    );
   };
 
   const onClickDifficultySwatch = () => {
