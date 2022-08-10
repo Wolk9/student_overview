@@ -15,15 +15,14 @@ const studentSlice = createSlice({
       },
     },
     editStudent(state, action) {
-      const id = action.id;
-      //const studentToEdit = state.find((s) => s.id === id);
-      const editedThings = {
-        ...state,
-        action,
-      };
-      return state.map((student) =>
-        student.id !== id ? student : editedThings
+      console.log(action.payload, action.payload.id);
+      const id = action.payload.id;
+      const payload = action.payload;
+      const result = state.map((student) =>
+        student.id !== id ? student : payload
       );
+      console.log(result);
+      return result;
     },
     setStudents: {
       reducer: (state, action) => {

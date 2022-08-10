@@ -580,7 +580,7 @@
   "email": "mcguire@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
   "colorDifficulty": "#111184",
-  "colorFun": "rgb(255, 99, 232)"
+  "colorFun": "#ff63e8"
 },
 {
   "id": 2,
@@ -589,8 +589,8 @@
   "phone": "+31 6 1234 7618",
   "email": "smith@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
-  "colorDifficulty": "rgb(0, 60, 255)",
-  "colorFun": "rgb(0,60, 155)"
+  "colorDifficulty": "#003cff",
+  "colorFun": "#fffb00"
 },
 {
   "id": 3,
@@ -599,8 +599,8 @@
   "phone": "+31 6 1234 1231",
   "email": "beyond@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff",
-  "colorDifficulty": "rgb(255, 60, 60)",
-  "colorFun": "rgb(255, 60, 160)"
+  "colorDifficulty": "#ff0022",
+  "colorFun": "#7700ff"
 },
 {
   "id": 4,
@@ -609,8 +609,8 @@
   "phone": "+31 6 3414 1231",
   "email": "libHec@live.com",
   "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
-  "colorDifficulty": "rgb(132, 25, 255)",
-  "colorFun": "rgb(132, 25,155)"
+  "colorDifficulty": "#00e5ff",
+  "colorFun": "#ffb300"
 },
 {
   "id": 5,
@@ -619,8 +619,8 @@
   "phone": "+32 5 1234 1231",
   "email": "navratilova@tennis.net",
   "photo": "http://dummyimage.com/128x100.png/5f2add/ffffff",
-  "colorDifficulty": "rgb(125, 199, 12)",
-  "colorFun": "rgb(155, 199, 112)"
+  "colorDifficulty": "#548c53",
+  "colorFun": "#d7bdff"
 },
 {
   "id": 6,
@@ -639,8 +639,8 @@
   "phone": "+31 6 7891 1347",
   "email": "info@rahima.in",
   "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff",
-  "colorDifficulty": "rgb(255, 9, 132)",
-  "colorFun": "rgb(255, 9, 232)"
+  "colorDifficulty": "#360087",
+  "colorFun": "#dbc200"
 },
 {
   "id": 8,
@@ -649,7 +649,7 @@
   "phone": "+1 492 1293 1923",
   "email": "Bullock@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/cc0000/ffffff",
-  "colorDifficulty": "rgb(25, 99, 132)",
+  "colorDifficulty": "#006387",
   "colorFun": "rgb(25, 99, 232)"
 },
 {
@@ -659,8 +659,8 @@
   "phone": "+1 492 1293 1231",
   "email": "Kroes@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
-  "colorDifficulty": "rgb(255, 99, 13)",
-  "colorFun": "rgb(255, 99, 113)"
+  "colorDifficulty": "#db9200",
+  "colorFun": "#cf2152"
 },
 {
   "id": 10,
@@ -669,8 +669,8 @@
   "phone": "+1 492 1293 2313",
   "email": "Glass@gmail.com",
   "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
-  "colorDifficulty": "rgb(255, 199, 132)",
-  "colorFun": "rgb(255, 199, 232)"
+  "colorDifficulty": "#ffeca1",
+  "colorFun": "#a1ffde"
 }
     ],
     "courses": [

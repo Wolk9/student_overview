@@ -28,6 +28,7 @@ export const SelectorCard = (props) => {
     toggleFunCheckBox,
     setSelectedStudentsList,
     toggleAllStudentsChecked,
+    setStudentEdit,
   } = props;
   const dispatch = useDispatch();
 
@@ -38,6 +39,19 @@ export const SelectorCard = (props) => {
     editStudentCardDisplay,
     selectedStudentsList
   );
+
+  console.log(
+    "students: ",
+    students.length,
+    "geselecteerd: ",
+    selectedStudentsList.length
+  );
+
+  if (students.length === selectedStudentsList.length) {
+    dispatch(toggleAllStudentsChecked(true));
+  } else {
+    dispatch(toggleAllStudentsChecked(false));
+  }
 
   const handleFunCheckboxChange = () => {
     console.log("fun clicked");
@@ -68,6 +82,8 @@ export const SelectorCard = (props) => {
   const handleSelectedStudentsChange = (e) => {
     console.log("Selected Students Changed", e);
     const selectedStudent = students.find((s) => s.id === e.id);
+    //setStudentEdit(selectedStudent);
+
     dispatch(setSelectedStudentsList(selectedStudent));
   };
 
@@ -161,15 +177,6 @@ export const SelectorCard = (props) => {
                       onChange={() =>
                         handleSelectedStudentsChange({ id: student.id })
                       }
-                      // labelStyle={{
-                      //   background: student.color,
-                      //   color: "white",
-                      //   padding: "3px",
-                      //   marginTop: "3px",
-                      //   fontSize: "11px",
-                      //   minWidth: "100%",
-                      //   borderRadius: "5px",
-                      // }}
                     />
                   </div>
                   <div

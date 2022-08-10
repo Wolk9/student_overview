@@ -20,11 +20,10 @@ dataService
   .getAll("students")
   .then((records) => store.dispatch(setStudents(records.data)));
 
-//TODO: assignmentService.getAllAssignments
 dataService
   .getAll("courses")
   .then((records) => store.dispatch(setCourses(records.data)));
-//TODO: coursesService.getAllCourses
+
 dataService
   .getAll("assignments")
   .then((records) => store.dispatch(setAssignments(records.data)));

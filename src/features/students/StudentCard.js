@@ -12,12 +12,31 @@ import {
   MDBCardText,
   MDBInput,
   MDBBtn,
+  MDBFooter,
 } from "mdb-react-ui-kit";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { HexColorPicker } from "react-colorful";
+
+const DifficultySwatch = (student) => {
+  return (
+    <>
+      {" "}
+      <div
+        className="swatch"
+        style={{
+          backgroundColor: student.colorDifficulty,
+        }}
+        // onClick={() => {
+        //   onClickDifficultySwatch();
+        // }}
+      />
+    </>
+  );
+};
 
 export const StudentCard = (props) => {
   const {
-    selectedStudent,
+    studentEdit,
     onSubmit,
     handleChange,
     isDifficultyColorPickerOpen,
@@ -32,93 +51,113 @@ export const StudentCard = (props) => {
     onCloseFunColor,
   } = props;
 
-  const student = selectedStudent;
+  const student = studentEdit;
 
-  console.log("StudentCard: ", student);
+  console.log("StudentCard: ", studentEdit);
   return (
     <>
       <MDBContainer>
         <MDBCard>
-          <MDBCardHeader>
-            <MDBCardTitle>
-              {student.firstName + " " + student.lastName}
-            </MDBCardTitle>
-          </MDBCardHeader>
-          <MDBCardBody>
-            <div className="containder-fluid">
-              <form
-                onSubmit={onSubmit}
-                onChange={(event) => handleChange(event)}>
-                <div className="row-cols-auto d-flex">
-                  <div className="p-2 column">
-                    <MDBInput
-                      type="text"
-                      className="mb-4"
-                      label="First Name"
-                      value={student.firstName}
-                      name="firstName"
-                      id="firstName"
+          <form onSubmit={onSubmit} onChange={(event) => handleChange(event)}>
+            <MDBCardHeader>
+              <MDBCardTitle>
+                {student.firstName + " " + student.lastName}
+              </MDBCardTitle>
+            </MDBCardHeader>
+            <MDBCardBody>
+              <MDBRow>
+                <MDBCol>
+                  <MDBInput
+                    type="text"
+                    className="mb-4"
+                    label="First Name"
+                    value={studentEdit.firstName}
+                    name="firstName"
+                    id="firstName"
+                  />
+                </MDBCol>
+                <MDBCol>
+                  <MDBInput
+                    type="text"
+                    className="mb-4"
+                    label="Last Name"
+                    value={studentEdit.lastName}
+                    name="lastName"
+                    id="lastName"
+                  />
+                </MDBCol>
+              </MDBRow>
+              <MDBRow>
+                {" "}
+                <MDBCol>
+                  <MDBInput
+                    type="text"
+                    className="mb-4"
+                    label="email"
+                    value={studentEdit.email}
+                    name="email"
+                    id="email"
+                  />
+                  <MDBInput
+                    type="text"
+                    className="mb-4"
+                    label="phone"
+                    value={studentEdit.phone}
+                    name="phone"
+                    id="phone"
+                  />
+                </MDBCol>
+              </MDBRow>
+              <hr />
+              <h6>Personal Graph Colors</h6>
+              <MDBRow>
+                <MDBCol>
+                  {" "}
+                  <div className="picker">
+                    Difficulty
+                    <div
+                      className="swatch"
+                      style={{
+                        backgroundColor: studentEdit.colorDifficulty,
+                      }}
+                      onClick={() => {
+                        onClickDifficultySwatch();
+                      }}
                     />
+                    {isDifficultyColorPickerOpen && (
+                      <div className="popover">
+                        <HexColorPicker
+                          color={studentEdit.colorDifficulty}
+                          name="colorDifficulty"
+                          onChange={(e) => onChangeDifficultyColor(e)}
+                        />
+                        <MDBBtn
+                          type="button"
+                          aria-label="Close"
+                          name="colorDifficulty"
+                          onClick={() =>
+                            onCloseDifficultyColor(colorDifficulty)
+                          }>
+                          Select
+                        </MDBBtn>
+                      </div>
+                    )}
                   </div>
-                  <div className="p-2 column">
-                    <MDBInput
-                      type="text"
-                      className="mb-4"
-                      label="Last Name"
-                      value={student.lastName}
-                      name="lastName"
-                      id="lastName"
-                    />
-                  </div>
-                  <div>
-                    <div className="picker">
-                      Difficulty
-                      <div
-                        className="swatch"
-                        style={{
-                          backgroundColor: student.colorDifficulty,
-                        }}
-                        onClick={() => {
-                          onClickDifficultySwatch();
-                        }}
-                      />
-                      {isDifficultyColorPickerOpen && (
-                        <div className="popover">
-                          <HexColorPicker
-                            color={student.colorDifficulty}
-                            name="colorDifficulty"
-                            onChange={(x) => onChangeDifficultyColor(x)}
-                          />
-                          <MDBBtn
-                            type="button"
-                            aria-label="Close"
-                            name="colorDifficulty"
-                            onClick={() =>
-                              onCloseDifficultyColor(colorDifficulty)
-                            }>
-                            Select
-                          </MDBBtn>
-                        </div>
-                      )}
-                    </div>
-                  </div>{" "}
+                </MDBCol>
+                <MDBCol>
                   <div className="picker">
                     Fun
                     <div
                       className="swatch"
-                      style={{
-                        backgroundColor: student.colorFun,
-                      }}
-                      onClick={() => {
-                        onClickFunSwatch();
-                      }}
+                      style={{ backgroundColor: studentEdit.colorFun }}
+                      onClick={() => onClickFunSwatch()}
                     />
                     {isFunColorPickerOpen && (
                       <div className="popover">
                         <HexColorPicker
-                          color={student.colorFun}
+                          color={studentEdit.colorFun}
                           name="colorFun"
-                          onChange={(x) => onChangeFunColor(x)}
+                          onChange={(e) => onChangeFunColor(e)}
                         />
                         <MDBBtn
                           type="button"
@@ -130,32 +169,28 @@ export const StudentCard = (props) => {
                       </div>
                     )}
                   </div>
-                </div>
-                <div className="row-cols-auto d-flex">
-                  <div className="p-2 column">
-                    <MDBInput
-                      type="text"
-                      className="mb-4"
-                      label="email"
-                      value={student.email}
-                      name="email"
-                      id="email"
-                    />
-                  </div>
-                  <div className="p-2 column">
-                    <MDBInput
-                      type="text"
-                      className="mb-4"
-                      label="phone"
-                      value={student.phone}
-                      name="phone"
-                      id="phone"
-                    />
-                  </div>
-                </div>
-              </form>
-            </div>
-          </MDBCardBody>
+                </MDBCol>
+              </MDBRow>
+            </MDBCardBody>
+            <MDBFooter>
+              <MDBRow>
+                <MDBCol>
+                  <MDBBtn type="button" aria-label="Close" name="close">
+                    close
+                  </MDBBtn>
+                </MDBCol>
+                <MDBCol>
+                  <MDBBtn
+                    type="button"
+                    aria-label="submit"
+                    name="submit"
+                    onClick={onSubmit}>
+                    submit
+                  </MDBBtn>
+                </MDBCol>
+              </MDBRow>
+            </MDBFooter>
+          </form>
         </MDBCard>
       </MDBContainer>
     </>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -16,6 +16,7 @@ import {
   setDifficultyColor,
   setFunColor,
 } from "../src/features/ui/uiSlice";
+import { editStudent } from "../src/features/students/studentSlice";
 import Overview from "./features/overview/Overview";
 import {
   MDBContainer,
@@ -32,7 +33,7 @@ const App = () => {
   const assignments = useSelector((state) => state.assignments);
   const showaddmodal = useSelector((state) => state.ui.addStudentModalOpen);
   const showeditCard = useSelector((state) => state.ui.editStudentCardDisplay);
-  const selectedStudent = useSelector((state) => state.ui.selectedStudent[0]);
+  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
   const isDifficultyColorPickerOpen = useSelector(
     (state) => state.ui.isDifficultyColorPickerOpen
   );
@@ -47,18 +48,36 @@ const App = () => {
     fullName: student.firstName + "_" + student.lastName,
   }));
 
+  const [studentEdit, setStudentEdit] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    photo: "",
+    color: "",
+    colorFun: "",
+  });
+
+  console.log("studentEdit:", studentEdit);
+
   const handleEditClick = (e) => {
     console.log(e);
     console.log("Click on StudentEdit " + e.id + " happend");
+    if (showeditCard === true) {
+      dispatch(toggleEditStudentCard());
+    }
     dispatch(toggleEditStudentCard());
     const pickedStudent = students.filter((student) => student.id === e.id);
-    console.log("pickedStudent", pickedStudent);
-    dispatch(setSelectedStudent(pickedStudent));
+    console.log("pickedStudent", pickedStudent[0]);
+    setStudentEdit(pickedStudent[0]);
+    //dispatch(setSelectedStudent(pickedStudent[0]));
   };
 
   const onSubmit = (event) => {
-    console.log("clicked on Submit");
+    console.log("clicked on onSubmit");
     event.preventDefault();
+    console.log(studentEdit);
+    dispatch(editStudent(studentEdit));
 
     dispatch(toggleEditStudentCard());
 
@@ -72,9 +91,7 @@ const App = () => {
     console.log(event.target.name, event.target.value);
     console.log("handleChange selectedStudent: ", selectedStudent);
 
-    dispatch(
-      editSelectedStudent({ key: event.target.name, value: event.target.value })
-    );
+    setStudentEdit({ ...studentEdit, [event.target.name]: event.target.value });
   };
 
   const onClickDifficultySwatch = () => {
@@ -94,6 +111,7 @@ const App = () => {
       ...selectedStudent,
       colorDifficulty: e,
     });
+    setStudentEdit({ ...studentEdit, colorDifficulty: e });
     //dispatch(toggleDifficultyColorPicker());
   };
   const onChangeFunColor = (e) => {
@@ -103,6 +121,7 @@ const App = () => {
       ...selectedStudent,
       colorFun: e,
     });
+    setStudentEdit({ ...studentEdit, colorFun: e });
     //dispatch(toggleFunColorPicker());
   };
 
@@ -139,7 +158,7 @@ const App = () => {
               students={students}
               assignments={assignments}
               handleEditClick={handleEditClick}
-              selectedStudent={selectedStudent}
+              studentEdit={studentEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
               isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
@@ -152,6 +171,7 @@ const App = () => {
               onChangeFunColor={onChangeFunColor}
               onCloseDifficultyColor={onCloseDifficultyColor}
               onCloseFunColor={onCloseFunColor}
+              setStudentEdit={setStudentEdit}
             />
           }
         />

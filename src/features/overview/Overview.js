@@ -228,7 +228,7 @@ export const Overview = ({
   students,
   assignments,
   handleEditClick,
-  selectedStudent,
+  studentEdit,
   onSubmit,
   handleChange,
   isDifficultyColorPickerOpen,
@@ -241,6 +241,7 @@ export const Overview = ({
   onChangeFunColor,
   onCloseDifficultyColor,
   onCloseFunColor,
+  setStudentEdit,
 }) => {
   const isFunBoxChecked = useSelector((state) => state.ui.isFunBoxChecked);
   const isDifficultyBoxChecked = useSelector(
@@ -340,7 +341,7 @@ export const Overview = ({
             </MDBCard>
             {editStudentCardDisplay ? (
               <StudentCard
-                selectedStudent={selectedStudent}
+                studentEdit={studentEdit}
                 onSubmit={onSubmit}
                 handleChange={handleChange}
                 isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
@@ -370,6 +371,7 @@ export const Overview = ({
             toggleFunCheckBox={toggleFunCheckBox}
             setSelectedStudentsList={setSelectedStudentsList}
             toggleAllStudentsChecked={toggleAllStudentsChecked}
+            setStudentEdit={setStudentEdit}
           />
         </MDBRow>
       </MDBContainer>

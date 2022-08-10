@@ -1,22 +1,27 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { mdiContentSaveAllOutline } from "@mdi/js";
+import { createEntityAdapter, createSlice, current } from "@reduxjs/toolkit";
+import dataService from "../../services/dataService";
+
+// const studentAdapter = createEntityAdapter({
+//   selectId: (student = student.id),
+//   sortComparer: (a, b) => a.lastName.localCompare(b.lastName),
+// });
 
 const uiSlice = createSlice({
   name: "ui",
   initialState: {
     addStudentModalOpen: false,
     editStudentCardDisplay: false,
-    selectedStudent: [
-      {
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        id: 0,
-        photo: "",
-        color: "",
-        colorFun: "",
-      },
-    ],
+    selectedStudent: {
+      firstName: "",
+      lastName: "",
+      phone: "",
+      email: "",
+      id: 0,
+      photo: "",
+      color: "",
+      colorFun: "",
+    },
     selectedStudentsList: [],
     isFunColorPickerOpen: false,
     isDifficultyColorPickerOpen: false,
@@ -37,7 +42,7 @@ const uiSlice = createSlice({
       state.selectedStudent = action.payload;
     },
     editSelectedStudent(state, action) {
-      console.log(action);
+      console.log(action.payload);
     },
     toggleFunColorPicker(state) {
       state.isFunColorPickerOpen = !state.isFunColorPickerOpen;
@@ -76,11 +81,16 @@ const uiSlice = createSlice({
     },
     toggleAllStudentsChecked(state, action) {
       console.log("reducer toggleAllStudentsChecked fired", action.payload);
-      state.isAllBoxChecked = !state.isAllBoxChecked;
-      if (state.selectedStudentsList.length !== 0) {
-        state.selectedStudentsList = [];
+
+      if (!action) {
+        state.isAllBoxChecked = !state.isAllBoxChecked;
+        if (state.selectedStudentsList.length !== 0) {
+          state.selectedStudentsList = [];
+        } else {
+          console.log("dus de lengte van de lijst is 0");
+        }
       } else {
-        console.log("dus de lengte van de lijst is 0");
+        state.isAllBoxChecked = action.payload;
       }
     },
   },
