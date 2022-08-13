@@ -304,13 +304,13 @@ export const Overview = ({
 
   const selectedData2 = () => {
     if (isFunBoxChecked && isDifficultyBoxChecked) {
-      console.log("D & F checked");
+      // console.log("D & F checked");
       return funData.concat(difficultyData);
     } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
-      console.log("F checked");
+      // console.log("F checked");
       return funData;
     } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
-      console.log("D checked");
+      // console.log("D checked");
       return difficultyData;
     } else return;
   };

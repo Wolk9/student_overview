@@ -1,4 +1,4 @@
-import { mdiContentSaveAllOutline } from "@mdi/js";
+import { mdiConsoleNetworkOutline, mdiContentSaveAllOutline } from "@mdi/js";
 import { createEntityAdapter, createSlice, current } from "@reduxjs/toolkit";
 import dataService from "../../services/dataService";
 
@@ -68,11 +68,27 @@ const uiSlice = createSlice({
         (s) => s === action.payload.id
       );
       console.log(index);
+
       if (index === -1) {
-        console.log("index = -1");
-        state.selectedStudentsList.push(action.payload.id);
+        if (state.isAllBoxChecked) {
+          state.selectedStudentsList.push(action.payload.id);
+        } else {
+          console.log(
+            "allBoxchecked = false",
+            state.isAllBoxChecked,
+            "gooi uit de selectie"
+          );
+
+          state.selectedStudentList.splice(index, 1);
+        }
       } else {
-        console.log("index is not -1 but", index);
+        console.log(
+          "allBoxchecked",
+          state.isAllBoxChecked,
+          "index is not -1 but",
+          index,
+          "dus hij is al geselecteerd dus gooi uit de selectie"
+        );
         // const indexToDelete = state.selectedStudentsList.indexOf(
         //   (e) => e.id === action.payload.id
         // );
@@ -81,17 +97,9 @@ const uiSlice = createSlice({
     },
     toggleAllStudentsChecked(state, action) {
       console.log("reducer toggleAllStudentsChecked fired", action.payload);
+      console.log(state.selectedStudentsList.length);
 
-      if (!action) {
-        state.isAllBoxChecked = !state.isAllBoxChecked;
-        if (state.selectedStudentsList.length !== 0) {
-          state.selectedStudentsList = [];
-        } else {
-          console.log("dus de lengte van de lijst is 0");
-        }
-      } else {
-        state.isAllBoxChecked = action.payload;
-      }
+      state.isAllBoxChecked = action.payload;
     },
   },
 });

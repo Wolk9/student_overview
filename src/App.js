@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -7,6 +7,7 @@ import CoursesList from "./features/courses/CoursesList";
 import AssignmentsList from "./features/assignments/AssignmentsList";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  toggleAllStudentsChecked,
   toggleAddStudentModal,
   toggleEditStudentCard,
   setSelectedStudent,
@@ -33,7 +34,11 @@ const App = () => {
   const assignments = useSelector((state) => state.assignments);
   const showaddmodal = useSelector((state) => state.ui.addStudentModalOpen);
   const showeditCard = useSelector((state) => state.ui.editStudentCardDisplay);
+  const isAllBoxChecked = useSelector((state) => state.ui.isAllBoxChecked);
   const selectedStudent = useSelector((state) => state.ui.selectedStudent);
+  const selectedStudentsList = useSelector(
+    (state) => state.ui.selectedStudentsList
+  );
   const isDifficultyColorPickerOpen = useSelector(
     (state) => state.ui.isDifficultyColorPickerOpen
   );
@@ -58,38 +63,46 @@ const App = () => {
     colorFun: "",
   });
 
-  console.log("studentEdit:", studentEdit);
+  useEffect(() => {
+    if (students.length === selectedStudentsList.length) {
+      dispatch(toggleAllStudentsChecked(true));
+    } else {
+      dispatch(toggleAllStudentsChecked(false));
+    }
+  }, [selectedStudentsList, isAllBoxChecked]);
+
+  // console.log("studentEdit:", studentEdit);
 
   const handleEditClick = (e) => {
-    console.log(e);
+    // console.log(e);
     console.log("Click on StudentEdit " + e.id + " happend");
     if (showeditCard === true) {
       dispatch(toggleEditStudentCard());
     }
     dispatch(toggleEditStudentCard());
     const pickedStudent = students.filter((student) => student.id === e.id);
-    console.log("pickedStudent", pickedStudent[0]);
+    // console.log("pickedStudent", pickedStudent[0]);
     setStudentEdit(pickedStudent[0]);
     //dispatch(setSelectedStudent(pickedStudent[0]));
   };
 
   const onSubmit = (event) => {
-    console.log("clicked on onSubmit");
+    // console.log("clicked on onSubmit");
     event.preventDefault();
-    console.log(studentEdit);
+    // console.log(studentEdit);
     dispatch(editStudent(studentEdit));
 
     dispatch(toggleEditStudentCard());
 
-    console.log("EditStudentModal selectedStudent:", selectedStudent);
+    // console.log("EditStudentModal selectedStudent:", selectedStudent);
 
     //TODO: redux result reflect into JSON server
     //TODO: format phone and email check and alert
   };
 
   const handleChange = (event) => {
-    console.log(event.target.name, event.target.value);
-    console.log("handleChange selectedStudent: ", selectedStudent);
+    // console.log(event.target.name, event.target.value);
+    //  console.log("handleChange selectedStudent: ", selectedStudent);
 
     setStudentEdit({ ...studentEdit, [event.target.name]: event.target.value });
   };
@@ -105,7 +118,7 @@ const App = () => {
   };
 
   const onChangeDifficultyColor = (e) => {
-    console.log("difficulty Value", e);
+    // console.log("difficulty Value", e);
     dispatch(setDifficultyColor(e));
     editSelectedStudent({
       ...selectedStudent,
@@ -126,7 +139,7 @@ const App = () => {
   };
 
   const onCloseDifficultyColor = (x) => {
-    console.log("close Difficulty Color", x);
+    // console.log("close Difficulty Color", x);
     dispatch(toggleDifficultyColorPicker());
   };
 

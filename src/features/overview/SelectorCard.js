@@ -32,13 +32,13 @@ export const SelectorCard = (props) => {
   } = props;
   const dispatch = useDispatch();
 
-  console.log(
-    isFunBoxChecked,
-    isDifficultyBoxChecked,
-    isAllBoxChecked,
-    editStudentCardDisplay,
-    selectedStudentsList
-  );
+  // console.log(
+  //   isFunBoxChecked,
+  //   isDifficultyBoxChecked,
+  //   isAllBoxChecked,
+  //   editStudentCardDisplay,
+  //   selectedStudentsList
+  // );
 
   console.log(
     "students: ",
@@ -46,12 +46,6 @@ export const SelectorCard = (props) => {
     "geselecteerd: ",
     selectedStudentsList.length
   );
-
-  if (students.length === selectedStudentsList.length) {
-    dispatch(toggleAllStudentsChecked(true));
-  } else {
-    dispatch(toggleAllStudentsChecked(false));
-  }
 
   const handleFunCheckboxChange = () => {
     console.log("fun clicked");
@@ -95,9 +89,21 @@ export const SelectorCard = (props) => {
 
   const handleAllBoxChange = () => {
     console.log("handleAllBoxChange");
-
     dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
+
     if (selectedStudentsList.length === 0) {
+      console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
+      populateSelectedStudentList();
+    } else if (selectedStudentsList.length === students.length) {
+      console.log(
+        "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit",
+        selectedStudentsList
+      );
+      selectedStudentsList.map((student) =>
+        dispatch(setSelectedStudentsList({ id: student.id }))
+      );
+    } else {
+      console.log("hier moeten alle gedeselecteerden geselecteerd worden");
       populateSelectedStudentList();
     }
   };
