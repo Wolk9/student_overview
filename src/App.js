@@ -69,7 +69,7 @@ const App = () => {
     } else {
       dispatch(toggleAllStudentsChecked(false));
     }
-  }, [selectedStudentsList, isAllBoxChecked]);
+  }, [selectedStudentsList]);
 
   // console.log("studentEdit:", studentEdit);
 

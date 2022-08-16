@@ -22,11 +22,13 @@ export const SelectorCard = (props) => {
     isDifficultyBoxChecked,
     isAllBoxChecked,
     selectedStudentsList,
+    flushSelectedStudentsList,
     handleEditClick,
     editStudentCardDisplay,
     toggleDifficultyCheckBox,
     toggleFunCheckBox,
-    setSelectedStudentsList,
+    addToSelectedStudentsList,
+    removeFromSelectedStudentsList,
     toggleAllStudentsChecked,
     setStudentEdit,
   } = props;
@@ -69,16 +71,21 @@ export const SelectorCard = (props) => {
 
   const populateSelectedStudentList = () => {
     students.map((student) =>
-      dispatch(setSelectedStudentsList({ id: student.id }))
+      dispatch(addToSelectedStudentsList({ id: student.id }))
     );
+  };
+
+  const depolulateSelectedStudentList = () => {
+    students.map((student) => dispatch(flushSelectedStudentsList()));
   };
 
   const handleSelectedStudentsChange = (e) => {
     console.log("Selected Students Changed", e);
+    console.log(isStudentChecked({ id: e.id }));
     const selectedStudent = students.find((s) => s.id === e.id);
     //setStudentEdit(selectedStudent);
 
-    dispatch(setSelectedStudentsList(selectedStudent));
+    dispatch(addToSelectedStudentsList(selectedStudent));
   };
 
   const isStudentChecked = (e) => {
@@ -91,22 +98,14 @@ export const SelectorCard = (props) => {
     console.log("handleAllBoxChange");
     dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
 
-    if (selectedStudentsList.length === 0) {
+    if (selectedStudentsList.length !== students.length) {
       console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
       populateSelectedStudentList();
-    } else if (selectedStudentsList.length === students.length) {
-      console.log(
-        "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit",
-        selectedStudentsList
-      );
-      selectedStudentsList.forEach((e) => {
-        const selectedStudent = students.find((s) => s.id === e.id);
-        console.log(selectedStudent);
-        dispatch(setSelectedStudentsList(selectedStudent));
-      });
     } else {
-      console.log("hier moeten alle gedeselecteerden geselecteerd worden");
-      populateSelectedStudentList();
+      console.log(
+        "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit"
+      );
+      depolulateSelectedStudentList();
     }
   };
 

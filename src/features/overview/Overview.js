@@ -19,7 +19,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
-  setSelectedStudentsList,
+  addToSelectedStudentsList,
+  removeFromSelectedStudentsList,
+  flushSelectedStudentsList,
   toggleAllStudentsChecked,
 } from "../ui/uiSlice";
 import { HexColorPicker } from "react-colorful";
@@ -68,14 +70,14 @@ import { SelectorCard } from "./SelectorCard";
 
 //   const populateSelectedStudentList = () => {
 //     students.map((student) =>
-//       dispatch(setSelectedStudentsList({ id: student.id }))
+//       dispatch(addToSelectedStudentsList({ id: student.id }))
 //     );
 //   };
 
 //   const handleSelectedStudentsChange = (e) => {
 //     console.log("Selected Students Changed", e);
 //     const selectedStudent = students.find((s) => s.id === e.id);
-//     dispatch(setSelectedStudentsList(selectedStudent));
+//     dispatch(addToSelectedStudentsList(selectedStudent));
 //   };
 
 //   const isStudentChecked = (e) => {
@@ -369,7 +371,9 @@ export const Overview = ({
             editStudentCardDisplay={editStudentCardDisplay}
             toggleDifficultyCheckBox={toggleDifficultyCheckBox}
             toggleFunCheckBox={toggleFunCheckBox}
-            setSelectedStudentsList={setSelectedStudentsList}
+            addToSelectedStudentsList={addToSelectedStudentsList}
+            removeFromSelectedStudentsList={removeFromSelectedStudentsList}
+            flushSelectedStudentsList={flushSelectedStudentsList}
             toggleAllStudentsChecked={toggleAllStudentsChecked}
             setStudentEdit={setStudentEdit}
           />
