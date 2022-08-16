@@ -99,9 +99,11 @@ export const SelectorCard = (props) => {
         "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit",
         selectedStudentsList
       );
-      selectedStudentsList.map((student) =>
-        dispatch(setSelectedStudentsList({ id: student.id }))
-      );
+      selectedStudentsList.forEach((e) => {
+        const selectedStudent = students.find((s) => s.id === e.id);
+        console.log(selectedStudent);
+        dispatch(setSelectedStudentsList(selectedStudent));
+      });
     } else {
       console.log("hier moeten alle gedeselecteerden geselecteerd worden");
       populateSelectedStudentList();

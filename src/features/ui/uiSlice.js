@@ -89,9 +89,6 @@ const uiSlice = createSlice({
           index,
           "dus hij is al geselecteerd dus gooi uit de selectie"
         );
-        // const indexToDelete = state.selectedStudentsList.indexOf(
-        //   (e) => e.id === action.payload.id
-        // );
         state.selectedStudentsList.splice(index, 1);
       }
     },
