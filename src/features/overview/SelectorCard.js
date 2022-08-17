@@ -84,8 +84,11 @@ export const SelectorCard = (props) => {
     console.log(isStudentChecked({ id: e.id }));
     const selectedStudent = students.find((s) => s.id === e.id);
     //setStudentEdit(selectedStudent);
-
-    dispatch(addToSelectedStudentsList(selectedStudent));
+    if (isStudentChecked(selectedStudent)) {
+      dispatch(removeFromSelectedStudentsList(selectedStudent));
+    } else {
+      dispatch(addToSelectedStudentsList(selectedStudent));
+    }
   };
 
   const isStudentChecked = (e) => {

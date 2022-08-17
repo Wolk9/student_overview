@@ -185,6 +185,7 @@ const App = () => {
               onCloseDifficultyColor={onCloseDifficultyColor}
               onCloseFunColor={onCloseFunColor}
               setStudentEdit={setStudentEdit}
+              isAllBoxChecked={isAllBoxChecked}
             />
           }
         />
