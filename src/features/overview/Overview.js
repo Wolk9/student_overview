@@ -16,14 +16,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  toggleDifficultyCheckBox,
-  toggleFunCheckBox,
-  addToSelectedStudentsList,
-  removeFromSelectedStudentsList,
-  flushSelectedStudentsList,
-  toggleAllStudentsChecked,
-} from "../ui/uiSlice";
+import {} from "../ui/uiSlice";
 import { HexColorPicker } from "react-colorful";
 import { StudentCard } from "../students/StudentCard";
 import { SelectorCard } from "./SelectorCard";
@@ -245,19 +238,25 @@ export const Overview = ({
   onCloseDifficultyColor,
   onCloseFunColor,
   setStudentEdit,
+  isStudentChecked,
+  handleSelectedStudentsChange,
+  addToSelectedStudentsList,
+  removeFromSelectedStudentsList,
+  handleAllBoxChange,
+  depolulateSelectedStudentList,
+  populateSelectedStudentList,
+  handleDifficultyCheckBoxChange,
+  handleFunCheckboxChange,
+  isFunBoxChecked,
+  isDifficultyBoxChecked,
+  isAllBoxChecked,
+  selectedStudentsList,
+  editStudentCardDisplay,
+  toggleDifficultyCheckBox,
+  toggleFunCheckBox,
+  flushSelectedStudentsList,
+  toggleAllStudentsChecked,
 }) => {
-  const isFunBoxChecked = useSelector((state) => state.ui.isFunBoxChecked);
-  const isDifficultyBoxChecked = useSelector(
-    (state) => state.ui.isDifficultyBoxChecked
-  );
-  const isAllBoxChecked = useSelector((state) => state.ui.isAllBoxChecked);
-  const selectedStudentsList = useSelector(
-    (state) => state.ui.selectedStudentsList
-  );
-  const editStudentCardDisplay = useSelector(
-    (state) => state.ui.editStudentCardDisplay
-  );
-
   const options = {
     responsive: true,
     // plugins: {
@@ -327,12 +326,14 @@ export const Overview = ({
 
   return (
     <div>
-      <MDBContainer fluid className="p-4 m4">
-        <MDBRow>
-          <MDBCol size="8">
-            <MDBCard>
-              <MDBCardTitle>Overview</MDBCardTitle>
-              <MDBCardBody>
+      <div className="container-fluid p-4 m4">
+        <div className="row">
+          <div className="col">
+            <div className="card">
+              <div className="card-header">
+                <div className="card-title h5 p-3">Overview</div>
+              </div>
+              <div className="card-body">
                 {selectedStudentsList.length < 1 ? (
                   <MDBCardText>
                     Selecteer 1 of meerdere studenten uit de lijst hiernaast
@@ -340,8 +341,8 @@ export const Overview = ({
                 ) : (
                   <Bar data={data} />
                 )}
-              </MDBCardBody>
-            </MDBCard>
+              </div>
+            </div>
             {editStudentCardDisplay ? (
               <StudentCard
                 students={students}
@@ -359,15 +360,22 @@ export const Overview = ({
                 onChangeFunColor={onChangeFunColor}
                 onCloseDifficultyColor={onCloseDifficultyColor}
                 onCloseFunColor={onCloseFunColor}
+                isStudentChecked={isStudentChecked}
+                handleAllBoxChange={handleAllBoxChange}
+                depolulateSelectedStudentList={depolulateSelectedStudentList}
+                populateSelectedStudentList={populateSelectedStudentList}
+                handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
+                handleFunCheckboxChange={handleFunCheckboxChange}
               />
             ) : (
               <></>
             )}
-          </MDBCol>
+          </div>
           <SelectorCard
             students={students}
             isFunBoxChecked={isFunBoxChecked}
             isDifficultyBoxChecked={isDifficultyBoxChecked}
+            isStudentChecked={isStudentChecked}
             selectedStudentsList={selectedStudentsList}
             isAllBoxChecked={isAllBoxChecked}
             handleEditClick={handleEditClick}
@@ -379,9 +387,15 @@ export const Overview = ({
             flushSelectedStudentsList={flushSelectedStudentsList}
             toggleAllStudentsChecked={toggleAllStudentsChecked}
             setIndexOfStudentToEdit={setIndexOfStudentToEdit}
+            handleSelectedStudentsChange={handleSelectedStudentsChange}
+            handleAllBoxChange={handleAllBoxChange}
+            depolulateSelectedStudentList={depolulateSelectedStudentList}
+            populateSelectedStudentList={populateSelectedStudentList}
+            handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
+            handleFunCheckboxChange={handleFunCheckboxChange}
           />
-        </MDBRow>
-      </MDBContainer>
+        </div>
+      </div>
     </div>
   );
 };

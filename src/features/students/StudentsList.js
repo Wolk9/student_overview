@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
   toggleAddStudentModal,
-  toggleEditStudentCard,
+  openEditStudentCard,
   setSelectedStudent,
 } from "../ui/uiSlice";
 import AddStudentModal from "./AddStudentModal";

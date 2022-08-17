@@ -35,8 +35,9 @@ const uiSlice = createSlice({
     toggleAddStudentModal(state, action) {
       state.addStudentModalOpen = !state.addStudentModalOpen;
     },
-    toggleEditStudentCard(state, action) {
-      state.editStudentCardDisplay = !state.editStudentCardDisplay;
+    openEditStudentCard(state, action) {
+      console.log("editStudentCard", action.payload);
+      state.editStudentCardDisplay = action.payload;
     },
     setSelectedStudent(state, action) {
       state.selectedStudent = action.payload;
@@ -107,7 +108,7 @@ const uiSlice = createSlice({
 
 export const {
   toggleAddStudentModal,
-  toggleEditStudentCard,
+  openEditStudentCard,
   setSelectedStudent,
   editSelectedStudent,
   toggleFunColorPicker,

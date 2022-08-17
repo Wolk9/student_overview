@@ -1,19 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  MDBContainer,
-  MDBCard,
-  MDBCardTitle,
-  MDBCardBody,
-  MDBCardHeader,
-  MDBCardFooter,
-  MDBCol,
-  MDBRow,
-  MDBCheckbox,
-  MDBCardText,
-  MDBInput,
-  MDBBtn,
-} from "mdb-react-ui-kit";
+import { MDBCheckbox } from "mdb-react-ui-kit";
 
 export const SelectorCard = (props) => {
   const {
@@ -31,6 +18,13 @@ export const SelectorCard = (props) => {
     removeFromSelectedStudentsList,
     toggleAllStudentsChecked,
     setIndexOfStudentToEdit,
+    handleSelectedStudentsChange,
+    isStudentChecked,
+    handleAllBoxChange,
+    depolulateSelectedStudentList,
+    populateSelectedStudentList,
+    handleDifficultyCheckBoxChange,
+    handleFunCheckboxChange,
   } = props;
   const dispatch = useDispatch();
 
@@ -49,76 +43,13 @@ export const SelectorCard = (props) => {
   //   selectedStudentsList.length
   // );
 
-  const handleFunCheckboxChange = () => {
-    // console.log("fun clicked");
-    if (isDifficultyBoxChecked === true) {
-      dispatch(toggleFunCheckBox());
-    } else {
-      dispatch(toggleFunCheckBox());
-      dispatch(toggleDifficultyCheckBox());
-    }
-  };
-
-  const handleDifficultyCheckBoxChange = () => {
-    console.log("difficulty clicked");
-    if (isFunBoxChecked === true) {
-      dispatch(toggleDifficultyCheckBox());
-    } else {
-      dispatch(toggleDifficultyCheckBox());
-      dispatch(toggleFunCheckBox());
-    }
-  };
-
-  const populateSelectedStudentList = () => {
-    students.map((student) =>
-      dispatch(addToSelectedStudentsList({ id: student.id }))
-    );
-  };
-
-  const depolulateSelectedStudentList = () => {
-    students.map((student) => dispatch(flushSelectedStudentsList()));
-  };
-
-  const handleSelectedStudentsChange = (e) => {
-    // console.log("Selected Students Changed", e);
-    // console.log(isStudentChecked({ id: e.id }));
-    const selectedStudent = students.find((s) => s.id === e.id);
-    //setStudentEdit(selectedStudent);
-    if (isStudentChecked(selectedStudent)) {
-      dispatch(removeFromSelectedStudentsList(selectedStudent));
-    } else {
-      dispatch(addToSelectedStudentsList(selectedStudent));
-    }
-  };
-
-  const isStudentChecked = (e) => {
-    const checked = selectedStudentsList.some((s) => s === e.id);
-    // console.log(e, checked);
-    return checked;
-  };
-
-  const handleAllBoxChange = () => {
-    // console.log("handleAllBoxChange");
-    dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
-
-    if (selectedStudentsList.length !== students.length) {
-      // console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
-      populateSelectedStudentList();
-    } else {
-      // console.log(
-      //   "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit"
-      // );
-      depolulateSelectedStudentList();
-    }
-  };
-
   return (
-    <MDBCol size="4">
-      <MDBCard>
-        <MDBCardHeader>
-          <MDBCardTitle>Students</MDBCardTitle>
-        </MDBCardHeader>
-        <MDBCardBody>
+    <div className="col-4">
+      <div className="card">
+        <div className="card-header">
+          <div className="card-title h5 p-3">Students</div>
+        </div>
+        <div className="card-body">
           <div style={{ backgroundColor: "#fafafa", borderRadius: "10px" }}>
             <div className="d-flex align-content-end ">
               <div className="p-2 d-inline-flex w-100"></div>
@@ -189,13 +120,20 @@ export const SelectorCard = (props) => {
                       }
                     />
                   </div>
-                  <div
-                    key={student.id}
-                    id={student.id}
-                    className="d-flex w-100 text-nowrap studentName"
-                    onClick={() => handleEditClick({ id: student.id })}>
+                  <div className="d-flex w-100 text-nowrap studentName">
                     {student.firstName + " " + student.lastName}
                   </div>
+                  {selectedStudentsList.length == 1 ? (
+                    <div
+                      className="d-flex align-content-end"
+                      key={student.id}
+                      id={student.id}
+                      onClick={() => handleEditClick({ id: student.id })}>
+                      <i className="fa fa-edit"></i>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
 
                 <div
@@ -222,12 +160,12 @@ export const SelectorCard = (props) => {
                     style={{ backgroundColor: student.colorFun }}
                   />
                 </div>
-                <MDBCol></MDBCol>
+                <div className="col"></div>
               </div>
             ))}
           </div>
-        </MDBCardBody>
-      </MDBCard>
-    </MDBCol>
+        </div>
+      </div>
+    </div>
   );
 };
