@@ -63,6 +63,11 @@ const App = () => {
     colorFun: "",
   });
 
+  const [indexOfStudentToEdit, setIndexOfStudentToEdit] = useState();
+
+  console.log(indexOfStudentToEdit);
+  console.log(students[indexOfStudentToEdit]);
+
   useEffect(() => {
     if (students.length === selectedStudentsList.length) {
       dispatch(toggleAllStudentsChecked(true));
@@ -71,18 +76,27 @@ const App = () => {
     }
   }, [selectedStudentsList]);
 
-  // console.log("studentEdit:", studentEdit);
-
   const handleEditClick = (e) => {
-    // console.log(e);
+    // als er op de naam van de student geklikt wordt wordt dit uitgevoerd
     console.log("Click on StudentEdit " + e.id + " happend");
     if (showeditCard === true) {
+      // als er op de naam geklikt wordt terwijl de kaart open is sluit hij de kaart hier eerst
       dispatch(toggleEditStudentCard());
     }
+    // open de studentCard
     dispatch(toggleEditStudentCard());
+    // selecteer de te bewerken student uit students aan de hand van het e.id in een array
     const pickedStudent = students.filter((student) => student.id === e.id);
+    const indexOfStudentToEdit = students.findIndex(
+      (selected) => selected.id === e.id
+    );
+
+    console.log(indexOfStudentToEdit);
+
+    setIndexOfStudentToEdit(indexOfStudentToEdit);
     // console.log("pickedStudent", pickedStudent[0]);
-    setStudentEdit(pickedStudent[0]);
+    // zet de te bewerken gegevens in studentEdit. Dit is item 1 uit het array dus index 0
+    //setStudentEdit(pickedStudent[0]);
     //dispatch(setSelectedStudent(pickedStudent[0]));
   };
 
@@ -101,10 +115,22 @@ const App = () => {
   };
 
   const handleChange = (event) => {
-    // console.log(event.target.name, event.target.value);
-    //  console.log("handleChange selectedStudent: ", selectedStudent);
+    console.log(event.target.name, event.target.value);
+    console.log(
+      "handleChange selectedStudent: ",
+      students[indexOfStudentToEdit]
+    );
 
-    setStudentEdit({ ...studentEdit, [event.target.name]: event.target.value });
+    //setStudentEdit({ ...studentEdit, [event.target.name]: event.target.value });
+    // dispatch(
+    //   editStudent({ ...students, [event.target.name]: event.target.value })
+    // );
+    dispatch(
+      editStudent({
+        ...students[indexOfStudentToEdit],
+        [event.target.name]: event.target.value,
+      })
+    );
   };
 
   const onClickDifficultySwatch = () => {
@@ -118,23 +144,27 @@ const App = () => {
   };
 
   const onChangeDifficultyColor = (e) => {
-    // console.log("difficulty Value", e);
+    console.log("difficulty Value", e);
     dispatch(setDifficultyColor(e));
-    editSelectedStudent({
-      ...selectedStudent,
-      colorDifficulty: e,
-    });
-    setStudentEdit({ ...studentEdit, colorDifficulty: e });
+    // editSelectedStudent({
+    //   ...selectedStudent,
+    //   colorDifficulty: e,
+    // });
+    // setStudentEdit({ ...studentEdit, colorDifficulty: e });
+    dispatch(
+      editStudent({ ...students[indexOfStudentToEdit], colorDifficulty: e })
+    );
     //dispatch(toggleDifficultyColorPicker());
   };
   const onChangeFunColor = (e) => {
     console.log("fun Value", e);
     dispatch(setFunColor(e));
-    editSelectedStudent({
-      ...selectedStudent,
-      colorFun: e,
-    });
-    setStudentEdit({ ...studentEdit, colorFun: e });
+    // editSelectedStudent({
+    //   ...selectedStudent,
+    //   colorFun: e,
+    // });
+    // setStudentEdit({ ...studentEdit, colorFun: e });
+    dispatch(editStudent({ ...students[indexOfStudentToEdit], colorFun: e }));
     //dispatch(toggleFunColorPicker());
   };
 
@@ -171,7 +201,8 @@ const App = () => {
               students={students}
               assignments={assignments}
               handleEditClick={handleEditClick}
-              studentEdit={studentEdit}
+              indexOfStudentToEdit={indexOfStudentToEdit}
+              setIndexOfStudentToEdit={setIndexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
               isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}

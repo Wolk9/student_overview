@@ -63,11 +63,11 @@ const uiSlice = createSlice({
       state.isFunBoxChecked = !state.isFunBoxChecked;
     },
     addToSelectedStudentsList(state, action) {
-      console.log(action.payload);
+      // console.log(action.payload);
       const index = state.selectedStudentsList.findIndex(
         (s) => s === action.payload.id
       );
-      console.log(index);
+      // console.log(index);
 
       if (index === -1) {
         //als index = -1 is er geen index en dus de student staat nog niet in de lijst
@@ -92,14 +92,14 @@ const uiSlice = createSlice({
       state.selectedStudentsList = [];
     },
     toggleAllStudentsChecked(state, action) {
-      console.log("reducer toggleAllStudentsChecked fired", action.payload);
-      console.log(state.selectedStudentsList.length);
+      // console.log("reducer toggleAllStudentsChecked fired", action.payload);
+      // console.log(state.selectedStudentsList.length);
 
       state.isAllBoxChecked = action.payload;
       if (state.isAllBoxChecked) {
-        console.log("all box checked");
+        // console.log("all box checked");
       } else {
-        console.log("all box unchecked");
+        // console.log("all box unchecked");
       }
     },
   },

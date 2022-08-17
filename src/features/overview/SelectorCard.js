@@ -30,7 +30,7 @@ export const SelectorCard = (props) => {
     addToSelectedStudentsList,
     removeFromSelectedStudentsList,
     toggleAllStudentsChecked,
-    setStudentEdit,
+    setIndexOfStudentToEdit,
   } = props;
   const dispatch = useDispatch();
 
@@ -42,15 +42,15 @@ export const SelectorCard = (props) => {
   //   selectedStudentsList
   // );
 
-  console.log(
-    "students: ",
-    students.length,
-    "geselecteerd: ",
-    selectedStudentsList.length
-  );
+  // console.log(
+  //   "students: ",
+  //   students.length,
+  //   "geselecteerd: ",
+  //   selectedStudentsList.length
+  // );
 
   const handleFunCheckboxChange = () => {
-    console.log("fun clicked");
+    // console.log("fun clicked");
     if (isDifficultyBoxChecked === true) {
       dispatch(toggleFunCheckBox());
     } else {
@@ -80,8 +80,8 @@ export const SelectorCard = (props) => {
   };
 
   const handleSelectedStudentsChange = (e) => {
-    console.log("Selected Students Changed", e);
-    console.log(isStudentChecked({ id: e.id }));
+    // console.log("Selected Students Changed", e);
+    // console.log(isStudentChecked({ id: e.id }));
     const selectedStudent = students.find((s) => s.id === e.id);
     //setStudentEdit(selectedStudent);
     if (isStudentChecked(selectedStudent)) {
@@ -98,16 +98,16 @@ export const SelectorCard = (props) => {
   };
 
   const handleAllBoxChange = () => {
-    console.log("handleAllBoxChange");
+    // console.log("handleAllBoxChange");
     dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
 
     if (selectedStudentsList.length !== students.length) {
-      console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
+      // console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
       populateSelectedStudentList();
     } else {
-      console.log(
-        "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit"
-      );
+      // console.log(
+      //   "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit"
+      // );
       depolulateSelectedStudentList();
     }
   };

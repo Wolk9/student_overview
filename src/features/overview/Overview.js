@@ -230,7 +230,8 @@ export const Overview = ({
   students,
   assignments,
   handleEditClick,
-  studentEdit,
+  indexOfStudentToEdit,
+  setIndexOfStudentToEdit,
   onSubmit,
   handleChange,
   isDifficultyColorPickerOpen,
@@ -343,7 +344,9 @@ export const Overview = ({
             </MDBCard>
             {editStudentCardDisplay ? (
               <StudentCard
-                studentEdit={studentEdit}
+                students={students}
+                indexOfStudentToEdit={indexOfStudentToEdit}
+                setIndexOfStudentToEdit={setIndexOfStudentToEdit}
                 onSubmit={onSubmit}
                 handleChange={handleChange}
                 isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
@@ -375,7 +378,7 @@ export const Overview = ({
             removeFromSelectedStudentsList={removeFromSelectedStudentsList}
             flushSelectedStudentsList={flushSelectedStudentsList}
             toggleAllStudentsChecked={toggleAllStudentsChecked}
-            setStudentEdit={setStudentEdit}
+            setIndexOfStudentToEdit={setIndexOfStudentToEdit}
           />
         </MDBRow>
       </MDBContainer>
