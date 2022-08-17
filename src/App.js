@@ -36,7 +36,9 @@ const App = () => {
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
   const showaddmodal = useSelector((state) => state.ui.addStudentModalOpen);
-  const showEditCard = useSelector((state) => state.ui.editStudentCardDisplay);
+  const editStudentCardDisplay = useSelector(
+    (state) => state.ui.editStudentCardDisplay
+  );
   const isAllBoxChecked = useSelector((state) => state.ui.isAllBoxChecked);
   const selectedStudent = useSelector((state) => state.ui.selectedStudent);
   const selectedStudentsList = useSelector(
@@ -58,13 +60,10 @@ const App = () => {
   const isDifficultyBoxChecked = useSelector(
     (state) => state.ui.isDifficultyBoxChecked
   );
-  const editStudentCardDisplay = useSelector(
-    (state) => state.ui.editStudentCardDisplay
-  );
 
   const [indexOfStudentToEdit, setIndexOfStudentToEdit] = useState();
 
-  console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
+  // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
   useEffect(() => {
     if (students.length === selectedStudentsList.length) {
@@ -77,34 +76,53 @@ const App = () => {
   const handleEditClick = (e) => {
     // als er op de naam van de student geklikt wordt wordt dit uitgevoerd
     console.log("Click on StudentEdit " + e.id + " happend");
+    // hoeveel studenten zijn er geselecteerd?
+    const numberOfStudentsSelected = selectedStudentsList.length;
+    console.log(numberOfStudentsSelected);
 
-    // vergelijk de index van de geselecteerde student met een al bestaande index,
-    // en als deze niet hetzelfde is, zet deze dan in indexOfStudentToEdit
-
-    if (indexOfStudentToEdit === undefined) {
-      dispatch(openEditStudentCard(false));
+    if (numberOfStudentsSelected === 1) {
+      console.log("1 geselecteerd");
+    } else if (
+      numberOfStudentsSelected > 1 &&
+      numberOfStudentsSelected !== students.length
+    ) {
+      console.log("meer dan 1, maar niet allemaal");
+    } else if (numberOfStudentsSelected === students.length) {
+      console.log("allemaal");
+    } else {
+      console.log("geen studenten geselecteerd");
     }
 
+    // open de editCard
+    dispatch(openEditStudentCard(true));
+
+    // vind de index van de geklikte student
     const indexOfStudentToEdit = students.findIndex(
       (selected) => selected.id === e.id
     );
+    // zet de gevonden index in indexOfStudentToEdit
     setIndexOfStudentToEdit(indexOfStudentToEdit);
     console.log(indexOfStudentToEdit);
-    // if nog niet open, Open studentCard
 
-    console.log("showEditCard", showEditCard);
+    console.log("editStudentCardDisplay", editStudentCardDisplay);
+
     // maak de lijst met geselecteerde studenten leeg
-    depolulateSelectedStudentList();
+    // depolulateSelectedStudentList();
     // vink de betreffende checkbox en show daarmee tevens de grafiek
 
     handleSelectedStudentsChange(e);
-    // } else {
-    //   console.log("index bestond al", indexOfStudentToEdit);
-    //   dispatch(openEditStudentCard());
+  };
 
-    //   handleSelectedStudentsChange(e);
-    //   setIndexOfStudentToEdit();
-    // }
+  const handleSelectedStudentsChange = (e) => {
+    console.log("Selected Students Changed", e);
+    console.log("is student", e.id, "checked", isStudentChecked({ id: e.id }));
+    const selectedStudent = students.find((s) => s.id === e.id);
+    //setStudentEdit(selectedStudent);
+    if (isStudentChecked(selectedStudent)) {
+      //dispatch(removeFromSelectedStudentsList(selectedStudent));
+    } else {
+      dispatch(addToSelectedStudentsList(selectedStudent));
+    }
   };
 
   const onSubmit = (event) => {
@@ -168,18 +186,6 @@ const App = () => {
     const checked = selectedStudentsList.some((s) => s === e.id);
     // console.log(e, checked);
     return checked;
-  };
-
-  const handleSelectedStudentsChange = (e) => {
-    console.log("Selected Students Changed", e);
-    console.log(isStudentChecked({ id: e.id }));
-    const selectedStudent = students.find((s) => s.id === e.id);
-    //setStudentEdit(selectedStudent);
-    if (isStudentChecked(selectedStudent)) {
-      dispatch(removeFromSelectedStudentsList(selectedStudent));
-    } else {
-      dispatch(addToSelectedStudentsList(selectedStudent));
-    }
   };
 
   const handleFunCheckboxChange = () => {
@@ -289,7 +295,7 @@ const App = () => {
               students={students}
               indexOfStudentToEdit={indexOfStudentToEdit}
               showaddmodal={showaddmodal}
-              showEditCard={showEditCard}
+              editStudentCardDisplay={editStudentCardDisplay}
               handleEditClick={handleEditClick}
               onSubmit={onSubmit}
               handleChange={handleChange}
