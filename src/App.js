@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import StudentsList from "./features/students/StudentsList";
@@ -31,6 +31,7 @@ import {
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const students = useSelector((state) => state.students);
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
@@ -311,8 +312,48 @@ const App = () => {
               selectedStudentsList={selectedStudentsList}
               editStudentCardDisplay={editStudentCardDisplay}
             />
-          }
-        />
+          }>
+          <Route
+            path=":studentNames.fullName"
+            element={
+              <Overview
+                studentNames={studentNames}
+                courses={courses}
+                students={students}
+                assignments={assignments}
+                handleEditClick={handleEditClick}
+                indexOfStudentToEdit={studentNames.id}
+                setIndexOfStudentToEdit={setIndexOfStudentToEdit}
+                onSubmit={onSubmit}
+                handleChange={handleChange}
+                isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+                isFunColorPickerOpen={isFunColorPickerOpen}
+                colorDifficulty={colorDifficulty}
+                colorFun={colorFun}
+                onClickDifficultySwatch={onClickDifficultySwatch}
+                onClickFunSwatch={onClickFunSwatch}
+                onChangeDifficultyColor={onChangeDifficultyColor}
+                onChangeFunColor={onChangeFunColor}
+                onCloseDifficultyColor={onCloseDifficultyColor}
+                onCloseFunColor={onCloseFunColor}
+                isAllBoxChecked={isAllBoxChecked}
+                isStudentChecked={isStudentChecked}
+                handleSelectedStudentsChange={handleSelectedStudentsChange}
+                addToSelectedStudentsList={addToSelectedStudentsList}
+                removeFromSelectedStudentsList={removeFromSelectedStudentsList}
+                handleAllBoxChange={handleAllBoxChange}
+                depolulateSelectedStudentList={depolulateSelectedStudentList}
+                populateSelectedStudentList={populateSelectedStudentList}
+                handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
+                handleFunCheckboxChange={handleFunCheckboxChange}
+                isFunBoxChecked={isFunBoxChecked}
+                isDifficultyBoxChecked={isDifficultyBoxChecked}
+                selectedStudentsList={selectedStudentsList}
+                editStudentCardDisplay={editStudentCardDisplay}
+              />
+            }
+          />
+        </Route>
         <Route
           path="/students"
           element={
@@ -342,54 +383,8 @@ const App = () => {
               selectedStudent={selectedStudent}
               courses={courses}
             />
-          }>
-          {students.forEach((studentNames) => (
-            <Route
-              path={studentNames.fullName}
-              element={
-                <Overview
-                  studentNames={studentNames}
-                  courses={courses}
-                  students={students}
-                  assignments={assignments}
-                  handleEditClick={handleEditClick}
-                  indexOfStudentToEdit={indexOfStudentToEdit}
-                  setIndexOfStudentToEdit={setIndexOfStudentToEdit}
-                  onSubmit={onSubmit}
-                  handleChange={handleChange}
-                  isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
-                  isFunColorPickerOpen={isFunColorPickerOpen}
-                  colorDifficulty={colorDifficulty}
-                  colorFun={colorFun}
-                  onClickDifficultySwatch={onClickDifficultySwatch}
-                  onClickFunSwatch={onClickFunSwatch}
-                  onChangeDifficultyColor={onChangeDifficultyColor}
-                  onChangeFunColor={onChangeFunColor}
-                  onCloseDifficultyColor={onCloseDifficultyColor}
-                  onCloseFunColor={onCloseFunColor}
-                  isAllBoxChecked={isAllBoxChecked}
-                  isStudentChecked={isStudentChecked}
-                  handleSelectedStudentsChange={handleSelectedStudentsChange}
-                  addToSelectedStudentsList={addToSelectedStudentsList}
-                  removeFromSelectedStudentsList={
-                    removeFromSelectedStudentsList
-                  }
-                  handleAllBoxChange={handleAllBoxChange}
-                  depolulateSelectedStudentList={depolulateSelectedStudentList}
-                  populateSelectedStudentList={populateSelectedStudentList}
-                  handleDifficultyCheckBoxChange={
-                    handleDifficultyCheckBoxChange
-                  }
-                  handleFunCheckboxChange={handleFunCheckboxChange}
-                  isFunBoxChecked={isFunBoxChecked}
-                  isDifficultyBoxChecked={isDifficultyBoxChecked}
-                  selectedStudentsList={selectedStudentsList}
-                  editStudentCardDisplay={editStudentCardDisplay}
-                />
-              }
-            />
-          ))}
-        </Route>
+          }
+        />
       </Routes>
     </div>
   );
