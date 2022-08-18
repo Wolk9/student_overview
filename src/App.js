@@ -8,7 +8,6 @@ import AssignmentsList from "./features/assignments/AssignmentsList";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleAllStudentsChecked,
-  toggleAddStudentModal,
   openEditStudentCard,
   addToSelectedStudentsList,
   removeFromSelectedStudentsList,
@@ -71,7 +70,12 @@ const App = () => {
     } else {
       dispatch(toggleAllStudentsChecked(false));
     }
-  }, [selectedStudentsList]);
+    if (selectedStudentsList.length === 1) {
+      dispatch(openEditStudentCard(true));
+    } else if (selectedStudentsList !== 1) {
+      dispatch(openEditStudentCard(false));
+    }
+  }, [selectedStudentsList, students, dispatch]);
 
   const handleEditClick = (e) => {
     // als er op de naam van de student geklikt wordt wordt dit uitgevoerd
@@ -79,19 +83,6 @@ const App = () => {
     // hoeveel studenten zijn er geselecteerd?
     const numberOfStudentsSelected = selectedStudentsList.length;
     console.log(numberOfStudentsSelected);
-
-    if (numberOfStudentsSelected === 1) {
-      console.log("1 geselecteerd");
-    } else if (
-      numberOfStudentsSelected > 1 &&
-      numberOfStudentsSelected !== students.length
-    ) {
-      console.log("meer dan 1, maar niet allemaal");
-    } else if (numberOfStudentsSelected === students.length) {
-      console.log("allemaal");
-    } else {
-      console.log("geen studenten geselecteerd");
-    }
 
     // open de editCard
     dispatch(openEditStudentCard(true));
@@ -114,14 +105,49 @@ const App = () => {
   };
 
   const handleSelectedStudentsChange = (e) => {
-    console.log("Selected Students Changed", e);
-    console.log("is student", e.id, "checked", isStudentChecked({ id: e.id }));
-    const selectedStudent = students.find((s) => s.id === e.id);
-    //setStudentEdit(selectedStudent);
-    if (isStudentChecked(selectedStudent)) {
-      //dispatch(removeFromSelectedStudentsList(selectedStudent));
-    } else {
+    // console.log("Selected Students Changed", e);
+    // console.log("is student", e.id, "checked", isStudentChecked({ id: e.id }));
+    // console.log(
+    //   "start handleSelectedStudentsChange aantal:",
+    //   selectedStudentsList.length
+    // );
+
+    if (selectedStudentsList.length === 1) {
+      // console.log("handleSelectedStudentChange: 1 geselecteerd");
+      const selectedStudent = students.find((s) => s.id === e.id);
+
+      if (isStudentChecked(selectedStudent)) {
+        dispatch(removeFromSelectedStudentsList(selectedStudent));
+      } else {
+        dispatch(addToSelectedStudentsList(selectedStudent));
+        const indexOfStudentToEdit = students.findIndex(
+          (selected) => selected.id === e.id
+        );
+        setIndexOfStudentToEdit(indexOfStudentToEdit);
+      }
+    } else if (
+      selectedStudentsList.length > 1 &&
+      selectedStudentsList.length !== students.length
+    ) {
+      // console.log("handleSelectedStudentChange: > 1 maar niet allemaal");
+      const selectedStudent = students.find((s) => s.id === e.id);
+      if (isStudentChecked(selectedStudent)) {
+        dispatch(removeFromSelectedStudentsList(selectedStudent));
+      } else if (!isStudentChecked(selectedStudent)) {
+        dispatch(addToSelectedStudentsList(selectedStudent));
+      }
+    } else if (selectedStudentsList.length === students.length) {
+      // console.log("handleSelectedStudentChange: allemaal");
+    } else if (selectedStudentsList.length === 0) {
+      // console.log("handleSelectedStudentChange: geen studenten geselecteerd");
+      const selectedStudent = students.find((s) => s.id === e.id);
+      // console.log(selectedStudent);
       dispatch(addToSelectedStudentsList(selectedStudent));
+
+      const indexOfStudentToEdit = students.findIndex(
+        (selected) => selected.id === e.id
+      );
+      setIndexOfStudentToEdit(indexOfStudentToEdit);
     }
   };
 
@@ -199,7 +225,7 @@ const App = () => {
   };
 
   const handleDifficultyCheckBoxChange = () => {
-    console.log("difficulty clicked");
+    // console.log("difficulty clicked");
     if (isFunBoxChecked === true) {
       dispatch(toggleDifficultyCheckBox());
     } else {
@@ -282,7 +308,6 @@ const App = () => {
               handleFunCheckboxChange={handleFunCheckboxChange}
               isFunBoxChecked={isFunBoxChecked}
               isDifficultyBoxChecked={isDifficultyBoxChecked}
-              isAllBoxChecked={isAllBoxChecked}
               selectedStudentsList={selectedStudentsList}
               editStudentCardDisplay={editStudentCardDisplay}
             />
@@ -318,17 +343,48 @@ const App = () => {
               courses={courses}
             />
           }>
-          {students.forEach((student) => (
+          {students.forEach((studentNames) => (
             <Route
-              path="/assignments/:`$student.firstName + '_' +  $student.lastName`"
+              path={studentNames.fullName}
               element={
                 <Overview
-                  key={student.id}
-                  assignments={assignments}
-                  students={students}
                   studentNames={studentNames}
                   courses={courses}
-                  showaddmodal={showaddmodal}
+                  students={students}
+                  assignments={assignments}
+                  handleEditClick={handleEditClick}
+                  indexOfStudentToEdit={indexOfStudentToEdit}
+                  setIndexOfStudentToEdit={setIndexOfStudentToEdit}
+                  onSubmit={onSubmit}
+                  handleChange={handleChange}
+                  isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+                  isFunColorPickerOpen={isFunColorPickerOpen}
+                  colorDifficulty={colorDifficulty}
+                  colorFun={colorFun}
+                  onClickDifficultySwatch={onClickDifficultySwatch}
+                  onClickFunSwatch={onClickFunSwatch}
+                  onChangeDifficultyColor={onChangeDifficultyColor}
+                  onChangeFunColor={onChangeFunColor}
+                  onCloseDifficultyColor={onCloseDifficultyColor}
+                  onCloseFunColor={onCloseFunColor}
+                  isAllBoxChecked={isAllBoxChecked}
+                  isStudentChecked={isStudentChecked}
+                  handleSelectedStudentsChange={handleSelectedStudentsChange}
+                  addToSelectedStudentsList={addToSelectedStudentsList}
+                  removeFromSelectedStudentsList={
+                    removeFromSelectedStudentsList
+                  }
+                  handleAllBoxChange={handleAllBoxChange}
+                  depolulateSelectedStudentList={depolulateSelectedStudentList}
+                  populateSelectedStudentList={populateSelectedStudentList}
+                  handleDifficultyCheckBoxChange={
+                    handleDifficultyCheckBoxChange
+                  }
+                  handleFunCheckboxChange={handleFunCheckboxChange}
+                  isFunBoxChecked={isFunBoxChecked}
+                  isDifficultyBoxChecked={isDifficultyBoxChecked}
+                  selectedStudentsList={selectedStudentsList}
+                  editStudentCardDisplay={editStudentCardDisplay}
                 />
               }
             />

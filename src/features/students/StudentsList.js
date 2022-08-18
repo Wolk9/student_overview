@@ -4,11 +4,7 @@ import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-  toggleAddStudentModal,
-  openEditStudentCard,
-  setSelectedStudent,
-} from "../ui/uiSlice";
+import { toggleAddStudentModal } from "../ui/uiSlice";
 import AddStudentModal from "./AddStudentModal";
 import EditStudentModal from "./EditStudentModal";
 import { mdiAccountPlus } from "@mdi/js";

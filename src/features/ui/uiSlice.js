@@ -1,11 +1,4 @@
-import { mdiConsoleNetworkOutline, mdiContentSaveAllOutline } from "@mdi/js";
-import { createEntityAdapter, createSlice, current } from "@reduxjs/toolkit";
-import dataService from "../../services/dataService";
-
-// const studentAdapter = createEntityAdapter({
-//   selectId: (student = student.id),
-//   sortComparer: (a, b) => a.lastName.localCompare(b.lastName),
-// });
+import { createSlice } from "@reduxjs/toolkit";
 
 const uiSlice = createSlice({
   name: "ui",
@@ -36,7 +29,6 @@ const uiSlice = createSlice({
       state.addStudentModalOpen = !state.addStudentModalOpen;
     },
     openEditStudentCard(state, action) {
-      console.log("editStudentCard", action.payload);
       state.editStudentCardDisplay = action.payload;
     },
     setSelectedStudent(state, action) {

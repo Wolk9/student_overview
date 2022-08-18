@@ -1,23 +1,8 @@
 import React from "react";
-import {
-  MDBContainer,
-  MDBCard,
-  MDBCardTitle,
-  MDBCardBody,
-  MDBCardHeader,
-  MDBCardFooter,
-  MDBCol,
-  MDBRow,
-  MDBCheckbox,
-  MDBCardText,
-  MDBInput,
-  MDBBtn,
-} from "mdb-react-ui-kit";
+import { MDBCardText } from "mdb-react-ui-kit";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
-import { useDispatch, useSelector } from "react-redux";
 import {} from "../ui/uiSlice";
-import { HexColorPicker } from "react-colorful";
 import { StudentCard } from "../students/StudentCard";
 import { SelectorCard } from "./SelectorCard";
 
@@ -218,7 +203,6 @@ import { SelectorCard } from "./SelectorCard";
 // };
 
 export const Overview = ({
-  studentNames,
   courses,
   students,
   assignments,
@@ -237,7 +221,6 @@ export const Overview = ({
   onChangeFunColor,
   onCloseDifficultyColor,
   onCloseFunColor,
-  setStudentEdit,
   isStudentChecked,
   handleSelectedStudentsChange,
   addToSelectedStudentsList,
@@ -339,7 +322,7 @@ export const Overview = ({
                     Selecteer 1 of meerdere studenten uit de lijst hiernaast
                   </MDBCardText>
                 ) : (
-                  <Bar data={data} />
+                  <Bar data={data} options={options} />
                 )}
               </div>
             </div>

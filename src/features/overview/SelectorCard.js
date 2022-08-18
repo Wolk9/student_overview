@@ -1,33 +1,17 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { MDBCheckbox } from "mdb-react-ui-kit";
 
-export const SelectorCard = (props) => {
-  const {
-    students,
-    isFunBoxChecked,
-    isDifficultyBoxChecked,
-    isAllBoxChecked,
-    selectedStudentsList,
-    flushSelectedStudentsList,
-    handleEditClick,
-    editStudentCardDisplay,
-    toggleDifficultyCheckBox,
-    toggleFunCheckBox,
-    addToSelectedStudentsList,
-    removeFromSelectedStudentsList,
-    toggleAllStudentsChecked,
-    setIndexOfStudentToEdit,
-    handleSelectedStudentsChange,
-    isStudentChecked,
-    handleAllBoxChange,
-    depolulateSelectedStudentList,
-    populateSelectedStudentList,
-    handleDifficultyCheckBoxChange,
-    handleFunCheckboxChange,
-  } = props;
-  const dispatch = useDispatch();
-
+export const SelectorCard = ({
+  students,
+  isFunBoxChecked,
+  isDifficultyBoxChecked,
+  isAllBoxChecked,
+  handleSelectedStudentsChange,
+  isStudentChecked,
+  handleAllBoxChange,
+  handleDifficultyCheckBoxChange,
+  handleFunCheckboxChange,
+}) => {
   // console.log(
   //   isFunBoxChecked,
   //   isDifficultyBoxChecked,
@@ -123,7 +107,7 @@ export const SelectorCard = (props) => {
                   <div className="d-flex w-100 text-nowrap studentName">
                     {student.firstName + " " + student.lastName}
                   </div>
-                  {selectedStudentsList.length == 1 ? (
+                  {/* {selectedStudentsList.length == 1 ? (
                     <div
                       className="d-flex align-content-end"
                       key={student.id}
@@ -133,7 +117,7 @@ export const SelectorCard = (props) => {
                     </div>
                   ) : (
                     <></>
-                  )}
+                  )} */}
                 </div>
 
                 <div

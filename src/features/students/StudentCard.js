@@ -1,44 +1,23 @@
 import React from "react";
-import { MDBContainer, MDBCol, MDBInput, MDBBtn } from "mdb-react-ui-kit";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { MDBCol, MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { HexColorPicker } from "react-colorful";
 
-const DifficultySwatch = (student) => {
-  return (
-    <>
-      {" "}
-      <div
-        className="swatch"
-        style={{
-          backgroundColor: student.colorDifficulty,
-        }}
-        // onClick={() => {
-        //   onClickDifficultySwatch();
-        // }}
-      />
-    </>
-  );
-};
-
-export const StudentCard = (props) => {
-  const {
-    students,
-    indexOfStudentToEdit,
-    setIndexOfStudentToEdit,
-    onSubmit,
-    handleChange,
-    isDifficultyColorPickerOpen,
-    isFunColorPickerOpen,
-    colorDifficulty,
-    colorFun,
-    onClickDifficultySwatch,
-    onClickFunSwatch,
-    onChangeDifficultyColor,
-    onChangeFunColor,
-    onCloseDifficultyColor,
-    onCloseFunColor,
-  } = props;
-
+export const StudentCard = ({
+  students,
+  indexOfStudentToEdit,
+  onSubmit,
+  handleChange,
+  isDifficultyColorPickerOpen,
+  isFunColorPickerOpen,
+  colorDifficulty,
+  colorFun,
+  onClickDifficultySwatch,
+  onClickFunSwatch,
+  onChangeDifficultyColor,
+  onChangeFunColor,
+  onCloseDifficultyColor,
+  onCloseFunColor,
+}) => {
   // console.log("StudentCard: ", students[indexOfStudentToEdit]);
   return (
     <>
@@ -159,28 +138,7 @@ export const StudentCard = (props) => {
               </MDBCol>
             </div>
           </div>
-          <div className="card-footer">
-            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button
-                className="btn btn-outline-primary"
-                data-mdb-ripple-color="dark"
-                type="button"
-                aria-label="Close"
-                name="close">
-                close
-              </button>
-
-              <button
-                className="btn btn-primary"
-                data-mdb-ripple-color="dark"
-                type="button"
-                aria-label="submit"
-                name="submit"
-                onClick={onSubmit}>
-                submit
-              </button>
-            </div>
-          </div>
+          <div className="card-footer"></div>
         </form>
       </div>
     </>
