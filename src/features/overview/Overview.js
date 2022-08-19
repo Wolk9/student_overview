@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBCardText } from "mdb-react-ui-kit";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import "chart.js/auto";
 import {} from "../ui/uiSlice";
 import { StudentCard } from "../students/StudentCard";
@@ -98,13 +98,13 @@ export const Overview = ({
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
-      data:
-        courses.map((c) =>
+      data: courses.map(
+        (c) =>
           assignments
             .filter((a) => a.assignment.course_id === c.id)
             .filter((x) => x.user_id === s)
-            .map((a) => a.assignment.fun)
-        ) / selectedStudentsList.length,
+            .map((a) => a.assignment.fun) / selectedStudentsList.length
+      ),
       backgroundColor: students
         .filter((x) => x.id === s)
         .map((x) => x.colorFun),
@@ -116,13 +116,13 @@ export const Overview = ({
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " difficulty Avarage"),
-      data:
-        courses.map((c) =>
+      data: courses.map(
+        (c) =>
           assignments
             .filter((a) => a.assignment.course_id === c.id)
             .filter((x) => x.user_id === s)
-            .map((a) => a.assignment.difficulty)
-        ) / selectedStudentsList.length,
+            .map((a) => a.assignment.difficulty) / selectedStudentsList.length
+      ),
       backgroundColor: students
         .filter((x) => x.id === s)
         .map((x) => x.colorDifficulty),
@@ -168,8 +168,10 @@ export const Overview = ({
                   <MDBCardText>
                     Selecteer 1 of meerdere studenten uit de lijst hiernaast
                   </MDBCardText>
-                ) : (
+                ) : !isAverageBoxChecked ? (
                   <Bar data={data} options={options} />
+                ) : (
+                  <Line data={data} options={options} />
                 )}
               </div>
             </div>
