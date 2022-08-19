@@ -94,16 +94,24 @@ export const Overview = ({
   });
 
   const funAvarage = selectedStudentsList.map((s) => {
+    // const fun = courses.map((c) =>
+    //   assignments
+    //     .filter((a) => a.assignment.course_id === c.id)
+    //     .filter((x) => x.user_id === s)
+    //     .map((a) => a.assignment.fun)
+    // );
+
+    // console.log(fun);
+
     return {
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
-      data: courses.map(
-        (c) =>
-          assignments
-            .filter((a) => a.assignment.course_id === c.id)
-            .filter((x) => x.user_id === s)
-            .map((a) => a.assignment.fun) / selectedStudentsList.length
+      data: courses.map((c) =>
+        assignments
+          .filter((a) => a.assignment.course_id === c.id)
+          .filter((x) => x.user_id === s)
+          .map((a) => a.assignment.fun)
       ),
       backgroundColor: students
         .filter((x) => x.id === s)
