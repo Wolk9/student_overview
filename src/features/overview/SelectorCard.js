@@ -6,9 +6,11 @@ export const SelectorCard = ({
   isFunBoxChecked,
   isDifficultyBoxChecked,
   isAllBoxChecked,
+  isAverageBoxChecked,
   handleSelectedStudentsChange,
   isStudentChecked,
   handleAllBoxChange,
+  handleAverageBoxChange,
   handleDifficultyCheckBoxChange,
   handleFunCheckboxChange,
 }) => {
@@ -58,6 +60,13 @@ export const SelectorCard = ({
                     onChange={() => handleAllBoxChange()}
                   />
                   <div className="d-flex w-100">all</div>
+                </div>
+                <div className="d-flex d-flex-shrink-0">
+                  <MDBCheckbox
+                    checked={isAverageBoxChecked}
+                    onChange={() => handleAverageBoxChange()}
+                  />
+                  <div className="d-flex w-100">Averages</div>
                 </div>
               </div>
               <div

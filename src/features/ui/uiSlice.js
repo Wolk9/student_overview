@@ -21,6 +21,7 @@ const uiSlice = createSlice({
     isFunBoxChecked: true,
     isDifficultyBoxChecked: true,
     isAllBoxChecked: false,
+    isAverageBoxChecked: false,
     colorFun: "#334455",
     colorDifficulty: "#554433",
   },
@@ -85,15 +86,10 @@ const uiSlice = createSlice({
       state.selectedStudentsList = [];
     },
     toggleAllStudentsChecked(state, action) {
-      // console.log("reducer toggleAllStudentsChecked fired", action.payload);
-      // console.log(state.selectedStudentsList.length);
-
       state.isAllBoxChecked = action.payload;
-      if (state.isAllBoxChecked) {
-        // console.log("all box checked");
-      } else {
-        // console.log("all box unchecked");
-      }
+    },
+    toggleAverageCheckBox(state, action) {
+      state.isAverageBoxChecked = action.payload;
     },
   },
 });
@@ -113,5 +109,6 @@ export const {
   removeFromSelectedStudentsList,
   flushSelectedStudentsList,
   toggleAllStudentsChecked,
+  toggleAverageCheckBox,
 } = uiSlice.actions;
 export default uiSlice.reducer;

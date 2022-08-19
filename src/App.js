@@ -17,6 +17,7 @@ import {
   setFunColor,
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
+  toggleAverageCheckBox,
   flushSelectedStudentsList,
 } from "../src/features/ui/uiSlice";
 import { editStudent } from "../src/features/students/studentSlice";
@@ -31,7 +32,6 @@ import {
 
 const App = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const students = useSelector((state) => state.students);
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
@@ -40,6 +40,9 @@ const App = () => {
     (state) => state.ui.editStudentCardDisplay
   );
   const isAllBoxChecked = useSelector((state) => state.ui.isAllBoxChecked);
+  const isAverageBoxChecked = useSelector(
+    (state) => state.ui.isAverageBoxChecked
+  );
   const selectedStudent = useSelector((state) => state.ui.selectedStudent);
   const selectedStudentsList = useSelector(
     (state) => state.ui.selectedStudentsList
@@ -260,6 +263,14 @@ const App = () => {
     }
   };
 
+  const handleAverageBoxChange = () => {
+    console.log(
+      "handleAverageBoxChange. Status isAverageBoxChecked =",
+      isAverageBoxChecked
+    );
+    dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
+  };
+  console.log("Status isAverageBoxChecked =", isAverageBoxChecked);
   return (
     <div className="App">
       <MDBNavbar expand="lg" dark bgColor="primary">
@@ -303,6 +314,7 @@ const App = () => {
               addToSelectedStudentsList={addToSelectedStudentsList}
               removeFromSelectedStudentsList={removeFromSelectedStudentsList}
               handleAllBoxChange={handleAllBoxChange}
+              handleAverageBoxChange={handleAverageBoxChange}
               depolulateSelectedStudentList={depolulateSelectedStudentList}
               populateSelectedStudentList={populateSelectedStudentList}
               handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
@@ -348,6 +360,7 @@ const App = () => {
                 handleFunCheckboxChange={handleFunCheckboxChange}
                 isFunBoxChecked={isFunBoxChecked}
                 isDifficultyBoxChecked={isDifficultyBoxChecked}
+                isAverageBoxChecked={isAverageBoxChecked}
                 selectedStudentsList={selectedStudentsList}
                 editStudentCardDisplay={editStudentCardDisplay}
               />
