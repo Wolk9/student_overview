@@ -309,6 +309,7 @@ const App = () => {
               onCloseDifficultyColor={onCloseDifficultyColor}
               onCloseFunColor={onCloseFunColor}
               isAllBoxChecked={isAllBoxChecked}
+              isAverageBoxChecked={isAverageBoxChecked}
               isStudentChecked={isStudentChecked}
               handleSelectedStudentsChange={handleSelectedStudentsChange}
               addToSelectedStudentsList={addToSelectedStudentsList}
