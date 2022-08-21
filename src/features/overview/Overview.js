@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBCardText } from "mdb-react-ui-kit";
-import { Bar, Line } from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 import "chart.js/auto";
 import {} from "../ui/uiSlice";
 import { StudentCard } from "../students/StudentCard";
@@ -61,6 +61,7 @@ export const Overview = ({
 
   const funData = selectedStudentsList.map((s) => {
     return {
+      type: "bar",
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " fun"),
@@ -78,6 +79,7 @@ export const Overview = ({
 
   const difficultyData = selectedStudentsList.map((s) => {
     return {
+      type: "bar",
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " difficulty"),
@@ -104,6 +106,7 @@ export const Overview = ({
     // console.log(fun);
 
     return {
+      type: "line",
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
@@ -121,6 +124,7 @@ export const Overview = ({
 
   const difficultyAverage = selectedStudentsList.map((s) => {
     return {
+      type: "line",
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " difficulty Avarage"),
@@ -138,19 +142,32 @@ export const Overview = ({
   });
 
   const selectedData2 = () => {
+    const averageData = funAvarage.concat(difficultyAverage);
     if (isAverageBoxChecked) {
       console.log("A checked");
-      return funAvarage.concat(difficultyAverage);
-    } else if (isFunBoxChecked && isDifficultyBoxChecked) {
-      // console.log("D & F checked");
-      return funData.concat(difficultyData);
-    } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
-      // console.log("F checked");
-      return funData;
-    } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
-      // console.log("D checked");
-      return difficultyData;
-    } else return;
+      if (isFunBoxChecked && isDifficultyBoxChecked) {
+        // console.log("D & F checked");
+        return funData.concat(difficultyData).concat(averageData);
+      } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
+        // console.log("F checked");
+        return funData.concat(funAvarage);
+      } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
+        // console.log("D checked");
+        return difficultyData.concat(difficultyAverage);
+      } else return;
+    } else {
+      console.log("A not checked");
+      if (isFunBoxChecked && isDifficultyBoxChecked) {
+        // console.log("D & F checked");
+        return funData.concat(difficultyData);
+      } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
+        // console.log("F checked");
+        return funData;
+      } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
+        // console.log("D checked");
+        return difficultyData;
+      } else return;
+    }
   };
 
   const selectedData = selectedData2();
@@ -177,9 +194,9 @@ export const Overview = ({
                     Selecteer 1 of meerdere studenten uit de lijst hiernaast
                   </MDBCardText>
                 ) : !isAverageBoxChecked ? (
-                  <Bar data={data} options={options} />
+                  <Chart data={data} options={options} />
                 ) : (
-                  <Line data={data} options={options} />
+                  <Chart data={data} options={options} />
                 )}
               </div>
             </div>

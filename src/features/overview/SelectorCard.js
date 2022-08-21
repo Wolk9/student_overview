@@ -54,14 +54,14 @@ export const SelectorCard = ({
               className="d-flex align-content-end"
               style={{ borderBottom: "1px solid #e9e9e9" }}>
               <div className="p-2 d-inline-flex w-100">
-                <div className="d-flex d-flex-shrink-0">
+                <div className="d-flex d-flex-shrink-0 m-1">
                   <MDBCheckbox
                     checked={isAllBoxChecked}
                     onChange={() => handleAllBoxChange()}
                   />
                   <div className="d-flex w-100">all</div>
                 </div>
-                <div className="d-flex d-flex-shrink-0">
+                <div className="d-flex d-flex-shrink-0 m-1">
                   <MDBCheckbox
                     checked={isAverageBoxChecked}
                     onChange={() => handleAverageBoxChange()}
