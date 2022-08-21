@@ -48,6 +48,22 @@ export const Overview = ({
 }) => {
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: "y",
+    scales: {
+      xAxis: {
+        tension: 4,
+        type: "linear",
+        min: 0,
+        max: 5.5,
+      },
+      yAxis: {
+        tension: 4,
+        base: 1,
+        postion: "right",
+      },
+    },
+
     // plugins: {
     //   legend: {
     //     position: "top",
@@ -62,6 +78,8 @@ export const Overview = ({
   const funData = selectedStudentsList.map((s) => {
     return {
       type: "bar",
+      inflateAmount: 1,
+      order: 1,
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " fun"),
@@ -80,6 +98,8 @@ export const Overview = ({
   const difficultyData = selectedStudentsList.map((s) => {
     return {
       type: "bar",
+      inflateAmount: 1,
+      order: 1,
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " difficulty"),
@@ -107,6 +127,9 @@ export const Overview = ({
 
     return {
       type: "line",
+      tension: 0.4,
+      pointStyle: "star",
+      order: 2,
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
@@ -114,7 +137,7 @@ export const Overview = ({
         assignments
           .filter((a) => a.assignment.course_id === c.id)
           .filter((x) => x.user_id === s)
-          .map((a) => a.assignment.fun)
+          .map((a) => a.assignment.fun / selectedStudentsList.length)
       ),
       backgroundColor: students
         .filter((x) => x.id === s)
@@ -125,6 +148,8 @@ export const Overview = ({
   const difficultyAverage = selectedStudentsList.map((s) => {
     return {
       type: "line",
+      tension: 0.4,
+      order: 2,
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " difficulty Avarage"),
@@ -147,7 +172,8 @@ export const Overview = ({
       console.log("A checked");
       if (isFunBoxChecked && isDifficultyBoxChecked) {
         // console.log("D & F checked");
-        return funData.concat(difficultyData).concat(averageData);
+        //        return funData.concat(difficultyData).concat(averageData);
+        return averageData;
       } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
         // console.log("F checked");
         return funData.concat(funAvarage);
@@ -193,10 +219,10 @@ export const Overview = ({
                   <MDBCardText>
                     Selecteer 1 of meerdere studenten uit de lijst hiernaast
                   </MDBCardText>
-                ) : !isAverageBoxChecked ? (
-                  <Chart data={data} options={options} />
                 ) : (
-                  <Chart data={data} options={options} />
+                  <div className="chart-container">
+                    <Chart data={data} options={options} />
+                  </div>
                 )}
               </div>
             </div>
