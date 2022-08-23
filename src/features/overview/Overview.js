@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { MDBCardText } from "mdb-react-ui-kit";
 import { Chart } from "react-chartjs-2";
 import "chart.js/auto";
@@ -6,9 +7,10 @@ import {} from "../ui/uiSlice";
 import { StudentCard } from "../students/StudentCard";
 import { SelectorCard } from "./SelectorCard";
 
-export const Overview = ({
+const Overview = ({
   courses,
   students,
+  studentName,
   assignments,
   handleEditClick,
   indexOfStudentToEdit,
@@ -200,6 +202,8 @@ export const Overview = ({
 
   console.log("selectedData", selectedData);
 
+  console.log(indexOfStudentToEdit);
+
   const data = {
     labels: courses.map((c) => c.code),
     datasets: selectedData,
@@ -217,6 +221,9 @@ export const Overview = ({
               <div className="card-body">
                 {selectedStudentsList.length < 1 ? (
                   <MDBCardText>
+                    {indexOfStudentToEdit !== undefined
+                      ? studentName + ","
+                      : ""}
                     Selecteer 1 of meerdere studenten uit de lijst hiernaast
                   </MDBCardText>
                 ) : (

@@ -22,16 +22,11 @@ import {
 } from "../src/features/ui/uiSlice";
 import { editStudent } from "../src/features/students/studentSlice";
 import Overview from "./features/overview/Overview";
-import {
-  MDBContainer,
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarLink,
-  MDBNavbarNav,
-} from "mdb-react-ui-kit";
+import SingleStudentView from "../src/features/students/SingleStudentView";
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const students = useSelector((state) => state.students);
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
@@ -66,7 +61,7 @@ const App = () => {
 
   const [indexOfStudentToEdit, setIndexOfStudentToEdit] = useState();
 
-  // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
+  console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
   useEffect(() => {
     if (students.length === selectedStudentsList.length) {
@@ -108,16 +103,56 @@ const App = () => {
     handleSelectedStudentsChange(e);
   };
 
-  const handleSelectedStudentsChange = (e) => {
-    // console.log("Selected Students Changed", e);
-    // console.log("is student", e.id, "checked", isStudentChecked({ id: e.id }));
-    // console.log(
-    //   "start handleSelectedStudentsChange aantal:",
-    //   selectedStudentsList.length
-    // );
+  const handleSelectedStudentsURL = (e) => {
+    console.log("handleSelectedStudentsURL", e);
+    const selectedStudent = students.find((s) => s.id === e.id);
 
+    dispatch(addToSelectedStudentsList(selectedStudent));
+    const indexOfStudentToEdit = students.findIndex(
+      (selected) => selected.id === e.id
+    );
+    setIndexOfStudentToEdit(indexOfStudentToEdit);
+
+    // if (selectedStudentsList.length === 1) {
+    //   const selectedStudent = students.find((s) => s.id === e.id);
+
+    //   if (isStudentChecked(selectedStudent)) {
+    //     dispatch(removeFromSelectedStudentsList(selectedStudent));
+    //   } else {
+    //     dispatch(addToSelectedStudentsList(selectedStudent));
+    //     const indexOfStudentToEdit = students.findIndex(
+    //       (selected) => selected.id === e.id
+    //     );
+    //     setIndexOfStudentToEdit(indexOfStudentToEdit);
+    //   }
+    // } else if (
+    //   selectedStudentsList.length > 1 &&
+    //   selectedStudentsList.length !== students.length
+    // ) {
+    //   // console.log("handleSelectedStudentChange: > 1 maar niet allemaal");
+    //   const selectedStudent = students.find((s) => s.id === e.id);
+    //   if (isStudentChecked(selectedStudent)) {
+    //     dispatch(removeFromSelectedStudentsList(selectedStudent));
+    //   } else if (!isStudentChecked(selectedStudent)) {
+    //     dispatch(addToSelectedStudentsList(selectedStudent));
+    //   }
+    // } else if (selectedStudentsList.length === students.length) {
+    //   // console.log("handleSelectedStudentChange: allemaal");
+    // } else if (selectedStudentsList.length === 0) {
+    //   // console.log("handleSelectedStudentChange: geen studenten geselecteerd");
+    //   const selectedStudent = students.find((s) => s.id === e.id);
+    //   // console.log(selectedStudent);
+    //   dispatch(addToSelectedStudentsList(selectedStudent));
+
+    //   const indexOfStudentToEdit = students.findIndex(
+    //     (selected) => selected.id === e.id
+    //   );
+    //   setIndexOfStudentToEdit(indexOfStudentToEdit);
+    // }
+  };
+
+  const handleSelectedStudentsChange = (e) => {
     if (selectedStudentsList.length === 1) {
-      // console.log("handleSelectedStudentChange: 1 geselecteerd");
       const selectedStudent = students.find((s) => s.id === e.id);
 
       if (isStudentChecked(selectedStudent)) {
@@ -273,20 +308,9 @@ const App = () => {
   console.log("Status isAverageBoxChecked =", isAverageBoxChecked);
   return (
     <div className="App">
-      <MDBNavbar expand="lg" dark bgColor="primary">
-        <MDBContainer fluid>
-          <MDBNavbarBrand href="/"> MdB StudentBoard </MDBNavbarBrand>
-          <MDBNavbarNav className="me-auto">
-            <MDBNavbarLink href="/">Home</MDBNavbarLink>
-            <MDBNavbarLink href="/students">Students</MDBNavbarLink>
-            <MDBNavbarLink href="/courses">Courses</MDBNavbarLink>
-            <MDBNavbarLink href="/assignments">Assignments</MDBNavbarLink>
-          </MDBNavbarNav>
-        </MDBContainer>
-      </MDBNavbar>
       <Routes>
         <Route
-          path="/"
+          index
           element={
             <Overview
               studentNames={studentNames}
@@ -325,49 +349,50 @@ const App = () => {
               selectedStudentsList={selectedStudentsList}
               editStudentCardDisplay={editStudentCardDisplay}
             />
-          }>
-          <Route
-            path=":studentNames.fullName"
-            element={
-              <Overview
-                studentNames={studentNames}
-                courses={courses}
-                students={students}
-                assignments={assignments}
-                handleEditClick={handleEditClick}
-                indexOfStudentToEdit={studentNames.id}
-                setIndexOfStudentToEdit={setIndexOfStudentToEdit}
-                onSubmit={onSubmit}
-                handleChange={handleChange}
-                isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
-                isFunColorPickerOpen={isFunColorPickerOpen}
-                colorDifficulty={colorDifficulty}
-                colorFun={colorFun}
-                onClickDifficultySwatch={onClickDifficultySwatch}
-                onClickFunSwatch={onClickFunSwatch}
-                onChangeDifficultyColor={onChangeDifficultyColor}
-                onChangeFunColor={onChangeFunColor}
-                onCloseDifficultyColor={onCloseDifficultyColor}
-                onCloseFunColor={onCloseFunColor}
-                isAllBoxChecked={isAllBoxChecked}
-                isStudentChecked={isStudentChecked}
-                handleSelectedStudentsChange={handleSelectedStudentsChange}
-                addToSelectedStudentsList={addToSelectedStudentsList}
-                removeFromSelectedStudentsList={removeFromSelectedStudentsList}
-                handleAllBoxChange={handleAllBoxChange}
-                depolulateSelectedStudentList={depolulateSelectedStudentList}
-                populateSelectedStudentList={populateSelectedStudentList}
-                handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
-                handleFunCheckboxChange={handleFunCheckboxChange}
-                isFunBoxChecked={isFunBoxChecked}
-                isDifficultyBoxChecked={isDifficultyBoxChecked}
-                isAverageBoxChecked={isAverageBoxChecked}
-                selectedStudentsList={selectedStudentsList}
-                editStudentCardDisplay={editStudentCardDisplay}
-              />
-            }
-          />
-        </Route>
+          }></Route>
+        <Route
+          path=":studentName"
+          element={
+            <SingleStudentView
+              studentNames={studentNames}
+              courses={courses}
+              students={students}
+              assignments={assignments}
+              handleEditClick={handleEditClick}
+              indexOfStudentToEdit={indexOfStudentToEdit}
+              setIndexOfStudentToEdit={setIndexOfStudentToEdit}
+              onSubmit={onSubmit}
+              handleChange={handleChange}
+              isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+              isFunColorPickerOpen={isFunColorPickerOpen}
+              colorDifficulty={colorDifficulty}
+              colorFun={colorFun}
+              onClickDifficultySwatch={onClickDifficultySwatch}
+              onClickFunSwatch={onClickFunSwatch}
+              onChangeDifficultyColor={onChangeDifficultyColor}
+              onChangeFunColor={onChangeFunColor}
+              onCloseDifficultyColor={onCloseDifficultyColor}
+              onCloseFunColor={onCloseFunColor}
+              isAllBoxChecked={isAllBoxChecked}
+              isStudentChecked={isStudentChecked}
+              handleSelectedStudentsChange={handleSelectedStudentsChange}
+              handleSelectedStudentsURL={handleSelectedStudentsURL}
+              addToSelectedStudentsList={addToSelectedStudentsList}
+              removeFromSelectedStudentsList={removeFromSelectedStudentsList}
+              handleAllBoxChange={handleAllBoxChange}
+              depolulateSelectedStudentList={depolulateSelectedStudentList}
+              populateSelectedStudentList={populateSelectedStudentList}
+              handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
+              handleFunCheckboxChange={handleFunCheckboxChange}
+              isFunBoxChecked={isFunBoxChecked}
+              isDifficultyBoxChecked={isDifficultyBoxChecked}
+              isAverageBoxChecked={isAverageBoxChecked}
+              selectedStudentsList={selectedStudentsList}
+              editStudentCardDisplay={editStudentCardDisplay}
+            />
+          }
+        />
+
         <Route
           path="/students"
           element={
@@ -403,7 +428,5 @@ const App = () => {
     </div>
   );
 };
-
-//TODO: add navigation section with links and url's that reflect the right student
 
 export default App;

@@ -18,7 +18,12 @@ export const StudentCard = ({
   onCloseDifficultyColor,
   onCloseFunColor,
 }) => {
-  // console.log("StudentCard: ", students[indexOfStudentToEdit]);
+  console.log(
+    "StudentCard: ",
+    students,
+    indexOfStudentToEdit,
+    students[indexOfStudentToEdit]
+  );
   return (
     <>
       <div className="card">
