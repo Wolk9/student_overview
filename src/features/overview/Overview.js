@@ -132,15 +132,22 @@ const Overview = ({
       tension: 0.4,
       pointStyle: "star",
       order: 2,
-      label: students
-        .filter((x) => x.id === s)
-        .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
-      data: courses.map((c) =>
-        assignments
-          .filter((a) => a.assignment.course_id === c.id)
-          .filter((x) => x.user_id === s)
-          .map((a) => a.assignment.fun / selectedStudentsList.length)
+      label: "Avarage Fun of " + selectedStudentsList.length + " students",
+      // label: students
+      //   .filter((x) => x.id === s)
+      //   .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
+      data: selectedStudentsList.map(
+        (ss) =>
+          assignments
+            .filter((a) => a.user_id === ss)
+            .reduce((x, y) => x.assignment.fun + y.assignment.fun) / ss.length
       ),
+      // data: courses.map((c) =>
+      //   assignments
+      //     .filter((a) => a.assignment.course_id === c.id)
+      //     .filter((x) => x.user_id === s)
+      //     .map((a) => a.assignment.fun / selectedStudentsList.length)
+      // ),
       backgroundColor: students
         .filter((x) => x.id === s)
         .map((x) => x.colorFun),
