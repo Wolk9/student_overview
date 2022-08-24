@@ -127,12 +127,17 @@ const Overview = ({
 
     // console.log(fun);
 
+    // console.log(dkjfe)
+
     return {
       type: "line",
       tension: 0.4,
       pointStyle: "star",
       order: 2,
-      label: "Avarage Fun of " + selectedStudentsList.length + " students",
+      label:
+        "Avarage Fun of the" +
+        selectedStudentsList.length +
+        " selected students",
       // label: students
       //   .filter((x) => x.id === s)
       //   .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
