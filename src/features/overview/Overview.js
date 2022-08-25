@@ -127,7 +127,18 @@ const Overview = ({
 
     // console.log(fun);
 
-    // console.log(dkjfe)
+    const funNumbers = courses.map((c) =>
+      assignments
+        .filter((a) => a.assignment.course_id === c.id)
+        .filter((a) => a.user_id === s)
+        .filter((a) => a.assignment.fun)
+    );
+
+    const sumFunNumbers = funNumbers.reduce((x, y) => {
+      console.log(x, y), x[0] + y[0];
+    });
+
+    console.log(funNumbers, sumFunNumbers);
 
     return {
       type: "line",
@@ -141,13 +152,12 @@ const Overview = ({
       // label: students
       //   .filter((x) => x.id === s)
       //   .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
-      data:
-        courses.map((c) =>
-          assignments
-            .filter((a) => a.assignment.course_id === c.id)
-            .filter((a) => a.user_id === s)
-            .reduce((x, y) => x.assignment.fun + y.assignment.fun)
-        ) / s.length,
+      data: courses.map((c) =>
+        assignments
+          .filter((a) => a.assignment.course_id === c.id)
+          .filter((a) => a.user_id === s)
+          .reduce((x, y) => x.assignment.fun + y.assignment.fun)
+      ),
       // data: courses.map((c) =>
       //   assignments
       //     .filter((a) => a.assignment.course_id === c.id)
