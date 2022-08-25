@@ -135,18 +135,19 @@ const Overview = ({
       pointStyle: "star",
       order: 2,
       label:
-        "Avarage Fun of the" +
+        "Avarage Fun of the " +
         selectedStudentsList.length +
         " selected students",
       // label: students
       //   .filter((x) => x.id === s)
       //   .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
-      data: selectedStudentsList.map(
-        (ss) =>
+      data:
+        courses.map((c) =>
           assignments
-            .filter((a) => a.user_id === ss)
-            .reduce((x, y) => x.assignment.fun + y.assignment.fun) / ss.length
-      ),
+            .filter((a) => a.assignment.course_id === c.id)
+            .filter((a) => a.user_id === s)
+            .reduce((x, y) => x.assignment.fun + y.assignment.fun)
+        ) / s.length,
       // data: courses.map((c) =>
       //   assignments
       //     .filter((a) => a.assignment.course_id === c.id)
