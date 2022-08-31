@@ -117,6 +117,8 @@ const Overview = ({
     };
   });
 
+  const funNumbers = [];
+
   const funAvarage = selectedStudentsList.map((s) => {
     // const fun = courses.map((c) =>
     //   assignments
@@ -126,8 +128,6 @@ const Overview = ({
     // );
 
     // console.log(fun);
-
-    const funNumbers = [];
 
     funNumbers.push(
       courses
@@ -141,9 +141,18 @@ const Overview = ({
         .reduce((acc, a) => acc + a)
     );
 
-    const averageFunNumberPerStudent = funNumbers[0] / courses.length;
+    const sumOfFunNumbersOfAllStudents = funNumbers.reduce((acc, a) => acc + a);
 
-    console.log(courses, assignments, funNumbers, averageFunNumberPerStudent);
+    const averageFunNumberPerStudent = funNumbers / courses.length;
+
+    console.log(
+      "Collected funNumbers",
+      funNumbers,
+      "sumOfFunNumbersOfAllStudents:",
+      sumOfFunNumbersOfAllStudents,
+      "average:",
+      averageFunNumberPerStudent
+    );
 
     return {
       type: "line",
