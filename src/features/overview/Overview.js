@@ -127,18 +127,23 @@ const Overview = ({
 
     // console.log(fun);
 
-    const funNumbers = courses.map((c) =>
-      assignments
-        .filter((a) => a.assignment.course_id === c.id)
-        .filter((a) => a.user_id === s)
-        .filter((a) => a.assignment.fun)
+    const funNumbers = [];
+
+    funNumbers.push(
+      courses
+        .map((c) =>
+          assignments
+            .filter((a) => a.user_id === s)
+            .filter((a) => a.assignment.course_id === c.id)
+            .map((x) => x.assignment.fun)
+            .at(c)
+        )
+        .reduce((acc, a) => acc + a)
     );
 
-    const sumFunNumbers = funNumbers.reduce((x, y) => {
-      console.log(x, y), x[0] + y[0];
-    });
+    const averageFunNumberPerStudent = funNumbers[0] / courses.length;
 
-    console.log(funNumbers, sumFunNumbers);
+    console.log(courses, assignments, funNumbers, averageFunNumberPerStudent);
 
     return {
       type: "line",
