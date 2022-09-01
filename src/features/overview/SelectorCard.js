@@ -13,6 +13,7 @@ export const SelectorCard = ({
   handleAverageBoxChange,
   handleDifficultyCheckBoxChange,
   handleFunCheckboxChange,
+  avarageFunNumberOfAllSelectedStudents,
 }) => {
   // console.log(
   //   isFunBoxChecked,
@@ -157,6 +158,10 @@ export const SelectorCard = ({
               </div>
             ))}
           </div>
+          <p>
+            Average Fun of selected students:{" "}
+            {avarageFunNumberOfAllSelectedStudents}
+          </p>
         </div>
       </div>
     </div>

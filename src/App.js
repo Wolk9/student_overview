@@ -19,6 +19,7 @@ import {
   toggleFunCheckBox,
   toggleAverageCheckBox,
   flushSelectedStudentsList,
+  setAvarageFunOfAllSelectedStudents,
 } from "../src/features/ui/uiSlice";
 import { editStudent } from "../src/features/students/studentSlice";
 import Overview from "./features/overview/Overview";
@@ -57,6 +58,16 @@ const App = () => {
   const isFunBoxChecked = useSelector((state) => state.ui.isFunBoxChecked);
   const isDifficultyBoxChecked = useSelector(
     (state) => state.ui.isDifficultyBoxChecked
+  );
+  const funNumbers = useSelector((state) => state.ui.funNumbers);
+  const sumOfFunNumbersOfAllSelectedStudents = useSelector(
+    (state) => state.ui.sumOfFunNumbersOfAllSelectedStudents
+  );
+  const avarageFunNumberPerStudent = useSelector(
+    (state) => state.ui.avarageFunNumberPerStudent
+  );
+  const avarageFunNumberOfAllSelectedStudents = useSelector(
+    (state) => state.ui.avarageFunNumberOfAllSelectedStudents
   );
 
   const [indexOfStudentToEdit, setIndexOfStudentToEdit] = useState();
@@ -348,6 +359,12 @@ const App = () => {
               isDifficultyBoxChecked={isDifficultyBoxChecked}
               selectedStudentsList={selectedStudentsList}
               editStudentCardDisplay={editStudentCardDisplay}
+              avarageFunNumberOfAllSelectedStudents={
+                avarageFunNumberOfAllSelectedStudents
+              }
+              setAvarageFunOfAllSelectedStudents={
+                setAvarageFunOfAllSelectedStudents
+              }
             />
           }></Route>
         <Route
@@ -389,6 +406,12 @@ const App = () => {
               isAverageBoxChecked={isAverageBoxChecked}
               selectedStudentsList={selectedStudentsList}
               editStudentCardDisplay={editStudentCardDisplay}
+              avarageFunNumberOfAllSelectedStudents={
+                avarageFunNumberOfAllSelectedStudents
+              }
+              setAvarageFunOfAllSelectedStudents={
+                setAvarageFunOfAllSelectedStudents
+              }
             />
           }
         />

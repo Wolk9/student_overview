@@ -6,6 +6,7 @@ import "chart.js/auto";
 import {} from "../ui/uiSlice";
 import { StudentCard } from "../students/StudentCard";
 import { SelectorCard } from "./SelectorCard";
+import { useDispatch } from "react-redux";
 
 const Overview = ({
   courses,
@@ -47,7 +48,10 @@ const Overview = ({
   toggleFunCheckBox,
   flushSelectedStudentsList,
   toggleAllStudentsChecked,
+  avarageFunNumberOfAllSelectedStudents,
+  setAvarageFunOfAllSelectedStudents,
 }) => {
+  const dispatch = useDispatch();
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -63,6 +67,12 @@ const Overview = ({
         tension: 4,
         base: 1,
         postion: "right",
+      },
+      yAxis2: {
+        type: "linear",
+        display: false,
+        base: 0,
+        position: "left",
       },
     },
 
@@ -148,14 +158,17 @@ const Overview = ({
 
     const averageFunNumberPerStudent = divideArray(funNumbers, courses.length);
 
-    const avarageFunNumberOfAllSelectedStudents =
-      Math.round(
-        (sumOfFunNumbersOfAllSelectedStudents /
-          selectedStudentsList.length /
-          courses.length +
-          Number.EPSILON) *
-          100
-      ) / 100;
+    dispatch(
+      setAvarageFunOfAllSelectedStudents(
+        Math.round(
+          (sumOfFunNumbersOfAllSelectedStudents /
+            selectedStudentsList.length /
+            courses.length +
+            Number.EPSILON) *
+            100
+        ) / 100
+      )
+    );
 
     console.log(
       "Collected funNumbers",
@@ -185,7 +198,8 @@ const Overview = ({
     return {
       type: "line",
       tension: 0,
-      pointStyle: "none",
+      pointStyle: "star",
+      radius: 5,
       order: 2,
       label: students
         .filter((x) => x.id === s)
@@ -195,6 +209,7 @@ const Overview = ({
           .map((a) => students.filter((x) => x.id === s))
           .map((x, index) => averageFunNumberPerStudent[index])
       ),
+      yAxisID: "yAxis2",
       backgroundColor: students
         .filter((x) => x.id === s)
         .map((x) => x.colorFun),
@@ -339,6 +354,9 @@ const Overview = ({
             handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
             handleFunCheckboxChange={handleFunCheckboxChange}
             isAverageBoxChecked={isAverageBoxChecked}
+            avarageFunNumberOfAllSelectedStudents={
+              avarageFunNumberOfAllSelectedStudents
+            }
           />
         </div>
       </div>
