@@ -119,16 +119,17 @@ const Overview = ({
 
   const funNumbers = [];
 
+  const divideArray = (array, divisor) => {
+    console.log(array);
+    console.log(divisor);
+    const array2 = [];
+    for (let x = 0; x < array.length; x++) {
+      array2[x] = Math.round((array[x] / divisor + Number.EPSILON) * 100) / 100;
+    }
+    return array2;
+  };
+
   const funAvarage = selectedStudentsList.map((s) => {
-    // const fun = courses.map((c) =>
-    //   assignments
-    //     .filter((a) => a.assignment.course_id === c.id)
-    //     .filter((x) => x.user_id === s)
-    //     .map((a) => a.assignment.fun)
-    // );
-
-    // console.log(fun);
-
     funNumbers.push(
       courses
         .map((c) =>
@@ -141,43 +142,59 @@ const Overview = ({
         .reduce((acc, a) => acc + a)
     );
 
-    const sumOfFunNumbersOfAllStudents = funNumbers.reduce((acc, a) => acc + a);
+    const sumOfFunNumbersOfAllSelectedStudents = funNumbers.reduce(
+      (acc, a) => acc + a
+    );
 
-    const averageFunNumberPerStudent = funNumbers / courses.length;
+    const averageFunNumberPerStudent = divideArray(funNumbers, courses.length);
+
+    const avarageFunNumberOfAllSelectedStudents =
+      Math.round(
+        (sumOfFunNumbersOfAllSelectedStudents /
+          selectedStudentsList.length /
+          courses.length +
+          Number.EPSILON) *
+          100
+      ) / 100;
 
     console.log(
       "Collected funNumbers",
       funNumbers,
-      "sumOfFunNumbersOfAllStudents:",
-      sumOfFunNumbersOfAllStudents,
-      "average:",
+      "sumOfFunNumbersOfAllSelectedStudents:",
+      sumOfFunNumbersOfAllSelectedStudents,
+      "average per Student: ",
+      averageFunNumberPerStudent,
+      "Avarage of selected Students:",
+      avarageFunNumberOfAllSelectedStudents
+    );
+
+    console.log(
+      courses.map((a) =>
+        students
+          .filter((x) => x.id === s)
+          .map((x, index) => (x = averageFunNumberPerStudent[index]))
+      )
+    );
+
+    console.log(
       averageFunNumberPerStudent
+        .map((a) => students.filter((x) => x.id === s))
+        .map((x, index) => averageFunNumberPerStudent[index])
     );
 
     return {
       type: "line",
-      tension: 0.4,
-      pointStyle: "star",
+      tension: 0,
+      pointStyle: "none",
       order: 2,
-      label:
-        "Avarage Fun of the " +
-        selectedStudentsList.length +
-        " selected students",
-      // label: students
-      //   .filter((x) => x.id === s)
-      //   .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
+      label: students
+        .filter((x) => x.id === s)
+        .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
       data: courses.map((c) =>
-        assignments
-          .filter((a) => a.assignment.course_id === c.id)
-          .filter((a) => a.user_id === s)
-          .reduce((x, y) => x.assignment.fun + y.assignment.fun)
+        averageFunNumberPerStudent
+          .map((a) => students.filter((x) => x.id === s))
+          .map((x, index) => averageFunNumberPerStudent[index])
       ),
-      // data: courses.map((c) =>
-      //   assignments
-      //     .filter((a) => a.assignment.course_id === c.id)
-      //     .filter((x) => x.user_id === s)
-      //     .map((a) => a.assignment.fun / selectedStudentsList.length)
-      // ),
       backgroundColor: students
         .filter((x) => x.id === s)
         .map((x) => x.colorFun),
