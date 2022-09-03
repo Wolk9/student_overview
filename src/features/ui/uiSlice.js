@@ -31,36 +31,57 @@ const uiSlice = createSlice({
   },
   reducers: {
     toggleAddStudentModal(state, action) {
-      state.addStudentModalOpen = !state.addStudentModalOpen;
+      return {
+        ...state,
+        addStudentModalOpen: !state.addStudentModalOpen,
+      };
     },
     openEditStudentCard(state, action) {
-      state.editStudentCardDisplay = action.payload;
+      return {
+        ...state,
+        editStudentCardDisplay: action.payload,
+      };
     },
     setSelectedStudent(state, action) {
-      state.selectedStudent = action.payload;
+      return {
+        ...state,
+        selectedStudent: action.payload,
+      };
     },
     editSelectedStudent(state, action) {
       console.log(action.payload);
     },
     toggleFunColorPicker(state) {
-      state.isFunColorPickerOpen = !state.isFunColorPickerOpen;
+      return {
+        ...state,
+        isFunColorPickerOpen: !state.isFunColorPickerOpen,
+      };
     },
     toggleDifficultyColorPicker(state) {
-      state.isDifficultyColorPickerOpen = !state.isDifficultyColorPickerOpen;
+      return {
+        ...state,
+        isDifficultyColorPickerOpen: !state.isDifficultyColorPickerOpen,
+      };
     },
     setFunColor(state, action) {
-      state.colorFun = action.payload;
+      return { ...state, colorFun: action.payload };
     },
     setDifficultyColor(state, action) {
-      state.colorDifficulty = action.payload;
+      return { ...state, colorDifficulty: action.payload };
     },
     toggleDifficultyCheckBox(state, action) {
-      state.isDifficultyBoxChecked = !state.isDifficultyBoxChecked;
+      return {
+        ...state,
+        isDifficultyBoxChecked: !state.isDifficultyBoxChecked,
+      };
     },
     toggleFunCheckBox(state, action) {
-      state.isFunBoxChecked = !state.isFunBoxChecked;
+      return { ...state, isFunBoxChecked: !state.isFunBoxChecked };
     },
     addToSelectedStudentsList(state, action) {
+      // This works, but in retrospect it is pretty complicated because the whole object
+      // is stored while a list of indexes would be enough to register as a list
+      // TODO: rewrite addToSelectedStudentsList and related action dispatches to store only indexes of selected students
       // console.log(action.payload);
       const index = state.selectedStudentsList.findIndex(
         (s) => s === action.payload.id
@@ -87,16 +108,19 @@ const uiSlice = createSlice({
       }
     },
     flushSelectedStudentsList(state, action) {
-      state.selectedStudentsList = [];
+      return { ...state, selectedStudentsList: [] };
     },
     toggleAllStudentsChecked(state, action) {
-      state.isAllBoxChecked = action.payload;
+      return { ...state, isAllBoxChecked: action.payload };
     },
     toggleAverageCheckBox(state, action) {
-      state.isAverageBoxChecked = action.payload;
+      return { ...state, isAverageBoxChecked: action.payload };
     },
     setAvarageFunOfAllSelectedStudents(state, action) {
-      state.avarageFunNumberOfAllSelectedStudents = action.payload;
+      return {
+        ...state,
+        avarageFunNumberOfAllSelectedStudents: action.payload,
+      };
     },
   },
 });

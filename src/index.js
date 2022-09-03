@@ -19,26 +19,26 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <MDBNavbar expand="lg" dark bgColor="primary">
-          <MDBContainer fluid>
-            <MDBNavbarBrand href="/"> MdB StudentBoard </MDBNavbarBrand>
-            <MDBNavbarNav className="me-auto">
-              <MDBNavbarLink href="/">Home</MDBNavbarLink>
-              <MDBNavbarLink href="/students">Students</MDBNavbarLink>
-              <MDBNavbarLink href="/courses">Courses</MDBNavbarLink>
-              <MDBNavbarLink href="/assignments">Assignments</MDBNavbarLink>
-            </MDBNavbarNav>
-          </MDBContainer>
-        </MDBNavbar>
-        <Routes>
-          <Route path="*" element={<App />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <BrowserRouter>
+      <MDBNavbar expand="lg" dark bgColor="primary">
+        <MDBContainer fluid>
+          <MDBNavbarBrand href="/"> MdB StudentBoard </MDBNavbarBrand>
+          <MDBNavbarNav className="me-auto">
+            <MDBNavbarLink href="/">Home</MDBNavbarLink>
+            <MDBNavbarLink href="/students">Students</MDBNavbarLink>
+            <MDBNavbarLink href="/courses">Courses</MDBNavbarLink>
+            <MDBNavbarLink href="/assignments">Assignments</MDBNavbarLink>
+          </MDBNavbarNav>
+        </MDBContainer>
+      </MDBNavbar>
+      <Routes>
+        <Route path="*" element={<App />} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>
+  //</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
