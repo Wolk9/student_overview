@@ -96,6 +96,7 @@ const uiSlice = createSlice({
       }
     },
     removeFromSelectedStudentsList(state, action) {
+      // TODO: rewrite removeFromSelectedStudentsList and related action dispatches to store only indexes of selected students
       const index = state.selectedStudentsList.findIndex(
         (s) => s === action.payload.id
       );

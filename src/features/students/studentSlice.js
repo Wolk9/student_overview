@@ -15,13 +15,13 @@ const studentSlice = createSlice({
       },
     },
     editStudent(state, action) {
-      // console.log(action.payload, action.payload.id);
+      console.log(action.payload, action.payload.id);
       const id = action.payload.id;
       const payload = action.payload;
       const result = state.map((student) =>
         student.id !== id ? student : payload
       );
-      // console.log(result);
+      console.log(result);
       return result;
     },
     setStudents: {

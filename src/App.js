@@ -211,13 +211,12 @@ const App = () => {
     //TODO: format phone and email check and alert
   };
 
-  const handleChange = (event) => {
+  const handleChange = (e) => {
     // console.log(event.target.name, event.target.value);
-
     dispatch(
       editStudent({
         ...students[indexOfStudentToEdit],
-        [event.target.name]: event.target.value,
+        [e.target.name]: e.target.value,
       })
     );
   };
