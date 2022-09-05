@@ -79,21 +79,26 @@ const uiSlice = createSlice({
       return { ...state, isFunBoxChecked: !state.isFunBoxChecked };
     },
     addToSelectedStudentsList(state, action) {
+      console.log(action);
       // This works, but in retrospect it is pretty complicated because the whole object
       // is stored while a list of indexes would be enough to register as a list
       // TODO: rewrite addToSelectedStudentsList and related action dispatches to store only indexes of selected students
       // console.log(action.payload);
-      const index = state.selectedStudentsList.findIndex(
-        (s) => s === action.payload.id
-      );
-      // console.log(index);
+      // const index = state.selectedStudentsList.findIndex(
+      //   (s) => s === action.payload.id
+      // );
+      // // console.log(index);
 
-      if (index === -1) {
-        //als index = -1 is er geen index en dus de student staat nog niet in de lijst
-        state.selectedStudentsList.push(action.payload.id);
-      } else {
-        //als index !== -1 staat hij wel in de lijst en moet de student er uit.
-      }
+      // if (index === -1) {
+      //   //als index = -1 is er geen index en dus de student staat nog niet in de lijst
+      //   state.selectedStudentsList.push(action.payload.id);
+      // } else {
+      //   //als index !== -1 staat hij wel in de lijst en moet de student er uit.
+      // }
+      return {
+        ...state,
+        selectedStudentsList: [...state.selectedStudentsList, action.payload],
+      };
     },
     removeFromSelectedStudentsList(state, action) {
       // TODO: rewrite removeFromSelectedStudentsList and related action dispatches to store only indexes of selected students

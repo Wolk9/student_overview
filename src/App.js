@@ -70,7 +70,7 @@ const App = () => {
     (state) => state.ui.avarageFunNumberOfAllSelectedStudents
   );
 
-  const [indexOfStudentToEdit, setIndexOfStudentToEdit] = useState();
+  const indexOfStudentToEdit = selectedStudentsList[0];
 
   console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
@@ -160,6 +160,15 @@ const App = () => {
     //   );
     //   setIndexOfStudentToEdit(indexOfStudentToEdit);
     // }
+  };
+
+  const studentCheckboxChange = (e) => {
+    console.log(e.target.name);
+    console.log(isNaN(e.target.name));
+    console.log(students);
+    const indexOfStudent = students.findIndex((s) => s.id == e.target.name);
+    console.log(indexOfStudent);
+    dispatch(addToSelectedStudentsList(indexOfStudent));
   };
 
   const handleSelectedStudentsChange = (e) => {
@@ -364,6 +373,7 @@ const App = () => {
               setAvarageFunOfAllSelectedStudents={
                 setAvarageFunOfAllSelectedStudents
               }
+              studentCheckboxChange={studentCheckboxChange}
             />
           }></Route>
         <Route
@@ -411,6 +421,7 @@ const App = () => {
               setAvarageFunOfAllSelectedStudents={
                 setAvarageFunOfAllSelectedStudents
               }
+              studentCheckboxChange={studentCheckboxChange}
             />
           }
         />

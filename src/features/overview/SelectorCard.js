@@ -14,6 +14,7 @@ export const SelectorCard = ({
   handleDifficultyCheckBoxChange,
   handleFunCheckboxChange,
   avarageFunNumberOfAllSelectedStudents,
+  studentCheckboxChange,
 }) => {
   // console.log(
   //   isFunBoxChecked,
@@ -108,9 +109,11 @@ export const SelectorCard = ({
                       // btn={true}
                       size="sm"
                       id={student.id}
+                      name={student.id}
                       checked={isStudentChecked({ id: student.id })}
-                      onChange={() =>
-                        handleSelectedStudentsChange({ id: student.id })
+                      onChange={(e) =>
+                        //handleSelectedStudentsChange({ id: student.id })
+                        studentCheckboxChange(e)
                       }
                     />
                   </div>

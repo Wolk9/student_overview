@@ -50,6 +50,7 @@ const Overview = ({
   toggleAllStudentsChecked,
   avarageFunNumberOfAllSelectedStudents,
   setAvarageFunOfAllSelectedStudents,
+  studentCheckboxChange,
 }) => {
   const dispatch = useDispatch();
   const options = {
@@ -325,6 +326,7 @@ const Overview = ({
                 populateSelectedStudentList={populateSelectedStudentList}
                 handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
                 handleFunCheckboxChange={handleFunCheckboxChange}
+                studentCheckboxChange={studentCheckboxChange}
               />
             ) : (
               <></>
@@ -357,6 +359,7 @@ const Overview = ({
             avarageFunNumberOfAllSelectedStudents={
               avarageFunNumberOfAllSelectedStudents
             }
+            studentCheckboxChange={studentCheckboxChange}
           />
         </div>
       </div>
