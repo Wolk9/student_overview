@@ -97,15 +97,15 @@ const App = () => {
     // open de editCard
     dispatch(openEditStudentCard(true));
 
-    // vind de index van de geklikte student
-    const indexOfStudentToEdit = students.findIndex(
-      (selected) => selected.id === e.id
-    );
-    // zet de gevonden index in indexOfStudentToEdit
-    setIndexOfStudentToEdit(indexOfStudentToEdit);
-    console.log(indexOfStudentToEdit);
+    // // vind de index van de geklikte student
+    // const indexOfStudentToEdit = students.findIndex(
+    //   (selected) => selected.id === e.id
+    // );
+    // // zet de gevonden index in indexOfStudentToEdit
+    // setIndexOfStudentToEdit(indexOfStudentToEdit);
+    // console.log(indexOfStudentToEdit);
 
-    console.log("editStudentCardDisplay", editStudentCardDisplay);
+    // console.log("editStudentCardDisplay", editStudentCardDisplay);
 
     // maak de lijst met geselecteerde studenten leeg
     // depolulateSelectedStudentList();
@@ -119,10 +119,10 @@ const App = () => {
     const selectedStudent = students.find((s) => s.id === e.id);
 
     dispatch(addToSelectedStudentsList(selectedStudent));
-    const indexOfStudentToEdit = students.findIndex(
-      (selected) => selected.id === e.id
-    );
-    setIndexOfStudentToEdit(indexOfStudentToEdit);
+    // const indexOfStudentToEdit = students.findIndex(
+    //   (selected) => selected.id === e.id
+    // );
+    // setIndexOfStudentToEdit(indexOfStudentToEdit);
 
     // if (selectedStudentsList.length === 1) {
     //   const selectedStudent = students.find((s) => s.id === e.id);
@@ -179,10 +179,10 @@ const App = () => {
         dispatch(removeFromSelectedStudentsList(selectedStudent));
       } else {
         dispatch(addToSelectedStudentsList(selectedStudent));
-        const indexOfStudentToEdit = students.findIndex(
-          (selected) => selected.id === e.id
-        );
-        setIndexOfStudentToEdit(indexOfStudentToEdit);
+        // const indexOfStudentToEdit = students.findIndex(
+        //   (selected) => selected.id === e.id
+        // );
+        // setIndexOfStudentToEdit(indexOfStudentToEdit);
       }
     } else if (
       selectedStudentsList.length > 1 &&
@@ -203,10 +203,10 @@ const App = () => {
       // console.log(selectedStudent);
       dispatch(addToSelectedStudentsList(selectedStudent));
 
-      const indexOfStudentToEdit = students.findIndex(
-        (selected) => selected.id === e.id
-      );
-      setIndexOfStudentToEdit(indexOfStudentToEdit);
+      // const indexOfStudentToEdit = students.findIndex(
+      //   (selected) => selected.id === e.id
+      // );
+      // setIndexOfStudentToEdit(indexOfStudentToEdit);
     }
   };
 
@@ -338,7 +338,6 @@ const App = () => {
               assignments={assignments}
               handleEditClick={handleEditClick}
               indexOfStudentToEdit={indexOfStudentToEdit}
-              setIndexOfStudentToEdit={setIndexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
               isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
@@ -386,7 +385,6 @@ const App = () => {
               assignments={assignments}
               handleEditClick={handleEditClick}
               indexOfStudentToEdit={indexOfStudentToEdit}
-              setIndexOfStudentToEdit={setIndexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
               isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}

@@ -88,13 +88,26 @@ const Overview = ({
     // },
   };
 
+  console.log(selectedStudentsList);
+
+  const selectedStudentRecords = () => {
+    const output = selectedStudentsList.map((ss) =>
+      students.filter((s, index, arr) => {
+        index = ss;
+      })
+    );
+    return output;
+  };
+
+  console.log("selectedStudentRecords\n", selectedStudentRecords());
+
   const funData = selectedStudentsList.map((s) => {
     return {
       type: "bar",
       inflateAmount: 1,
       order: 1,
       label: students
-        .filter((x) => x.id === s)
+        .filter((x, index) => index === s)
         .map((x) => x.firstName + " " + x.lastName + " fun"),
       data: courses.map((c) =>
         assignments
