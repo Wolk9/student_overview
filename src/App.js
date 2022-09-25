@@ -267,7 +267,7 @@ const App = () => {
   };
 
   const isStudentChecked = (e) => {
-    const checked = selectedStudentsList.some((s) => s === e.id);
+    const checked = selectedStudentsList.some((s) => s + 1 === e.id);
     // console.log(e, checked);
     return checked;
   };

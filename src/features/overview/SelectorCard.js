@@ -161,10 +161,10 @@ export const SelectorCard = ({
               </div>
             ))}
           </div>
-          <p>
+          {/* <p>
             Average Fun of selected students:{" "}
             {avarageFunNumberOfAllSelectedStudents}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

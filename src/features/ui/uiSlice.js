@@ -95,10 +95,16 @@ const uiSlice = createSlice({
       // } else {
       //   //als index !== -1 staat hij wel in de lijst en moet de student er uit.
       // }
-      return {
-        ...state,
-        selectedStudentsList: [...state.selectedStudentsList, action.payload],
-      };
+      const isInList = state.selectedStudentsList.includes(action.payload);
+      console.log("isInList", isInList);
+      if (!isInList) {
+        return {
+          ...state,
+          selectedStudentsList: [...state.selectedStudentsList, action.payload],
+        };
+      } else {
+        return state;
+      }
     },
     removeFromSelectedStudentsList(state, action) {
       // TODO: rewrite removeFromSelectedStudentsList and related action dispatches to store only indexes of selected students

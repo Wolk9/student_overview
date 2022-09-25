@@ -7,6 +7,7 @@ import {} from "../ui/uiSlice";
 import { StudentCard } from "../students/StudentCard";
 import { SelectorCard } from "./SelectorCard";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const Overview = ({
   courses,
@@ -172,16 +173,17 @@ const Overview = ({
 
     const averageFunNumberPerStudent = divideArray(funNumbers, courses.length);
 
+    const avarageFunOfAllSelectedStudents =
+      Math.round(
+        (sumOfFunNumbersOfAllSelectedStudents /
+          selectedStudentsList.length /
+          courses.length +
+          Number.EPSILON) *
+          100
+      ) / 100;
+
     dispatch(
-      setAvarageFunOfAllSelectedStudents(
-        Math.round(
-          (sumOfFunNumbersOfAllSelectedStudents /
-            selectedStudentsList.length /
-            courses.length +
-            Number.EPSILON) *
-            100
-        ) / 100
-      )
+      setAvarageFunOfAllSelectedStudents(avarageFunOfAllSelectedStudents)
     );
 
     console.log(
