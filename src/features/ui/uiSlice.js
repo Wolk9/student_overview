@@ -98,11 +98,13 @@ const uiSlice = createSlice({
       const isInList = state.selectedStudentsList.includes(action.payload);
       console.log("isInList", isInList);
       if (!isInList) {
+        console.log("ok, it is not in the list, so let's put in in the list!");
         return {
           ...state,
           selectedStudentsList: [...state.selectedStudentsList, action.payload],
         };
       } else {
+        console.log("nah, that one is already in the list. don't bother");
         return state;
       }
     },

@@ -324,7 +324,7 @@ const App = () => {
     );
     dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
   };
-  console.log("Status isAverageBoxChecked =", isAverageBoxChecked);
+  //console.log("Status isAverageBoxChecked =", isAverageBoxChecked);
   return (
     <div className="App">
       <Routes>
