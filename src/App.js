@@ -59,7 +59,7 @@ const App = () => {
   const isDifficultyBoxChecked = useSelector(
     (state) => state.ui.isDifficultyBoxChecked
   );
-  const funNumbers = useSelector((state) => state.ui.funNumbers);
+  // const funNumbers = useSelector((state) => state.ui.funNumbers);
   const sumOfFunNumbersOfAllSelectedStudents = useSelector(
     (state) => state.ui.sumOfFunNumbersOfAllSelectedStudents
   );
@@ -72,7 +72,7 @@ const App = () => {
 
   const indexOfStudentToEdit = selectedStudentsList[0];
 
-  console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
+  // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
   useEffect(() => {
     if (students.length === selectedStudentsList.length) {
@@ -82,7 +82,7 @@ const App = () => {
     }
     if (selectedStudentsList.length === 1) {
       dispatch(openEditStudentCard(true));
-    } else if (selectedStudentsList !== 1) {
+    } else if (selectedStudentsList.length !== 1) {
       dispatch(openEditStudentCard(false));
     }
   }, [selectedStudentsList, students, dispatch]);
@@ -163,12 +163,12 @@ const App = () => {
   };
 
   const studentCheckboxChange = (e) => {
-    console.log(e.target.name);
-    console.log(isNaN(e.target.name));
-    console.log(students);
+    console.log("target name:", e.target.name);
+    console.log("is Not a Number:", isNaN(e.target.name));
+    console.log("list of students:", students);
     const indexOfStudent = students.findIndex((s) => s.id == e.target.name);
-    console.log(indexOfStudent);
-    dispatch(addToSelectedStudentsList(indexOfStudent));
+    console.log("index of the selected Student:", indexOfStudent);
+    dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
   };
 
   const handleSelectedStudentsChange = (e) => {
@@ -267,7 +267,7 @@ const App = () => {
   };
 
   const isStudentChecked = (e) => {
-    const checked = selectedStudentsList.some((s) => s + 1 === e.id);
+    const checked = selectedStudentsList.some((s) => s === e.id);
     // console.log(e, checked);
     return checked;
   };

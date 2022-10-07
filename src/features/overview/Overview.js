@@ -52,6 +52,7 @@ const Overview = ({
   avarageFunNumberOfAllSelectedStudents,
   setAvarageFunOfAllSelectedStudents,
   studentCheckboxChange,
+  funNumbers,
 }) => {
   const dispatch = useDispatch();
   const options = {
@@ -89,26 +90,15 @@ const Overview = ({
     // },
   };
 
-  console.log(selectedStudentsList);
+  console.log("SelectedStudentsList: ", selectedStudentsList);
 
-  const selectedStudentRecords = () => {
-    const output = selectedStudentsList.map((ss) =>
-      students.filter((s, index, arr) => {
-        index = ss;
-      })
-    );
-    return output;
-  };
-
-  console.log("selectedStudentRecords\n", selectedStudentRecords());
-
-  const funData = selectedStudentsList.map((s) => {
+  const funData = selectedStudentsList.map((s, sindex) => {
     return {
       type: "bar",
       inflateAmount: 1,
       order: 1,
       label: students
-        .filter((x, index) => index === s)
+        .filter((x, index) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " fun"),
       data: courses.map((c) =>
         assignments
@@ -122,7 +112,9 @@ const Overview = ({
     };
   });
 
-  const difficultyData = selectedStudentsList.map((s) => {
+  console.log(funData);
+
+  const difficultyData = selectedStudentsList.map((s, index) => {
     return {
       type: "bar",
       inflateAmount: 1,
@@ -142,19 +134,21 @@ const Overview = ({
     };
   });
 
-  const funNumbers = [];
+  //const funNumbers = [];
 
   const divideArray = (array, divisor) => {
-    console.log(array);
-    console.log(divisor);
+    console.log("array", array);
+    console.log("divisor", divisor);
     const array2 = [];
     for (let x = 0; x < array.length; x++) {
       array2[x] = Math.round((array[x] / divisor + Number.EPSILON) * 100) / 100;
     }
+    console.log(array2);
     return array2;
   };
 
   const funAvarage = selectedStudentsList.map((s) => {
+    const funNumbers = [];
     funNumbers.push(
       courses
         .map((c) =>
@@ -166,6 +160,7 @@ const Overview = ({
         )
         .reduce((acc, a) => acc + a)
     );
+    console.log("funNumbers after push", funNumbers);
 
     const sumOfFunNumbersOfAllSelectedStudents = funNumbers.reduce(
       (acc, a) => acc + a
@@ -182,9 +177,9 @@ const Overview = ({
           100
       ) / 100;
 
-    dispatch(
-      setAvarageFunOfAllSelectedStudents(avarageFunOfAllSelectedStudents)
-    );
+    // dispatch(
+    //   setAvarageFunOfAllSelectedStudents(avarageFunOfAllSelectedStudents)
+    // );
 
     console.log(
       "Collected funNumbers",
@@ -197,13 +192,13 @@ const Overview = ({
       avarageFunNumberOfAllSelectedStudents
     );
 
-    console.log(
-      courses.map((a) =>
-        students
-          .filter((x) => x.id === s)
-          .map((x, index) => (x = averageFunNumberPerStudent[index]))
-      )
-    );
+    // console.log(
+    //   courses.map((a) =>
+    //     students
+    //       .filter((x) => x.id === s)
+    //       .map((x, index) => (x = averageFunNumberPerStudent[index]))
+    //   )
+    // );
 
     console.log(
       averageFunNumberPerStudent
