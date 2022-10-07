@@ -120,17 +120,6 @@ export const SelectorCard = ({
                   <div className="d-flex w-100 text-nowrap studentName">
                     {student.firstName + " " + student.lastName}
                   </div>
-                  {/* {selectedStudentsList.length == 1 ? (
-                    <div
-                      className="d-flex align-content-end"
-                      key={student.id}
-                      id={student.id}
-                      onClick={() => handleEditClick({ id: student.id })}>
-                      <i className="fa fa-edit"></i>
-                    </div>
-                  ) : (
-                    <></>
-                  )} */}
                 </div>
 
                 <div

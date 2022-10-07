@@ -70,7 +70,11 @@ const App = () => {
     (state) => state.ui.avarageFunNumberOfAllSelectedStudents
   );
 
-  const indexOfStudentToEdit = selectedStudentsList[0];
+  const indexOfStudentToEdit2 = selectedStudentsList[0];
+
+  const indexOfStudentToEdit = students.findIndex(
+    (s) => s.id == selectedStudentsList[0]
+  );
 
   // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
@@ -168,7 +172,11 @@ const App = () => {
     console.log("list of students:", students);
     const indexOfStudent = students.findIndex((s) => s.id == e.target.name);
     console.log("index of the selected Student:", indexOfStudent);
-    dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
+    if (!isStudentChecked({ id: e.target.id })) {
+      dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
+    } else {
+      dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
+    }
   };
 
   const handleSelectedStudentsChange = (e) => {
@@ -267,8 +275,8 @@ const App = () => {
   };
 
   const isStudentChecked = (e) => {
-    const checked = selectedStudentsList.some((s) => s === e.id);
-    // console.log(e, checked);
+    const checked = selectedStudentsList.some((s) => s == e.id);
+    console.log(e, checked);
     return checked;
   };
 

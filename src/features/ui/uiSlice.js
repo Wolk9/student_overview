@@ -80,21 +80,6 @@ const uiSlice = createSlice({
     },
     addToSelectedStudentsList(state, action) {
       console.log(action);
-      // This works, but in retrospect it is pretty complicated because the whole object
-      // is stored while a list of indexes would be enough to register as a list
-      // TODO: rewrite addToSelectedStudentsList and related action dispatches to store only indexes of selected students
-      // console.log(action.payload);
-      // const index = state.selectedStudentsList.findIndex(
-      //   (s) => s === action.payload.id
-      // );
-      // // console.log(index);
-
-      // if (index === -1) {
-      //   //als index = -1 is er geen index en dus de student staat nog niet in de lijst
-      //   state.selectedStudentsList.push(action.payload.id);
-      // } else {
-      //   //als index !== -1 staat hij wel in de lijst en moet de student er uit.
-      // }
       const isInList = state.selectedStudentsList.includes(action.payload);
       console.log("isInList", isInList);
       if (!isInList) {
@@ -109,16 +94,21 @@ const uiSlice = createSlice({
       }
     },
     removeFromSelectedStudentsList(state, action) {
-      // TODO: rewrite removeFromSelectedStudentsList and related action dispatches to store only indexes of selected students
-      const index = state.selectedStudentsList.findIndex(
-        (s) => s === action.payload.id
-      );
-      if (index === -1) {
-        //als index = -1 is er geen index en dus de student staat nog niet in de lijst
-        return;
+      //TODO: hier was ik gebleven. Remove item CRUD
+      console.log(action);
+      const isInList = state.selectedStudentsList.includes(action.payload);
+      if (!isInList) {
+        console.log("ok, it is not in the list, so nothig to remove here");
+        return state;
       } else {
-        //als index !== -1 staat hij wel in de lijst en moet de student er uit.
-        state.selectedStudentsList.splice(index, 1);
+        console.log("Yup. Found it. I will eliminate this MF for you!");
+        return {
+          ...state,
+          selectedSTudentList: [
+            ...state,
+            state.selectedStudentsList.splice(action.payload, 1),
+          ],
+        };
       }
     },
     flushSelectedStudentsList(state, action) {

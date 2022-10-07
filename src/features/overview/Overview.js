@@ -301,9 +301,6 @@ const Overview = ({
               <div className="card-body">
                 {selectedStudentsList.length < 1 ? (
                   <MDBCardText>
-                    {indexOfStudentToEdit !== undefined
-                      ? studentName + ","
-                      : ""}
                     Selecteer 1 of meerdere studenten uit de lijst hiernaast
                   </MDBCardText>
                 ) : (
