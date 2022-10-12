@@ -94,7 +94,6 @@ const uiSlice = createSlice({
       }
     },
     removeFromSelectedStudentsList(state, action) {
-      //TODO: hier was ik gebleven. Remove item CRUD
       console.log(action);
       const isInList = state.selectedStudentsList.includes(action.payload);
       if (!isInList) {
@@ -104,10 +103,9 @@ const uiSlice = createSlice({
         console.log("Yup. Found it. I will eliminate this MF for you!");
         return {
           ...state,
-          selectedSTudentList: [
-            ...state,
-            state.selectedStudentsList.splice(action.payload, 1),
-          ],
+          selectedStudentsList: state.selectedStudentsList.filter(
+            (id) => id !== action.payload
+          ),
         };
       }
     },

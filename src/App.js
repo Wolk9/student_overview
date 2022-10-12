@@ -173,9 +173,15 @@ const App = () => {
     const indexOfStudent = students.findIndex((s) => s.id == e.target.name);
     console.log("index of the selected Student:", indexOfStudent);
     if (!isStudentChecked({ id: e.target.id })) {
+      console.log("student is not checked");
       dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
     } else {
-      dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
+      console.log("student is checked");
+      if (selectedStudentsList.length !== 1) {
+        dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
+      } else {
+        alert("at least 1 student should stay selected");
+      }
     }
   };
 
