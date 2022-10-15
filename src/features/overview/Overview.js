@@ -72,39 +72,33 @@ const Overview = ({
         tension: 4,
         type: "linear",
         min: 0,
-        max: 5.5,
+        max: 5,
       },
       yAxis: {
         tension: 4,
         base: 1,
         postion: "right",
       },
-      yAxis2: {
-        type: "linear",
+    },
+    plugins: {
+      legend: {
         display: false,
-        base: 0,
-        position: "left",
+        position: "top",
+      },
+      title: {
+        display: false,
+        text: "Chart.js Bar Chart",
       },
     },
-
-    // plugins: {
-    //   legend: {
-    //     position: "top",
-    //   },
-    //   title: {
-    //     display: true,
-    //     text: "Chart.js Bar Chart",
-    //   },
-    // },
   };
 
   console.log("SelectedStudentsList: ", selectedStudentsList);
 
-  const funData = selectedStudentsList.map((s, sindex) => {
+  const funData = selectedStudentsList.map((s) => {
     return {
       type: "bar",
       inflateAmount: 1,
-      order: 1,
+      order: 2,
       label: students
         .filter((x, index) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " fun"),
@@ -122,11 +116,11 @@ const Overview = ({
 
   console.log(funData);
 
-  const difficultyData = selectedStudentsList.map((s, index) => {
+  const difficultyData = selectedStudentsList.map((s) => {
     return {
       type: "bar",
       inflateAmount: 1,
-      order: 1,
+      order: 2,
       label: students
         .filter((x) => x.id === s)
         .map((x) => x.firstName + " " + x.lastName + " difficulty"),
@@ -156,220 +150,107 @@ const Overview = ({
     return array2;
   };
 
-  const funAverage = selectedStudentsList.map((s) => {
-    const funNumbersToAdd = courses.map((c) =>
-      assignments
-        .filter((a) => a.user_id === s)
-        .filter((a) => a.assignment.course_id === c.id)
-        .map((x) => x.assignment.fun)
-        .at(c)
-    );
-    // .reduce((acc, a) => acc + a);
+  let averagesOfFunNumbers = [];
+  let averagesOfDifficultyNumbers = [];
 
-    funNumbers.push(funNumbersToAdd);
-    console.log("funNumbers after push", funNumbers);
+  if (isAverageBoxChecked) {
+    selectedStudentsList.map((s) => {
+      const funNumbersToAdd = courses.map((c) =>
+        assignments
+          .filter((a) => a.user_id === s)
+          .filter((a) => a.assignment.course_id === c.id)
+          .map((x) => x.assignment.fun)
+          .at(c)
+      );
 
-    funNumbers.map((array) =>
-      const funNumbersAverages = 
-      array.map((c)=> )
-    )
+      funNumbers.push(funNumbersToAdd);
 
+      console.log("funNumbers after push", funNumbers);
 
+      return funNumbers;
+    });
 
-    const sumOfFunNumbersOfAllSelectedStudents = [];
-    // funNumbers.reduce(
-    // (acc, a) => acc + a
-    // );
-
-    const averageFunNumberPerCourse = divideArray(funNumbers, courses.length);
-
-    const averageFunOfAllSelectedStudents =
-      Math.round(
-        (sumOfFunNumbersOfAllSelectedStudents /
-          selectedStudentsList.length /
-          courses.length +
-          Number.EPSILON) *
-          100
-      ) / 100;
-
-    // dispatch(
-    //   setAverageFunOfAllSelectedStudents(averageFunOfAllSelectedStudents)
-    // );
-
-    console.log(
-      "\n Collected funNumbers",
-      funNumbers,
-      "\n sumOfFunNumbersOfAllSelectedStudents:",
-      sumOfFunNumbersOfAllSelectedStudents,
-      "\n average per Student: ",
-      averageFunNumberPerCourse,
-      "\n Average of selected Students:",
-      averageFunNumberOfAllSelectedStudents
-    );
-
-    // console.log(
-    //   courses.map((a) =>
-    //     students
-    //       .filter((x) => x.id === s)
-    //       .map((x, index) => (x = averageFunNumberPerCourse[index]))
-    //   )
-    // );
-
-    console.log(
-      averageFunNumberPerCourse
-        .map((a) => students.filter((x) => x.id === s))
-        .map((x, index) => averageFunNumberPerCourse[index])
-    );
-
-    return {
-      type: "line",
-      tension: 0,
-      pointStyle: "star",
-      radius: 5,
-      order: 2,
-      label: students
-        .filter((x) => x.id === s)
-        .map((x) => x.firstName + " " + x.lastName + " fun Average"),
-      data: students.map((c) =>
-        averageFunNumberPerCourse
-          .map((a) => courses.filter((x) => x.id === s))
-          .map((x, index) => averageFunNumberPerCourse[index])
-      ),
-      yAxisID: "yAxis2",
-      backgroundColor: students
-        .filter((x) => x.id === s)
-        .map((x) => x.colorFun),
-    };
-  });
-
-  const difficultyAverage = selectedStudentsList.map((s) => {
-    const difficultyNumberToAdd = courses
-      .map((c) =>
+    selectedStudentsList.map((s) => {
+      const difficultyNumbersToAdd = courses.map((c) =>
         assignments
           .filter((a) => a.user_id === s)
           .filter((a) => a.assignment.course_id === c.id)
           .map((x) => x.assignment.difficulty)
           .at(c)
-      )
-      .reduce((acc, a) => acc + a);
+      );
 
-    difficultyNumbers.push(difficultyNumberToAdd);
-    console.log("difficultyNumbers after push", difficultyNumbers);
+      difficultyNumbers.push(difficultyNumbersToAdd);
 
-    const sumOfAllCollectedDifficultyNumbers = difficultyNumbers.reduce(
-      (acc, a) => acc + a
-    );
+      console.log("difNumbers after push", difficultyNumbers);
 
-    const averageDifficultyNumberPerCourse = divideArray(
-      difficultyNumbers,
-      courses.length
-    );
+      return difficultyNumbers;
+    });
 
-    const averageDifficultyNumbersOfAllSelectedStudents =
-      Math.round(
-        (sumOfAllCollectedDifficultyNumbers /
-          selectedStudentsList.length /
-          courses.length +
-          Number.EPSILON) *
-          100
-      ) / 100;
+    averagesOfFunNumbers = funNumbers[0].map((_, id) => {
+      const sumOfElementsOnThisIndex = funNumbers
+        .map((array) => array[id])
+        .reduce((acc, cur) => (acc += cur), 0);
+      const averageOnThisIndex =
+        sumOfElementsOnThisIndex / selectedStudentsList.length;
+      return averageOnThisIndex;
+    });
 
-    // dispatch(
-    //   setAverageDifficultyOfAllSelectedStudents(averageDifficultyOfAllSelectedStudents)
-    // );
+    averagesOfDifficultyNumbers = difficultyNumbers[0].map((_, id) => {
+      const sumOfElementsOnThisIndex = difficultyNumbers
+        .map((array) => array[id])
+        .reduce((acc, cur) => (acc += cur), 0);
+      const averageOnThisIndex =
+        sumOfElementsOnThisIndex / selectedStudentsList.length;
+      return averageOnThisIndex;
+    });
+  } else {
+  }
 
-    console.log(
-      "\n Collected difficultyNumbers",
-      difficultyNumbers,
-      "\n sumOfAllCollectedDifficultyNumbers:",
-      sumOfAllCollectedDifficultyNumbers,
-      "\n average per Student: ",
-      averageDifficultyNumberPerCourse,
-      "\n Average of selected Students:",
-      averageDifficultyNumbersOfAllSelectedStudents
-    );
-
-    // console.log(
-    //   courses.map((a) =>
-    //     students
-    //       .filter((x) => x.id === s)
-    //       .map((x, index) => (x = averageDifficultyNumberPerCourse[index]))
-    //   )
-    // );
-
-    console.log(
-      averageDifficultyNumberPerCourse
-        .map((a) => students.filter((x) => x.id === s))
-        .map((x, index) => averageDifficultyNumberPerCourse[index])
-    );
-
-    return {
+  const funAverage = [
+    {
       type: "line",
+      fill: true,
       tension: 0,
       pointStyle: "star",
       radius: 5,
-      order: 2,
-      label: students
-        .filter((x) => x.id === s)
-        .map((x) => x.firstName + " " + x.lastName + " difficulty Average"),
-      data: students.map((c) =>
-        averageDifficultyNumberPerCourse
-          .map((a) => courses.filter((x) => x.id === s))
-          .map((x, index) => averageDifficultyNumberPerCourse[index])
-      ),
-      yAxisID: "yAxis2",
-      backgroundColor: students
-        .filter((x) => x.id === s)
-        .map((x) => x.colorDifficulty),
-    };
-  });
+      order: 1,
+      label: "fun Average",
+      data: averagesOfFunNumbers,
+    },
+  ];
 
-  // const difficultyAverage = selectedStudentsList.map((s) => {
-  //   return {
-  //     type: "line",
-  //     tension: 0.4,
-  //     order: 2,
-  //     label: students
-  //       .filter((x) => x.id === s)
-  //       .map((x) => x.firstName + " " + x.lastName + " difficulty Average"),
-  //     data: courses.map(
-  //       (c) =>
-  //         assignments
-  //           .filter((a) => a.assignment.course_id === c.id)
-  //           .filter((x) => x.user_id === s)
-  //           .map((a) => a.assignment.difficulty) / selectedStudentsList.length
-  //     ),
-  //     backgroundColor: students
-  //       .filter((x) => x.id === s)
-  //       .map((x) => x.colorDifficulty),
-  //   };
-  // });
+  const difficultyAverage = [
+    {
+      type: "line",
+      fill: true,
+      tension: 0,
+      pointStyle: "star",
+      radius: 5,
+      order: 1,
+      label: "difficulty Average",
+      data: averagesOfDifficultyNumbers,
+    },
+  ];
 
   const selectedData2 = () => {
     const averageData = funAverage.concat(difficultyAverage);
+    const data = funData.concat(difficultyData);
     if (isAverageBoxChecked) {
       console.log("A checked");
       if (isFunBoxChecked && isDifficultyBoxChecked) {
-        // console.log("D & F checked");
-        //        return funData.concat(difficultyData).concat(averageData);
-        return averageData;
+        return data.concat(averageData);
       } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
-        // console.log("F checked");
-        return funData.concat(funAverage);
+        return data.concat(funData.concat(funAverage));
       } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
-        // console.log("D checked");
-        return difficultyData.concat(difficultyAverage);
+        return data.concat(difficultyData.concat(difficultyAverage));
       } else return;
     } else {
       console.log("A not checked");
       if (isFunBoxChecked && isDifficultyBoxChecked) {
-        // console.log("D & F checked");
         return funData.concat(difficultyData);
       } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
-        // console.log("F checked");
         return funData;
       } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
-        // console.log("D checked");
         return difficultyData;
       } else return;
     }
