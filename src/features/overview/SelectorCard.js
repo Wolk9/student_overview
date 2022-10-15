@@ -13,7 +13,7 @@ export const SelectorCard = ({
   handleAverageBoxChange,
   handleDifficultyCheckBoxChange,
   handleFunCheckboxChange,
-  avarageFunNumberOfAllSelectedStudents,
+  averageFunNumberOfAllSelectedStudents,
   studentCheckboxChange,
 }) => {
   // console.log(
@@ -152,7 +152,7 @@ export const SelectorCard = ({
           </div>
           {/* <p>
             Average Fun of selected students:{" "}
-            {avarageFunNumberOfAllSelectedStudents}
+            {averageFunNumberOfAllSelectedStudents}
           </p> */}
         </div>
       </div>

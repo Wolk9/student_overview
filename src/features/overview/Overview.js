@@ -1,6 +1,15 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { MDBCardText } from "mdb-react-ui-kit";
+import {
+  MDBCardText,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+} from "mdb-react-ui-kit";
 import { Chart } from "react-chartjs-2";
 import "chart.js/auto";
 import {} from "../ui/uiSlice";
@@ -49,10 +58,9 @@ const Overview = ({
   toggleFunCheckBox,
   flushSelectedStudentsList,
   toggleAllStudentsChecked,
-  avarageFunNumberOfAllSelectedStudents,
-  setAvarageFunOfAllSelectedStudents,
+  averageFunNumberOfAllSelectedStudents,
+  setAverageFunOfAllSelectedStudents,
   studentCheckboxChange,
-  funNumbers,
 }) => {
   const dispatch = useDispatch();
   const options = {
@@ -134,7 +142,8 @@ const Overview = ({
     };
   });
 
-  //const funNumbers = [];
+  const funNumbers = [];
+  const difficultyNumbers = [];
 
   const divideArray = (array, divisor) => {
     console.log("array", array);
@@ -147,28 +156,34 @@ const Overview = ({
     return array2;
   };
 
-  const funAvarage = selectedStudentsList.map((s) => {
-    const funNumbers = [];
-    funNumbers.push(
-      courses
-        .map((c) =>
-          assignments
-            .filter((a) => a.user_id === s)
-            .filter((a) => a.assignment.course_id === c.id)
-            .map((x) => x.assignment.fun)
-            .at(c)
-        )
-        .reduce((acc, a) => acc + a)
+  const funAverage = selectedStudentsList.map((s) => {
+    const funNumbersToAdd = courses.map((c) =>
+      assignments
+        .filter((a) => a.user_id === s)
+        .filter((a) => a.assignment.course_id === c.id)
+        .map((x) => x.assignment.fun)
+        .at(c)
     );
+    // .reduce((acc, a) => acc + a);
+
+    funNumbers.push(funNumbersToAdd);
     console.log("funNumbers after push", funNumbers);
 
-    const sumOfFunNumbersOfAllSelectedStudents = funNumbers.reduce(
-      (acc, a) => acc + a
-    );
+    funNumbers.map((array) =>
+      const funNumbersAverages = 
+      array.map((c)=> )
+    )
 
-    const averageFunNumberPerStudent = divideArray(funNumbers, courses.length);
 
-    const avarageFunOfAllSelectedStudents =
+
+    const sumOfFunNumbersOfAllSelectedStudents = [];
+    // funNumbers.reduce(
+    // (acc, a) => acc + a
+    // );
+
+    const averageFunNumberPerCourse = divideArray(funNumbers, courses.length);
+
+    const averageFunOfAllSelectedStudents =
       Math.round(
         (sumOfFunNumbersOfAllSelectedStudents /
           selectedStudentsList.length /
@@ -178,32 +193,32 @@ const Overview = ({
       ) / 100;
 
     // dispatch(
-    //   setAvarageFunOfAllSelectedStudents(avarageFunOfAllSelectedStudents)
+    //   setAverageFunOfAllSelectedStudents(averageFunOfAllSelectedStudents)
     // );
 
     console.log(
-      "Collected funNumbers",
+      "\n Collected funNumbers",
       funNumbers,
-      "sumOfFunNumbersOfAllSelectedStudents:",
+      "\n sumOfFunNumbersOfAllSelectedStudents:",
       sumOfFunNumbersOfAllSelectedStudents,
-      "average per Student: ",
-      averageFunNumberPerStudent,
-      "Avarage of selected Students:",
-      avarageFunNumberOfAllSelectedStudents
+      "\n average per Student: ",
+      averageFunNumberPerCourse,
+      "\n Average of selected Students:",
+      averageFunNumberOfAllSelectedStudents
     );
 
     // console.log(
     //   courses.map((a) =>
     //     students
     //       .filter((x) => x.id === s)
-    //       .map((x, index) => (x = averageFunNumberPerStudent[index]))
+    //       .map((x, index) => (x = averageFunNumberPerCourse[index]))
     //   )
     // );
 
     console.log(
-      averageFunNumberPerStudent
+      averageFunNumberPerCourse
         .map((a) => students.filter((x) => x.id === s))
-        .map((x, index) => averageFunNumberPerStudent[index])
+        .map((x, index) => averageFunNumberPerCourse[index])
     );
 
     return {
@@ -214,11 +229,11 @@ const Overview = ({
       order: 2,
       label: students
         .filter((x) => x.id === s)
-        .map((x) => x.firstName + " " + x.lastName + " fun Avarage"),
-      data: courses.map((c) =>
-        averageFunNumberPerStudent
-          .map((a) => students.filter((x) => x.id === s))
-          .map((x, index) => averageFunNumberPerStudent[index])
+        .map((x) => x.firstName + " " + x.lastName + " fun Average"),
+      data: students.map((c) =>
+        averageFunNumberPerCourse
+          .map((a) => courses.filter((x) => x.id === s))
+          .map((x, index) => averageFunNumberPerCourse[index])
       ),
       yAxisID: "yAxis2",
       backgroundColor: students
@@ -228,28 +243,110 @@ const Overview = ({
   });
 
   const difficultyAverage = selectedStudentsList.map((s) => {
+    const difficultyNumberToAdd = courses
+      .map((c) =>
+        assignments
+          .filter((a) => a.user_id === s)
+          .filter((a) => a.assignment.course_id === c.id)
+          .map((x) => x.assignment.difficulty)
+          .at(c)
+      )
+      .reduce((acc, a) => acc + a);
+
+    difficultyNumbers.push(difficultyNumberToAdd);
+    console.log("difficultyNumbers after push", difficultyNumbers);
+
+    const sumOfAllCollectedDifficultyNumbers = difficultyNumbers.reduce(
+      (acc, a) => acc + a
+    );
+
+    const averageDifficultyNumberPerCourse = divideArray(
+      difficultyNumbers,
+      courses.length
+    );
+
+    const averageDifficultyNumbersOfAllSelectedStudents =
+      Math.round(
+        (sumOfAllCollectedDifficultyNumbers /
+          selectedStudentsList.length /
+          courses.length +
+          Number.EPSILON) *
+          100
+      ) / 100;
+
+    // dispatch(
+    //   setAverageDifficultyOfAllSelectedStudents(averageDifficultyOfAllSelectedStudents)
+    // );
+
+    console.log(
+      "\n Collected difficultyNumbers",
+      difficultyNumbers,
+      "\n sumOfAllCollectedDifficultyNumbers:",
+      sumOfAllCollectedDifficultyNumbers,
+      "\n average per Student: ",
+      averageDifficultyNumberPerCourse,
+      "\n Average of selected Students:",
+      averageDifficultyNumbersOfAllSelectedStudents
+    );
+
+    // console.log(
+    //   courses.map((a) =>
+    //     students
+    //       .filter((x) => x.id === s)
+    //       .map((x, index) => (x = averageDifficultyNumberPerCourse[index]))
+    //   )
+    // );
+
+    console.log(
+      averageDifficultyNumberPerCourse
+        .map((a) => students.filter((x) => x.id === s))
+        .map((x, index) => averageDifficultyNumberPerCourse[index])
+    );
+
     return {
       type: "line",
-      tension: 0.4,
+      tension: 0,
+      pointStyle: "star",
+      radius: 5,
       order: 2,
       label: students
         .filter((x) => x.id === s)
-        .map((x) => x.firstName + " " + x.lastName + " difficulty Avarage"),
-      data: courses.map(
-        (c) =>
-          assignments
-            .filter((a) => a.assignment.course_id === c.id)
-            .filter((x) => x.user_id === s)
-            .map((a) => a.assignment.difficulty) / selectedStudentsList.length
+        .map((x) => x.firstName + " " + x.lastName + " difficulty Average"),
+      data: students.map((c) =>
+        averageDifficultyNumberPerCourse
+          .map((a) => courses.filter((x) => x.id === s))
+          .map((x, index) => averageDifficultyNumberPerCourse[index])
       ),
+      yAxisID: "yAxis2",
       backgroundColor: students
         .filter((x) => x.id === s)
         .map((x) => x.colorDifficulty),
     };
   });
 
+  // const difficultyAverage = selectedStudentsList.map((s) => {
+  //   return {
+  //     type: "line",
+  //     tension: 0.4,
+  //     order: 2,
+  //     label: students
+  //       .filter((x) => x.id === s)
+  //       .map((x) => x.firstName + " " + x.lastName + " difficulty Average"),
+  //     data: courses.map(
+  //       (c) =>
+  //         assignments
+  //           .filter((a) => a.assignment.course_id === c.id)
+  //           .filter((x) => x.user_id === s)
+  //           .map((a) => a.assignment.difficulty) / selectedStudentsList.length
+  //     ),
+  //     backgroundColor: students
+  //       .filter((x) => x.id === s)
+  //       .map((x) => x.colorDifficulty),
+  //   };
+  // });
+
   const selectedData2 = () => {
-    const averageData = funAvarage.concat(difficultyAverage);
+    const averageData = funAverage.concat(difficultyAverage);
     if (isAverageBoxChecked) {
       console.log("A checked");
       if (isFunBoxChecked && isDifficultyBoxChecked) {
@@ -258,7 +355,7 @@ const Overview = ({
         return averageData;
       } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
         // console.log("F checked");
-        return funData.concat(funAvarage);
+        return funData.concat(funAverage);
       } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
         // console.log("D checked");
         return difficultyData.concat(difficultyAverage);
@@ -363,8 +460,8 @@ const Overview = ({
             handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
             handleFunCheckboxChange={handleFunCheckboxChange}
             isAverageBoxChecked={isAverageBoxChecked}
-            avarageFunNumberOfAllSelectedStudents={
-              avarageFunNumberOfAllSelectedStudents
+            averageFunNumberOfAllSelectedStudents={
+              averageFunNumberOfAllSelectedStudents
             }
             studentCheckboxChange={studentCheckboxChange}
           />

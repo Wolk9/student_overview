@@ -19,7 +19,7 @@ import {
   toggleFunCheckBox,
   toggleAverageCheckBox,
   flushSelectedStudentsList,
-  setAvarageFunOfAllSelectedStudents,
+  setAverageFunOfAllSelectedStudents,
 } from "../src/features/ui/uiSlice";
 import { editStudent } from "../src/features/students/studentSlice";
 import Overview from "./features/overview/Overview";
@@ -63,11 +63,11 @@ const App = () => {
   const sumOfFunNumbersOfAllSelectedStudents = useSelector(
     (state) => state.ui.sumOfFunNumbersOfAllSelectedStudents
   );
-  const avarageFunNumberPerStudent = useSelector(
-    (state) => state.ui.avarageFunNumberPerStudent
+  const averageFunNumberPerStudent = useSelector(
+    (state) => state.ui.averageFunNumberPerStudent
   );
-  const avarageFunNumberOfAllSelectedStudents = useSelector(
-    (state) => state.ui.avarageFunNumberOfAllSelectedStudents
+  const averageFunNumberOfAllSelectedStudents = useSelector(
+    (state) => state.ui.averageFunNumberOfAllSelectedStudents
   );
 
   const indexOfStudentToEdit2 = selectedStudentsList[0];
@@ -100,20 +100,6 @@ const App = () => {
 
     // open de editCard
     dispatch(openEditStudentCard(true));
-
-    // // vind de index van de geklikte student
-    // const indexOfStudentToEdit = students.findIndex(
-    //   (selected) => selected.id === e.id
-    // );
-    // // zet de gevonden index in indexOfStudentToEdit
-    // setIndexOfStudentToEdit(indexOfStudentToEdit);
-    // console.log(indexOfStudentToEdit);
-
-    // console.log("editStudentCardDisplay", editStudentCardDisplay);
-
-    // maak de lijst met geselecteerde studenten leeg
-    // depolulateSelectedStudentList();
-    // vink de betreffende checkbox en show daarmee tevens de grafiek
 
     handleSelectedStudentsChange(e);
   };
@@ -169,7 +155,7 @@ const App = () => {
   const studentCheckboxChange = (e) => {
     console.log("target name:", e.target.name);
     console.log("is Not a Number:", isNaN(e.target.name));
-    console.log("list of students:", students);
+    console.log("list of Selected students:", selectedStudentsList);
     const indexOfStudent = students.findIndex((s) => s.id == e.target.name);
     console.log("index of the selected Student:", indexOfStudent);
     if (!isStudentChecked({ id: e.target.id })) {
@@ -179,8 +165,6 @@ const App = () => {
       console.log("student is checked");
       if (selectedStudentsList.length !== 1) {
         dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
-      } else {
-        alert("at least 1 student should stay selected");
       }
     }
   };
@@ -307,21 +291,20 @@ const App = () => {
   };
 
   const populateSelectedStudentList = () => {
-    students.map((student) =>
-      dispatch(addToSelectedStudentsList({ id: student.id }))
-    );
+    students.map((student) => dispatch(addToSelectedStudentsList(student.id)));
   };
 
   const depolulateSelectedStudentList = () => {
-    students.map((student) => dispatch(flushSelectedStudentsList()));
+    dispatch(flushSelectedStudentsList());
   };
 
   const handleAllBoxChange = () => {
-    // console.log("handleAllBoxChange");
+    //
+    console.log("handleAllBoxChange");
     dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
 
     if (selectedStudentsList.length !== students.length) {
-      // console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
+      console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
       populateSelectedStudentList();
     } else {
       // console.log(
@@ -380,11 +363,11 @@ const App = () => {
               isDifficultyBoxChecked={isDifficultyBoxChecked}
               selectedStudentsList={selectedStudentsList}
               editStudentCardDisplay={editStudentCardDisplay}
-              avarageFunNumberOfAllSelectedStudents={
-                avarageFunNumberOfAllSelectedStudents
+              averageFunNumberOfAllSelectedStudents={
+                averageFunNumberOfAllSelectedStudents
               }
-              setAvarageFunOfAllSelectedStudents={
-                setAvarageFunOfAllSelectedStudents
+              setAverageFunOfAllSelectedStudents={
+                setAverageFunOfAllSelectedStudents
               }
               studentCheckboxChange={studentCheckboxChange}
             />
@@ -427,11 +410,11 @@ const App = () => {
               isAverageBoxChecked={isAverageBoxChecked}
               selectedStudentsList={selectedStudentsList}
               editStudentCardDisplay={editStudentCardDisplay}
-              avarageFunNumberOfAllSelectedStudents={
-                avarageFunNumberOfAllSelectedStudents
+              averageFunNumberOfAllSelectedStudents={
+                averageFunNumberOfAllSelectedStudents
               }
-              setAvarageFunOfAllSelectedStudents={
-                setAvarageFunOfAllSelectedStudents
+              setAverageFunOfAllSelectedStudents={
+                setAverageFunOfAllSelectedStudents
               }
               studentCheckboxChange={studentCheckboxChange}
             />

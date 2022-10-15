@@ -19,7 +19,7 @@ const uiSlice = createSlice({
     funNumbers: [],
     sumOfFunNumbersOfAllSelectedStudents: 0,
     averageFunNumberPerStudent: [],
-    avarageFunNumberOfAllSelectedStudents: 0,
+    averageFunNumberOfAllSelectedStudents: 0,
     isFunColorPickerOpen: false,
     isDifficultyColorPickerOpen: false,
     isFunBoxChecked: true,
@@ -118,10 +118,10 @@ const uiSlice = createSlice({
     toggleAverageCheckBox(state, action) {
       return { ...state, isAverageBoxChecked: action.payload };
     },
-    setAvarageFunOfAllSelectedStudents(state, action) {
+    setAverageFunOfAllSelectedStudents(state, action) {
       return {
         ...state,
-        avarageFunNumberOfAllSelectedStudents: action.payload,
+        averageFunNumberOfAllSelectedStudents: action.payload,
       };
     },
   },
@@ -143,6 +143,6 @@ export const {
   flushSelectedStudentsList,
   toggleAllStudentsChecked,
   toggleAverageCheckBox,
-  setAvarageFunOfAllSelectedStudents,
+  setAverageFunOfAllSelectedStudents,
 } = uiSlice.actions;
 export default uiSlice.reducer;
