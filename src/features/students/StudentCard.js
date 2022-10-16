@@ -25,14 +25,18 @@ export const StudentCard = ({
     students[indexOfStudentToEdit]
   );
   return (
-    <>
+    <div>
       <div className="card">
         <form onSubmit={onSubmit} onChange={(event) => handleChange(event)}>
           <div className="card-header">
             <div className="card-title h5 p-3">
-              {students[indexOfStudentToEdit].firstName +
-                " " +
-                students[indexOfStudentToEdit].lastName}
+              <p>
+                You can edit here the info about
+                {" " +
+                  students[indexOfStudentToEdit].firstName +
+                  " " +
+                  students[indexOfStudentToEdit].lastName}
+              </p>
             </div>
           </div>
           <div className="card-body">
@@ -146,6 +150,6 @@ export const StudentCard = ({
           <div className="card-footer"></div>
         </form>
       </div>
-    </>
+    </div>
   );
 };

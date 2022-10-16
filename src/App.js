@@ -59,18 +59,10 @@ const App = () => {
   const isDifficultyBoxChecked = useSelector(
     (state) => state.ui.isDifficultyBoxChecked
   );
-  // const funNumbers = useSelector((state) => state.ui.funNumbers);
-  const sumOfFunNumbersOfAllSelectedStudents = useSelector(
-    (state) => state.ui.sumOfFunNumbersOfAllSelectedStudents
-  );
-  const averageFunNumberPerStudent = useSelector(
-    (state) => state.ui.averageFunNumberPerStudent
-  );
+
   const averageFunNumberOfAllSelectedStudents = useSelector(
     (state) => state.ui.averageFunNumberOfAllSelectedStudents
   );
-
-  const indexOfStudentToEdit2 = selectedStudentsList[0];
 
   const indexOfStudentToEdit = students.findIndex(
     (s) => s.id == selectedStudentsList[0]
@@ -310,6 +302,7 @@ const App = () => {
       // console.log(
       //   "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit"
       // );
+      handleAverageBoxChange();
       depolulateSelectedStudentList();
     }
   };
@@ -319,8 +312,15 @@ const App = () => {
       "handleAverageBoxChange. Status isAverageBoxChecked =",
       isAverageBoxChecked
     );
-    dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
+    if (selectedStudentsList.length === 0) {
+      alert("Er is niet zoiets...\n  ...als het gemiddelde van niets");
+    } else if (selectedStudentsList.length === 1) {
+      alert("Het gemiddelde van één\n  ...is voor iedereen één");
+    } else {
+      dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
+    }
   };
+
   //console.log("Status isAverageBoxChecked =", isAverageBoxChecked);
   return (
     <div className="App">

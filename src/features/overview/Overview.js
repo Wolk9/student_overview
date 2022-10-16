@@ -216,6 +216,9 @@ const Overview = ({
       order: 1,
       label: "fun Average",
       data: averagesOfFunNumbers,
+      borderWidth: 3,
+      borderColor: "rgb(53, 162, 235)",
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
   ];
 
@@ -229,20 +232,32 @@ const Overview = ({
       order: 1,
       label: "difficulty Average",
       data: averagesOfDifficultyNumbers,
+      borderWidth: 3,
+      borderColor: "rgb(253, 162, 235)",
+      backgroundColor: "rgba(253, 162, 235, 0.5)",
     },
   ];
 
   const selectedData2 = () => {
     const averageData = funAverage.concat(difficultyAverage);
     const data = funData.concat(difficultyData);
+    // if (isAverageBoxChecked) {
+    //   console.log("A checked");
+    //   if (isFunBoxChecked && isDifficultyBoxChecked) {
+    //     return data.concat(averageData);
+    //   } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
+    //     return data.concat(funData.concat(funAverage));
+    //   } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
+    //     return data.concat(difficultyData.concat(difficultyAverage));
+    //   } else return;
     if (isAverageBoxChecked) {
       console.log("A checked");
       if (isFunBoxChecked && isDifficultyBoxChecked) {
-        return data.concat(averageData);
+        return averageData;
       } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
-        return data.concat(funData.concat(funAverage));
+        return funAverage;
       } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
-        return data.concat(difficultyData.concat(difficultyAverage));
+        return difficultyAverage;
       } else return;
     } else {
       console.log("A not checked");
@@ -271,15 +286,113 @@ const Overview = ({
     <div>
       <div className="container-fluid p-4 m4">
         <div className="row">
+          <div className="col-4">
+            <div className="card">
+              <div className="row">
+                <SelectorCard
+                  students={students}
+                  isFunBoxChecked={isFunBoxChecked}
+                  isDifficultyBoxChecked={isDifficultyBoxChecked}
+                  isStudentChecked={isStudentChecked}
+                  selectedStudentsList={selectedStudentsList}
+                  isAllBoxChecked={isAllBoxChecked}
+                  handleEditClick={handleEditClick}
+                  editStudentCardDisplay={editStudentCardDisplay}
+                  toggleDifficultyCheckBox={toggleDifficultyCheckBox}
+                  toggleFunCheckBox={toggleFunCheckBox}
+                  addToSelectedStudentsList={addToSelectedStudentsList}
+                  removeFromSelectedStudentsList={
+                    removeFromSelectedStudentsList
+                  }
+                  flushSelectedStudentsList={flushSelectedStudentsList}
+                  toggleAllStudentsChecked={toggleAllStudentsChecked}
+                  setIndexOfStudentToEdit={setIndexOfStudentToEdit}
+                  handleSelectedStudentsChange={handleSelectedStudentsChange}
+                  handleAllBoxChange={handleAllBoxChange}
+                  handleAverageBoxChange={handleAverageBoxChange}
+                  depolulateSelectedStudentList={depolulateSelectedStudentList}
+                  populateSelectedStudentList={populateSelectedStudentList}
+                  handleDifficultyCheckBoxChange={
+                    handleDifficultyCheckBoxChange
+                  }
+                  handleFunCheckboxChange={handleFunCheckboxChange}
+                  isAverageBoxChecked={isAverageBoxChecked}
+                  averageFunNumberOfAllSelectedStudents={
+                    averageFunNumberOfAllSelectedStudents
+                  }
+                  studentCheckboxChange={studentCheckboxChange}
+                />
+              </div>
+              <div className="row">
+                {editStudentCardDisplay ? (
+                  <StudentCard
+                    students={students}
+                    indexOfStudentToEdit={indexOfStudentToEdit}
+                    setIndexOfStudentToEdit={setIndexOfStudentToEdit}
+                    onSubmit={onSubmit}
+                    handleChange={handleChange}
+                    isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+                    isFunColorPickerOpen={isFunColorPickerOpen}
+                    colorDifficulty={colorDifficulty}
+                    colorFun={colorFun}
+                    onClickDifficultySwatch={onClickDifficultySwatch}
+                    onClickFunSwatch={onClickFunSwatch}
+                    onChangeDifficultyColor={onChangeDifficultyColor}
+                    onChangeFunColor={onChangeFunColor}
+                    onCloseDifficultyColor={onCloseDifficultyColor}
+                    onCloseFunColor={onCloseFunColor}
+                    isStudentChecked={isStudentChecked}
+                    handleAllBoxChange={handleAllBoxChange}
+                    depolulateSelectedStudentList={
+                      depolulateSelectedStudentList
+                    }
+                    populateSelectedStudentList={populateSelectedStudentList}
+                    handleDifficultyCheckBoxChange={
+                      handleDifficultyCheckBoxChange
+                    }
+                    handleFunCheckboxChange={handleFunCheckboxChange}
+                    studentCheckboxChange={studentCheckboxChange}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+          </div>
           <div className="col">
             <div className="card">
               <div className="card-header">
-                <div className="card-title h5 p-3">Overview</div>
+                <div className="card-title h5 p-3">
+                  {selectedStudentsList.length < 1 ? "Hints" : "Grafiek"}
+                </div>
               </div>
               <div className="card-body">
                 {selectedStudentsList.length < 1 ? (
                   <MDBCardText>
-                    Selecteer 1 of meerdere studenten uit de lijst hiernaast
+                    <h4>Studenten selector</h4>
+                    <p>
+                      De studenten selector zet de geselcteerde gegevens in een
+                      grafiek. De keuzen spreken voor zich
+                    </p>
+                    <h5>Één of meerdere studenten selecteren</h5>
+                    <h6>Éen student geselecteerd</h6>
+                    <p>
+                      Als je 1 student selecteerd kun je de gegevens van deze
+                      student aanpassen in de dan verschijnende Edit Card.
+                    </p>
+                    <p>
+                      Je kunt daarin ook de kleur van de gegevens in de grafiek
+                      aanpassen voor die student.
+                    </p>
+                    <h6>Meerdere studenten geselecteerd</h6>
+                    <p>
+                      Er kunnen ook meerdere studenten tegelijk worden
+                      geselecteerd. Je kunt dan ook de gemiddelden laten zien.
+                    </p>
+                    <p>
+                      Gemiddelden worden logischerwijs niet getoont bij geen of
+                      slechts een geselecteerde student.
+                    </p>
                   </MDBCardText>
                 ) : (
                   <div className="chart-container">
@@ -288,64 +401,7 @@ const Overview = ({
                 )}
               </div>
             </div>
-            {editStudentCardDisplay ? (
-              <StudentCard
-                students={students}
-                indexOfStudentToEdit={indexOfStudentToEdit}
-                setIndexOfStudentToEdit={setIndexOfStudentToEdit}
-                onSubmit={onSubmit}
-                handleChange={handleChange}
-                isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
-                isFunColorPickerOpen={isFunColorPickerOpen}
-                colorDifficulty={colorDifficulty}
-                colorFun={colorFun}
-                onClickDifficultySwatch={onClickDifficultySwatch}
-                onClickFunSwatch={onClickFunSwatch}
-                onChangeDifficultyColor={onChangeDifficultyColor}
-                onChangeFunColor={onChangeFunColor}
-                onCloseDifficultyColor={onCloseDifficultyColor}
-                onCloseFunColor={onCloseFunColor}
-                isStudentChecked={isStudentChecked}
-                handleAllBoxChange={handleAllBoxChange}
-                depolulateSelectedStudentList={depolulateSelectedStudentList}
-                populateSelectedStudentList={populateSelectedStudentList}
-                handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
-                handleFunCheckboxChange={handleFunCheckboxChange}
-                studentCheckboxChange={studentCheckboxChange}
-              />
-            ) : (
-              <></>
-            )}
           </div>
-          <SelectorCard
-            students={students}
-            isFunBoxChecked={isFunBoxChecked}
-            isDifficultyBoxChecked={isDifficultyBoxChecked}
-            isStudentChecked={isStudentChecked}
-            selectedStudentsList={selectedStudentsList}
-            isAllBoxChecked={isAllBoxChecked}
-            handleEditClick={handleEditClick}
-            editStudentCardDisplay={editStudentCardDisplay}
-            toggleDifficultyCheckBox={toggleDifficultyCheckBox}
-            toggleFunCheckBox={toggleFunCheckBox}
-            addToSelectedStudentsList={addToSelectedStudentsList}
-            removeFromSelectedStudentsList={removeFromSelectedStudentsList}
-            flushSelectedStudentsList={flushSelectedStudentsList}
-            toggleAllStudentsChecked={toggleAllStudentsChecked}
-            setIndexOfStudentToEdit={setIndexOfStudentToEdit}
-            handleSelectedStudentsChange={handleSelectedStudentsChange}
-            handleAllBoxChange={handleAllBoxChange}
-            handleAverageBoxChange={handleAverageBoxChange}
-            depolulateSelectedStudentList={depolulateSelectedStudentList}
-            populateSelectedStudentList={populateSelectedStudentList}
-            handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
-            handleFunCheckboxChange={handleFunCheckboxChange}
-            isAverageBoxChecked={isAverageBoxChecked}
-            averageFunNumberOfAllSelectedStudents={
-              averageFunNumberOfAllSelectedStudents
-            }
-            studentCheckboxChange={studentCheckboxChange}
-          />
         </div>
       </div>
     </div>
