@@ -21,7 +21,6 @@ import { useEffect } from "react";
 const Overview = ({
   courses,
   students,
-  studentName,
   assignments,
   handleEditClick,
   indexOfStudentToEdit,
@@ -59,7 +58,6 @@ const Overview = ({
   flushSelectedStudentsList,
   toggleAllStudentsChecked,
   averageFunNumberOfAllSelectedStudents,
-  setAverageFunOfAllSelectedStudents,
   studentCheckboxChange,
 }) => {
   const dispatch = useDispatch();
@@ -92,7 +90,7 @@ const Overview = ({
     },
   };
 
-  console.log("SelectedStudentsList: ", selectedStudentsList);
+  // console.log("SelectedStudentsList: ", selectedStudentsList);
 
   const funData = selectedStudentsList.map((s) => {
     return {
@@ -114,7 +112,7 @@ const Overview = ({
     };
   });
 
-  console.log(funData);
+  // console.log(funData);
 
   const difficultyData = selectedStudentsList.map((s) => {
     return {
@@ -140,13 +138,13 @@ const Overview = ({
   const difficultyNumbers = [];
 
   const divideArray = (array, divisor) => {
-    console.log("array", array);
-    console.log("divisor", divisor);
+    // console.log("array", array);
+    // console.log("divisor", divisor);
     const array2 = [];
     for (let x = 0; x < array.length; x++) {
       array2[x] = Math.round((array[x] / divisor + Number.EPSILON) * 100) / 100;
     }
-    console.log(array2);
+    // console.log(array2);
     return array2;
   };
 
@@ -165,7 +163,7 @@ const Overview = ({
 
       funNumbers.push(funNumbersToAdd);
 
-      console.log("funNumbers after push", funNumbers);
+      // console.log("funNumbers after push", funNumbers);
 
       return funNumbers;
     });
@@ -181,7 +179,7 @@ const Overview = ({
 
       difficultyNumbers.push(difficultyNumbersToAdd);
 
-      console.log("difNumbers after push", difficultyNumbers);
+      // console.log("difNumbers after push", difficultyNumbers);
 
       return difficultyNumbers;
     });
@@ -242,7 +240,7 @@ const Overview = ({
     const averageData = funAverage.concat(difficultyAverage);
     const data = funData.concat(difficultyData);
     // if (isAverageBoxChecked) {
-    //   console.log("A checked");
+    //   // console.log("A checked");
     //   if (isFunBoxChecked && isDifficultyBoxChecked) {
     //     return data.concat(averageData);
     //   } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
@@ -251,7 +249,7 @@ const Overview = ({
     //     return data.concat(difficultyData.concat(difficultyAverage));
     //   } else return;
     if (isAverageBoxChecked) {
-      console.log("A checked");
+      // console.log("A checked");
       if (isFunBoxChecked && isDifficultyBoxChecked) {
         return averageData;
       } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
@@ -260,7 +258,7 @@ const Overview = ({
         return difficultyAverage;
       } else return;
     } else {
-      console.log("A not checked");
+      // console.log("A not checked");
       if (isFunBoxChecked && isDifficultyBoxChecked) {
         return funData.concat(difficultyData);
       } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
@@ -273,9 +271,9 @@ const Overview = ({
 
   const selectedData = selectedData2();
 
-  console.log("selectedData", selectedData);
+  // console.log("selectedData", selectedData);
 
-  console.log(indexOfStudentToEdit);
+  // console.log(indexOfStudentToEdit);
 
   const data = {
     labels: courses.map((c) => c.code),
@@ -291,6 +289,7 @@ const Overview = ({
               <div className="row">
                 <SelectorCard
                   students={students}
+                  selectedStudentsList={selectedStudentsList}
                   isFunBoxChecked={isFunBoxChecked}
                   isDifficultyBoxChecked={isDifficultyBoxChecked}
                   isStudentChecked={isStudentChecked}
@@ -368,32 +367,34 @@ const Overview = ({
               </div>
               <div className="card-body">
                 {selectedStudentsList.length < 1 ? (
-                  <MDBCardText>
-                    <h4>Studenten selector</h4>
-                    <p>
-                      De studenten selector zet de geselcteerde gegevens in een
-                      grafiek. De keuzen spreken voor zich
-                    </p>
-                    <h5>Één of meerdere studenten selecteren</h5>
-                    <h6>Éen student geselecteerd</h6>
-                    <p>
-                      Als je 1 student selecteerd kun je de gegevens van deze
-                      student aanpassen in de dan verschijnende Edit Card.
-                    </p>
-                    <p>
-                      Je kunt daarin ook de kleur van de gegevens in de grafiek
-                      aanpassen voor die student.
-                    </p>
-                    <h6>Meerdere studenten geselecteerd</h6>
-                    <p>
-                      Er kunnen ook meerdere studenten tegelijk worden
-                      geselecteerd. Je kunt dan ook de gemiddelden laten zien.
-                    </p>
-                    <p>
-                      Gemiddelden worden logischerwijs niet getoont bij geen of
-                      slechts een geselecteerde student.
-                    </p>
-                  </MDBCardText>
+                  <div className="card-text">
+                    <div>
+                      <h3>Studenten selector</h3>
+                      <p>
+                        De studenten selector zet de geselcteerde gegevens in
+                        een grafiek. De keuzen spreken voor zich
+                      </p>
+                      <h5>Één of meerdere studenten selecteren</h5>
+                      <h6>Éen student geselecteerd</h6>
+                      <p>
+                        Als je 1 student selecteerd kun je de gegevens van deze
+                        student aanpassen in de dan verschijnende Edit Card.
+                      </p>
+                      <p>
+                        Je kunt daarin ook de kleur van de gegevens in de
+                        grafiek aanpassen voor die student.
+                      </p>
+                      <h6>Meerdere studenten geselecteerd</h6>
+                      <p>
+                        Er kunnen ook meerdere studenten tegelijk worden
+                        geselecteerd. Je kunt dan ook de gemiddelden laten zien.
+                      </p>
+                      <p>
+                        Gemiddelden worden logischerwijs niet getoont bij geen
+                        of slechts een geselecteerde student.
+                      </p>
+                    </div>
+                  </div>
                 ) : (
                   <div className="chart-container">
                     <Chart data={data} options={options} />

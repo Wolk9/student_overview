@@ -169,10 +169,6 @@ const App = () => {
         dispatch(removeFromSelectedStudentsList(selectedStudent));
       } else {
         dispatch(addToSelectedStudentsList(selectedStudent));
-        // const indexOfStudentToEdit = students.findIndex(
-        //   (selected) => selected.id === e.id
-        // );
-        // setIndexOfStudentToEdit(indexOfStudentToEdit);
       }
     } else if (
       selectedStudentsList.length > 1 &&
@@ -181,7 +177,15 @@ const App = () => {
       // console.log("handleSelectedStudentChange: > 1 maar niet allemaal");
       const selectedStudent = students.find((s) => s.id === e.id);
       if (isStudentChecked(selectedStudent)) {
-        dispatch(removeFromSelectedStudentsList(selectedStudent));
+        console.log("selected > 1 | !allemaal, student selected");
+        if (selectedStudentsList.length === 2) {
+          console.log("2 selected student selected");
+          dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
+          dispatch(removeFromSelectedStudentsList(selectedStudent));
+        } else {
+          console.log("> 2 selected student selected");
+          dispatch(removeFromSelectedStudentsList(selectedStudent));
+        }
       } else if (!isStudentChecked(selectedStudent)) {
         dispatch(addToSelectedStudentsList(selectedStudent));
       }
@@ -258,7 +262,7 @@ const App = () => {
 
   const isStudentChecked = (e) => {
     const checked = selectedStudentsList.some((s) => s == e.id);
-    console.log(e, checked);
+    // console.log(e, checked);
     return checked;
   };
 
@@ -315,7 +319,11 @@ const App = () => {
     if (selectedStudentsList.length === 0) {
       alert("Er is niet zoiets...\n  ...als het gemiddelde van niets");
     } else if (selectedStudentsList.length === 1) {
-      alert("Het gemiddelde van één\n  ...is voor iedereen één");
+      if (!isAverageBoxChecked) {
+        alert("Het gemiddelde van één\n  ...is voor iedereen één");
+      } else {
+        dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
+      }
     } else {
       dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
     }

@@ -3,6 +3,7 @@ import { MDBCheckbox } from "mdb-react-ui-kit";
 
 export const SelectorCard = ({
   students,
+  selectedStudentsList,
   isFunBoxChecked,
   isDifficultyBoxChecked,
   isAllBoxChecked,
@@ -17,7 +18,7 @@ export const SelectorCard = ({
   return (
     <div>
       <div className="card-header">
-        <div className="card-title h5 p-3">Students</div>
+        <div className="card-title h5 p-3">Studenten</div>
       </div>
       <div className="card-body">
         <div style={{ backgroundColor: "#fafafa", borderRadius: "10px" }}>
@@ -26,12 +27,12 @@ export const SelectorCard = ({
             <div
               className="p-2 flex-grow-0"
               style={{ backgroundColor: "#ffffff" }}>
-              <p className="rotate">Difficulty</p>
+              <p className="rotate">Moeilijkheid</p>
             </div>
             <div
               className="p-2 flex-grow-0"
               style={{ backgroundColor: "#f1f1f1" }}>
-              <p className="rotate">Fun</p>
+              <p className="rotate">Plezier</p>
             </div>
           </div>
           <div
@@ -43,14 +44,7 @@ export const SelectorCard = ({
                   checked={isAllBoxChecked}
                   onChange={() => handleAllBoxChange()}
                 />
-                <div className="d-flex w-100">all</div>
-              </div>
-              <div className="d-flex d-flex-shrink-0 m-1">
-                <MDBCheckbox
-                  checked={isAverageBoxChecked}
-                  onChange={() => handleAverageBoxChange()}
-                />
-                <div className="d-flex w-100">Averages</div>
+                <div className="d-flex w-100">Allemaal</div>
               </div>
             </div>
             <div
@@ -83,6 +77,56 @@ export const SelectorCard = ({
             </div>
             <div></div>
           </div>
+          {selectedStudentsList.length >= 2 ? (
+            <div
+              className="d-flex align-content-end"
+              style={{ borderBottom: "1px solid #e9e9e9" }}>
+              <div className="p-2 d-inline-flex w-100">
+                <div className="d-flex d-flex-shrink-0 m-1">
+                  <MDBCheckbox
+                    checked={isAverageBoxChecked}
+                    onChange={() => handleAverageBoxChange()}
+                  />
+                  <div className="d-flex w-100">Gemiddelden</div>
+                </div>
+              </div>
+              <div
+                className="p-2 flex-grow-0"
+                style={{
+                  width: "60px",
+                  textAlign: "center",
+                  backgroundColor: "#ffffff",
+                }}>
+                {isAverageBoxChecked ? (
+                  <div
+                    className="swatch"
+                    style={{ backgroundColor: "rgb(53, 162, 235)" }}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div
+                className="p-2 flex-grow-0"
+                style={{
+                  width: "60px",
+                  textAlign: "center",
+                  backgroundColor: "#f1f1f1",
+                }}>
+                {isAverageBoxChecked ? (
+                  <div
+                    className="swatch"
+                    style={{ backgroundColor: "rgb(253, 162, 235)" }}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+
           {students.map((student) => (
             <div key={student.id} className="d-flex align-content-end">
               <div className="p-2 d-inline-flex w-100">
@@ -111,11 +155,16 @@ export const SelectorCard = ({
                   textAlign: "center",
                   backgroundColor: "#ffffff",
                 }}>
-                <div
-                  className="swatch"
-                  style={{ backgroundColor: student.colorDifficulty }}
-                />
+                {!isAverageBoxChecked ? (
+                  <div
+                    className="swatch"
+                    style={{ backgroundColor: student.colorDifficulty }}
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
+
               <div
                 className="p-2 flex-grow-0"
                 style={{
@@ -123,19 +172,19 @@ export const SelectorCard = ({
                   textAlign: "center",
                   backgroundColor: "#f1f1f1",
                 }}>
-                <div
-                  className="swatch"
-                  style={{ backgroundColor: student.colorFun }}
-                />
+                {!isAverageBoxChecked ? (
+                  <div
+                    className="swatch"
+                    style={{ backgroundColor: student.colorFun }}
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="col"></div>
             </div>
           ))}
         </div>
-        {/* <p>
-            Average Fun of selected students:{" "}
-            {averageFunNumberOfAllSelectedStudents}
-          </p> */}
       </div>
     </div>
   );
