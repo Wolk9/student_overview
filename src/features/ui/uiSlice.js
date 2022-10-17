@@ -49,7 +49,7 @@ const uiSlice = createSlice({
       };
     },
     editSelectedStudent(state, action) {
-      console.log(action.payload);
+      // console.log(action.payload);
     },
     toggleFunColorPicker(state) {
       return {
@@ -79,28 +79,28 @@ const uiSlice = createSlice({
       return { ...state, isFunBoxChecked: !state.isFunBoxChecked };
     },
     addToSelectedStudentsList(state, action) {
-      console.log(action);
+      // console.log(action);
       const isInList = state.selectedStudentsList.includes(action.payload);
-      console.log("isInList", isInList);
+      // console.log("isInList", isInList);
       if (!isInList) {
-        console.log("ok, it is not in the list, so let's put in in the list!");
+        // console.log("ok, it is not in the list, so let's put in in the list!");
         return {
           ...state,
           selectedStudentsList: [...state.selectedStudentsList, action.payload],
         };
       } else {
-        console.log("nah, that one is already in the list. don't bother");
+        // console.log("nah, that one is already in the list. don't bother");
         return state;
       }
     },
     removeFromSelectedStudentsList(state, action) {
-      console.log(action);
+      // console.log(action);
       const isInList = state.selectedStudentsList.includes(action.payload);
       if (!isInList) {
-        console.log("ok, it is not in the list, so nothig to remove here");
+        // console.log("ok, it is not in the list, so nothig to remove here");
         return state;
       } else {
-        console.log("Yup. Found it. I will eliminate this MF for you!");
+        // console.log("Yup. Found it. I will eliminate this MF for you!");
         return {
           ...state,
           selectedStudentsList: state.selectedStudentsList.filter(

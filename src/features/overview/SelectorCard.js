@@ -100,7 +100,7 @@ export const SelectorCard = ({
                 {isAverageBoxChecked ? (
                   <div
                     className="swatch"
-                    style={{ backgroundColor: "rgb(53, 162, 235)" }}
+                    style={{ backgroundColor: "rgb(253, 162, 235)" }}
                   />
                 ) : (
                   <></>
@@ -116,7 +116,7 @@ export const SelectorCard = ({
                 {isAverageBoxChecked ? (
                   <div
                     className="swatch"
-                    style={{ backgroundColor: "rgb(253, 162, 235)" }}
+                    style={{ backgroundColor: "rgb(53, 162, 235)" }}
                   />
                 ) : (
                   <></>

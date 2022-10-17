@@ -293,7 +293,6 @@ const Overview = ({
                   isFunBoxChecked={isFunBoxChecked}
                   isDifficultyBoxChecked={isDifficultyBoxChecked}
                   isStudentChecked={isStudentChecked}
-                  selectedStudentsList={selectedStudentsList}
                   isAllBoxChecked={isAllBoxChecked}
                   handleEditClick={handleEditClick}
                   editStudentCardDisplay={editStudentCardDisplay}

@@ -43,6 +43,7 @@ const SingleStudentView = ({
   toggleFunCheckBox,
   flushSelectedStudentsList,
   toggleAllStudentsChecked,
+  studentCheckboxChange,
 }) => {
   const { studentName } = useParams();
   console.log(studentName);
@@ -110,6 +111,7 @@ const SingleStudentView = ({
         isAverageBoxChecked={isAverageBoxChecked}
         selectedStudentsList={selectedStudentsList}
         editStudentCardDisplay={editStudentCardDisplay}
+        studentCheckboxChange={studentCheckboxChange}
       />
     </>
   );

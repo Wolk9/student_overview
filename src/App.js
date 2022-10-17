@@ -76,25 +76,20 @@ const App = () => {
     } else {
       dispatch(toggleAllStudentsChecked(false));
     }
-    if (selectedStudentsList.length === 1) {
-      dispatch(openEditStudentCard(true));
-    } else if (selectedStudentsList.length !== 1) {
-      dispatch(openEditStudentCard(false));
-    }
-  }, [selectedStudentsList, students, dispatch]);
+  }, [selectedStudentsList, students]);
 
-  const handleEditClick = (e) => {
-    // als er op de naam van de student geklikt wordt wordt dit uitgevoerd
-    console.log("Click on StudentEdit " + e.id + " happend");
-    // hoeveel studenten zijn er geselecteerd?
-    const numberOfStudentsSelected = selectedStudentsList.length;
-    console.log(numberOfStudentsSelected);
+  // const handleEditClick = (e) => {
+  //   // als er op de naam van de student geklikt wordt wordt dit uitgevoerd
+  //   console.log("Click on StudentEdit " + e.id + " happend");
+  //   // hoeveel studenten zijn er geselecteerd?
+  //   const numberOfStudentsSelected = selectedStudentsList.length;
+  //   console.log(numberOfStudentsSelected);
 
-    // open de editCard
-    dispatch(openEditStudentCard(true));
+  //   // open de editCard
+  //   dispatch(openEditStudentCard(true));
 
-    handleSelectedStudentsChange(e);
-  };
+  //   handleSelectedStudentsChange(e);
+  // };
 
   const handleSelectedStudentsURL = (e) => {
     console.log("handleSelectedStudentsURL", e);
@@ -145,9 +140,7 @@ const App = () => {
   };
 
   const studentCheckboxChange = (e) => {
-    console.log("target name:", e.target.name);
-    console.log("is Not a Number:", isNaN(e.target.name));
-    console.log("list of Selected students:", selectedStudentsList);
+    console.log("studentCheckboxChange");
     const indexOfStudent = students.findIndex((s) => s.id == e.target.name);
     console.log("index of the selected Student:", indexOfStudent);
     if (!isStudentChecked({ id: e.target.id })) {
@@ -155,54 +148,61 @@ const App = () => {
       dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
     } else {
       console.log("student is checked");
-      if (selectedStudentsList.length !== 1) {
-        dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
+      dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
+      console.log(selectedStudentsList.length);
+      if (selectedStudentsList.length <= 2) {
+        console.log("er is nog maar één student over, average uit");
+        handleAverageBoxChange();
       }
     }
   };
 
-  const handleSelectedStudentsChange = (e) => {
-    if (selectedStudentsList.length === 1) {
-      const selectedStudent = students.find((s) => s.id === e.id);
+  // const handleSelectedStudentsChange = (e) => {
+  //   console.log("handleSelectedStudentsChange");
+  //   if (selectedStudentsList.length === 1) {
+  //     console.log("handleSelectedStudentsChange SelectedStudentsList = 1");
+  //     const selectedStudent = students.find((s) => s.id === e.id);
 
-      if (isStudentChecked(selectedStudent)) {
-        dispatch(removeFromSelectedStudentsList(selectedStudent));
-      } else {
-        dispatch(addToSelectedStudentsList(selectedStudent));
-      }
-    } else if (
-      selectedStudentsList.length > 1 &&
-      selectedStudentsList.length !== students.length
-    ) {
-      // console.log("handleSelectedStudentChange: > 1 maar niet allemaal");
-      const selectedStudent = students.find((s) => s.id === e.id);
-      if (isStudentChecked(selectedStudent)) {
-        console.log("selected > 1 | !allemaal, student selected");
-        if (selectedStudentsList.length === 2) {
-          console.log("2 selected student selected");
-          dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
-          dispatch(removeFromSelectedStudentsList(selectedStudent));
-        } else {
-          console.log("> 2 selected student selected");
-          dispatch(removeFromSelectedStudentsList(selectedStudent));
-        }
-      } else if (!isStudentChecked(selectedStudent)) {
-        dispatch(addToSelectedStudentsList(selectedStudent));
-      }
-    } else if (selectedStudentsList.length === students.length) {
-      // console.log("handleSelectedStudentChange: allemaal");
-    } else if (selectedStudentsList.length === 0) {
-      // console.log("handleSelectedStudentChange: geen studenten geselecteerd");
-      const selectedStudent = students.find((s) => s.id === e.id);
-      // console.log(selectedStudent);
-      dispatch(addToSelectedStudentsList(selectedStudent));
+  //     if (isStudentChecked(selectedStudent)) {
+  //       console.log("student is geselecteerd, dus verwijderen");
+  //       dispatch(removeFromSelectedStudentsList(selectedStudent));
+  //     } else {
+  //       console.log("student is niet geselecteerd dus selecteer maar");
+  //       dispatch(addToSelectedStudentsList(selectedStudent));
+  //     }
+  //   } else if (
+  //     selectedStudentsList.length > 1 &&
+  //     selectedStudentsList.length !== students.length
+  //   ) {
+  //     console.log("handleSelectedStudentChange: > 1 maar niet allemaal");
+  //     const selectedStudent = students.find((s) => s.id === e.id);
+  //     if (isStudentChecked(selectedStudent)) {
+  //       console.log("selected > 1 | !allemaal, student selected");
+  //       if (selectedStudentsList.length === 2) {
+  //         console.log("2 selected student selected");
+  //         handleAverageBoxChange();
+  //         dispatch(removeFromSelectedStudentsList(selectedStudent));
+  //       } else {
+  //         console.log("> 2 selected student selected");
+  //         dispatch(removeFromSelectedStudentsList(selectedStudent));
+  //       }
+  //     } else if (!isStudentChecked(selectedStudent)) {
+  //       dispatch(addToSelectedStudentsList(selectedStudent));
+  //     }
+  //   } else if (selectedStudentsList.length === students.length) {
+  //     // console.log("handleSelectedStudentChange: allemaal");
+  //   } else if (selectedStudentsList.length === 0) {
+  //     // console.log("handleSelectedStudentChange: geen studenten geselecteerd");
+  //     const selectedStudent = students.find((s) => s.id === e.id);
+  //     // console.log(selectedStudent);
+  //     dispatch(addToSelectedStudentsList(selectedStudent));
 
-      // const indexOfStudentToEdit = students.findIndex(
-      //   (selected) => selected.id === e.id
-      // );
-      // setIndexOfStudentToEdit(indexOfStudentToEdit);
-    }
-  };
+  //     // const indexOfStudentToEdit = students.findIndex(
+  //     //   (selected) => selected.id === e.id
+  //     // );
+  //     // setIndexOfStudentToEdit(indexOfStudentToEdit);
+  //   }
+  // };
 
   const onSubmit = (event) => {
     // console.log("clicked on onSubmit");
@@ -306,7 +306,9 @@ const App = () => {
       // console.log(
       //   "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit"
       // );
-      handleAverageBoxChange();
+      if (isAverageBoxChecked) {
+        handleAverageBoxChange();
+      }
       depolulateSelectedStudentList();
     }
   };
@@ -341,7 +343,7 @@ const App = () => {
               courses={courses}
               students={students}
               assignments={assignments}
-              handleEditClick={handleEditClick}
+              //handleEditClick={handleEditClick}
               indexOfStudentToEdit={indexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
@@ -358,7 +360,7 @@ const App = () => {
               isAllBoxChecked={isAllBoxChecked}
               isAverageBoxChecked={isAverageBoxChecked}
               isStudentChecked={isStudentChecked}
-              handleSelectedStudentsChange={handleSelectedStudentsChange}
+              //handleSelectedStudentsChange={handleSelectedStudentsChange}
               addToSelectedStudentsList={addToSelectedStudentsList}
               removeFromSelectedStudentsList={removeFromSelectedStudentsList}
               handleAllBoxChange={handleAllBoxChange}
@@ -388,7 +390,7 @@ const App = () => {
               courses={courses}
               students={students}
               assignments={assignments}
-              handleEditClick={handleEditClick}
+              //handleEditClick={handleEditClick}
               indexOfStudentToEdit={indexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
@@ -404,7 +406,7 @@ const App = () => {
               onCloseFunColor={onCloseFunColor}
               isAllBoxChecked={isAllBoxChecked}
               isStudentChecked={isStudentChecked}
-              handleSelectedStudentsChange={handleSelectedStudentsChange}
+              //handleSelectedStudentsChange={handleSelectedStudentsChange}
               handleSelectedStudentsURL={handleSelectedStudentsURL}
               addToSelectedStudentsList={addToSelectedStudentsList}
               removeFromSelectedStudentsList={removeFromSelectedStudentsList}
@@ -437,7 +439,7 @@ const App = () => {
               indexOfStudentToEdit={indexOfStudentToEdit}
               showaddmodal={showaddmodal}
               editStudentCardDisplay={editStudentCardDisplay}
-              handleEditClick={handleEditClick}
+              //handleEditClick={handleEditClick}
               onSubmit={onSubmit}
               handleChange={handleChange}
               colorDifficulty={colorDifficulty}
