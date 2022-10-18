@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleAllStudentsChecked,
   toggleEditStudentCard,
+  toggleAlertCard,
   addToSelectedStudentsList,
   removeFromSelectedStudentsList,
   toggleDifficultyColorPicker,
@@ -59,6 +60,9 @@ const App = () => {
   const isDifficultyBoxChecked = useSelector(
     (state) => state.ui.isDifficultyBoxChecked
   );
+  const isAlertCardChecked = useSelector(
+    (state) => state.ui.isAlertCardChecked
+  );
 
   const averageFunNumberOfAllSelectedStudents = useSelector(
     (state) => state.ui.averageFunNumberOfAllSelectedStudents
@@ -78,9 +82,9 @@ const App = () => {
       dispatch(toggleAllStudentsChecked(false));
     }
     if (selectedStudentsList.length === 0) {
-      dispatch(toggleAverageCheckBox());
+      dispatch(toggleAverageCheckBox(false));
     }
-  }, [selectedStudentsList, isAverageBoxChecked]);
+  }, [selectedStudentsList]);
 
   const handleSelectedStudentsURL = (e) => {
     console.log("handleSelectedStudentsURL", e);
@@ -143,10 +147,20 @@ const App = () => {
       console.log(selectedStudentsList.length);
       if (selectedStudentsList.length <= 2) {
         console.log("er is nog maar één student over, average uit");
-        dispatch(toggleAverageCheckBox());
-        dispatch(toggleEditStudentCard());
+        dispatch(toggleAverageCheckBox(false));
+        dispatch(toggleEditStudentCard(true));
+        AlertOn();
+        setTimeout(() => AlertOff(), 2000);
       }
     }
+  };
+
+  const AlertOn = () => {
+    dispatch(toggleAlertCard(true));
+  };
+
+  const AlertOff = () => {
+    dispatch(toggleAlertCard(false));
   };
 
   // const handleSelectedStudentsChange = (e) => {
@@ -313,9 +327,12 @@ const App = () => {
     if (selectedStudentsList.length === 0) {
       alert("Er is niet zoiets...\n  ...als het gemiddelde van niets");
     } else if (selectedStudentsList.length === 1) {
-      dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
+      dispatch(toggleAverageCheckBox(false));
     } else {
-      dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
+      dispatch(toggleAverageCheckBox(true));
+      if (isAverageBoxChecked === true) {
+        dispatch(toggleAverageCheckBox(false));
+      }
     }
   };
 
@@ -346,6 +363,7 @@ const App = () => {
               isAllBoxChecked={isAllBoxChecked}
               isAverageBoxChecked={isAverageBoxChecked}
               isStudentChecked={isStudentChecked}
+              isAlertCardChecked={isAlertCardChecked}
               addToSelectedStudentsList={addToSelectedStudentsList}
               removeFromSelectedStudentsList={removeFromSelectedStudentsList}
               handleAllBoxChange={handleAllBoxChange}
@@ -401,6 +419,7 @@ const App = () => {
               isFunBoxChecked={isFunBoxChecked}
               isDifficultyBoxChecked={isDifficultyBoxChecked}
               isAverageBoxChecked={isAverageBoxChecked}
+              isAlertCardChecked={isAlertCardChecked}
               selectedStudentsList={selectedStudentsList}
               editStudentCardDisplay={editStudentCardDisplay}
               averageFunNumberOfAllSelectedStudents={

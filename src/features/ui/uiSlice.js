@@ -25,6 +25,7 @@ const uiSlice = createSlice({
     isFunBoxChecked: true,
     isDifficultyBoxChecked: true,
     isAllBoxChecked: false,
+    isAlertCardChecked: false,
     isAverageBoxChecked: false,
     colorFun: "#334455",
     colorDifficulty: "#554433",
@@ -124,12 +125,19 @@ const uiSlice = createSlice({
         averageFunNumberOfAllSelectedStudents: action.payload,
       };
     },
+    toggleAlertCard(state, action) {
+      return {
+        ...state,
+        isAlertCardChecked: action.payload,
+      };
+    },
   },
 });
 
 export const {
   toggleAddStudentModal,
   toggleEditStudentCard,
+  toggleAlertCard,
   setSelectedStudent,
   editSelectedStudent,
   toggleFunColorPicker,

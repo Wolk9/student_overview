@@ -52,6 +52,7 @@ const Overview = ({
   isDifficultyBoxChecked,
   isAverageBoxChecked,
   isAllBoxChecked,
+  isAlertCardChecked,
   selectedStudentsList,
   editStudentCardDisplay,
   toggleDifficultyCheckBox,
@@ -322,20 +323,26 @@ const Overview = ({
                   studentCheckboxChange={studentCheckboxChange}
                 />
               </div>
-              <div className="col">
-                <Alert variant="success">
-                  <Alert.Heading>Gemiddeld is uitgeschakeld</Alert.Heading>
-                  <p>
-                    Het gemiddelde van één is géén. Dus we hebben het gemiddelde
-                    weer uitgeschakeld voor je
-                  </p>
-                  <hr />
-                  <p>
-                    Als je weer gemiddelde wilt zien, kies dan 2 of meer
-                    studenten tegelijk, en vink 'gemiddelde' weer aan.
-                  </p>
-                </Alert>
-              </div>
+              {isAlertCardChecked ? (
+                <div className="col">
+                  <div className="card">
+                    <Alert variant="success">
+                      <Alert.Heading>Gemiddeld is uitgeschakeld</Alert.Heading>
+                      <p>
+                        Het gemiddelde van één is géén. Dus we hebben het
+                        gemiddelde weer uitgeschakeld voor je
+                      </p>
+                      <hr />
+                      <p>
+                        Als je weer gemiddelde wilt zien, kies dan 2 of meer
+                        studenten tegelijk, en vink 'gemiddelde' weer aan.
+                      </p>
+                    </Alert>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
               <div className="row">
                 {editStudentCardDisplay ? (
                   <StudentCard
