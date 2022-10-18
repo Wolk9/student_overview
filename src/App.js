@@ -331,7 +331,6 @@ const App = () => {
     }
   };
 
-  //console.log("Status isAverageBoxChecked =", isAverageBoxChecked);
   return (
     <div className="App">
       <Routes>
@@ -360,7 +359,6 @@ const App = () => {
               isAllBoxChecked={isAllBoxChecked}
               isAverageBoxChecked={isAverageBoxChecked}
               isStudentChecked={isStudentChecked}
-              //handleSelectedStudentsChange={handleSelectedStudentsChange}
               addToSelectedStudentsList={addToSelectedStudentsList}
               removeFromSelectedStudentsList={removeFromSelectedStudentsList}
               handleAllBoxChange={handleAllBoxChange}
@@ -390,7 +388,6 @@ const App = () => {
               courses={courses}
               students={students}
               assignments={assignments}
-              //handleEditClick={handleEditClick}
               indexOfStudentToEdit={indexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
@@ -406,7 +403,6 @@ const App = () => {
               onCloseFunColor={onCloseFunColor}
               isAllBoxChecked={isAllBoxChecked}
               isStudentChecked={isStudentChecked}
-              //handleSelectedStudentsChange={handleSelectedStudentsChange}
               handleSelectedStudentsURL={handleSelectedStudentsURL}
               addToSelectedStudentsList={addToSelectedStudentsList}
               removeFromSelectedStudentsList={removeFromSelectedStudentsList}
@@ -439,7 +435,6 @@ const App = () => {
               indexOfStudentToEdit={indexOfStudentToEdit}
               showaddmodal={showaddmodal}
               editStudentCardDisplay={editStudentCardDisplay}
-              //handleEditClick={handleEditClick}
               onSubmit={onSubmit}
               handleChange={handleChange}
               colorDifficulty={colorDifficulty}
