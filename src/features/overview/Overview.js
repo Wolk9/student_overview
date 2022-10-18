@@ -10,6 +10,7 @@ import {
   MDBModalBody,
   MDBModalFooter,
 } from "mdb-react-ui-kit";
+import Alert from "react-bootstrap/Alert";
 import { Chart } from "react-chartjs-2";
 import "chart.js/auto";
 import {} from "../ui/uiSlice";
@@ -320,6 +321,20 @@ const Overview = ({
                   }
                   studentCheckboxChange={studentCheckboxChange}
                 />
+              </div>
+              <div className="col">
+                <Alert variant="success">
+                  <Alert.Heading>Gemiddeld is uitgeschakeld</Alert.Heading>
+                  <p>
+                    Het gemiddelde van één is géén. Dus we hebben het gemiddelde
+                    weer uitgeschakeld voor je
+                  </p>
+                  <hr />
+                  <p>
+                    Als je weer gemiddelde wilt zien, kies dan 2 of meer
+                    studenten tegelijk, en vink 'gemiddelde' weer aan.
+                  </p>
+                </Alert>
               </div>
               <div className="row">
                 {editStudentCardDisplay ? (

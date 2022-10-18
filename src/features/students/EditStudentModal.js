@@ -20,7 +20,7 @@ import {
   setDifficultyColor,
   toggleFunColorPicker,
   setFunColor,
-  openEditStudentCard,
+  toggleEditStudentCard,
 } from "../ui/uiSlice";
 
 const EditStudentModal = (props) => {
@@ -77,7 +77,7 @@ const EditStudentModal = (props) => {
 
   const handleClose = () => {
     console.log("Click on closed");
-    dispatch(openEditStudentCard());
+    dispatch(toggleEditStudentCard());
   };
 
   return (

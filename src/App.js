@@ -8,7 +8,7 @@ import AssignmentsList from "./features/assignments/AssignmentsList";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleAllStudentsChecked,
-  openEditStudentCard,
+  toggleEditStudentCard,
   addToSelectedStudentsList,
   removeFromSelectedStudentsList,
   toggleDifficultyColorPicker,
@@ -71,25 +71,16 @@ const App = () => {
   // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
   useEffect(() => {
+    console.log("useEffect");
     if (students.length === selectedStudentsList.length) {
       dispatch(toggleAllStudentsChecked(true));
     } else {
       dispatch(toggleAllStudentsChecked(false));
     }
-  }, [selectedStudentsList, students]);
-
-  // const handleEditClick = (e) => {
-  //   // als er op de naam van de student geklikt wordt wordt dit uitgevoerd
-  //   console.log("Click on StudentEdit " + e.id + " happend");
-  //   // hoeveel studenten zijn er geselecteerd?
-  //   const numberOfStudentsSelected = selectedStudentsList.length;
-  //   console.log(numberOfStudentsSelected);
-
-  //   // open de editCard
-  //   dispatch(openEditStudentCard(true));
-
-  //   handleSelectedStudentsChange(e);
-  // };
+    if (selectedStudentsList.length === 0) {
+      dispatch(toggleAverageCheckBox());
+    }
+  }, [selectedStudentsList, isAverageBoxChecked]);
 
   const handleSelectedStudentsURL = (e) => {
     console.log("handleSelectedStudentsURL", e);
@@ -152,7 +143,8 @@ const App = () => {
       console.log(selectedStudentsList.length);
       if (selectedStudentsList.length <= 2) {
         console.log("er is nog maar één student over, average uit");
-        handleAverageBoxChange();
+        dispatch(toggleAverageCheckBox());
+        dispatch(toggleEditStudentCard());
       }
     }
   };
@@ -208,7 +200,7 @@ const App = () => {
     // console.log("clicked on onSubmit");
     event.preventDefault();
 
-    dispatch(openEditStudentCard());
+    dispatch(toggleEditStudentCard());
 
     //TODO: redux result reflect into JSON server
     //TODO: format phone and email check and alert
@@ -321,11 +313,7 @@ const App = () => {
     if (selectedStudentsList.length === 0) {
       alert("Er is niet zoiets...\n  ...als het gemiddelde van niets");
     } else if (selectedStudentsList.length === 1) {
-      if (!isAverageBoxChecked) {
-        alert("Het gemiddelde van één\n  ...is voor iedereen één");
-      } else {
-        dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
-      }
+      dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
     } else {
       dispatch(toggleAverageCheckBox(!isAverageBoxChecked));
     }
@@ -342,7 +330,6 @@ const App = () => {
               courses={courses}
               students={students}
               assignments={assignments}
-              //handleEditClick={handleEditClick}
               indexOfStudentToEdit={indexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
