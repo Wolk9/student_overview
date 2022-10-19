@@ -18,8 +18,11 @@ import { StudentCard } from "../students/StudentCard";
 import { SelectorCard } from "./SelectorCard";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import ReactJsAlert from "reactjs-alert";
 
 const Overview = ({
+  alertOn,
+  alertOff,
   courses,
   students,
   assignments,
@@ -284,6 +287,11 @@ const Overview = ({
 
   return (
     <div>
+      <ReactJsAlert
+        status={isAlertCardChecked} // true or false
+        type="info" // success, warning, error, info
+        title="Het gemiddelde van één is geen. Gemiddelden zijn weer uit gezet" // title you want to display
+      />
       <div className="container-fluid p-4 m4">
         <div className="row">
           <div className="col-4">
@@ -323,26 +331,6 @@ const Overview = ({
                   studentCheckboxChange={studentCheckboxChange}
                 />
               </div>
-              {isAlertCardChecked ? (
-                <div className="col">
-                  <div className="card">
-                    <Alert variant="success">
-                      <Alert.Heading>Gemiddeld is uitgeschakeld</Alert.Heading>
-                      <p>
-                        Het gemiddelde van één is géén. Dus we hebben het
-                        gemiddelde weer uitgeschakeld voor je
-                      </p>
-                      <hr />
-                      <p>
-                        Als je weer gemiddelde wilt zien, kies dan 2 of meer
-                        studenten tegelijk, en vink 'gemiddelde' weer aan.
-                      </p>
-                    </Alert>
-                  </div>
-                </div>
-              ) : (
-                <></>
-              )}
               <div className="row">
                 {editStudentCardDisplay ? (
                   <StudentCard
@@ -390,30 +378,29 @@ const Overview = ({
                 {selectedStudentsList.length < 1 ? (
                   <div className="card-text">
                     <div>
-                      <h3>Studenten selector</h3>
-                      <p>
+                      <MDBModalTitle>Studenten selector</MDBModalTitle>
+                      <MDBModalBody>
                         De studenten selector zet de geselcteerde gegevens in
-                        een grafiek. De keuzen spreken voor zich
-                      </p>
-                      <h5>Één of meerdere studenten selecteren</h5>
-                      <h6>Éen student geselecteerd</h6>
-                      <p>
+                        een grafiek. De keuzen spreken voor zich. <br />
+                        <br />
                         Als je 1 student selecteerd kun je de gegevens van deze
-                        student aanpassen in de dan verschijnende Edit Card.
-                      </p>
-                      <p>
-                        Je kunt daarin ook de kleur van de gegevens in de
-                        grafiek aanpassen voor die student.
-                      </p>
-                      <h6>Meerdere studenten geselecteerd</h6>
-                      <p>
+                        student aanpassen in de dan verschijnende Edit Card. Je
+                        kunt daarin ook de kleur van de gegevens in de grafiek
+                        aanpassen voor die student.
+                        <br />
+                      </MDBModalBody>
+                      <hr />
+                      <MDBModalTitle>
+                        Meerdere studenten geselecteerd
+                      </MDBModalTitle>
+                      <MDBModalBody>
                         Er kunnen ook meerdere studenten tegelijk worden
                         geselecteerd. Je kunt dan ook de gemiddelden laten zien.
-                      </p>
-                      <p>
+                        <br />
                         Gemiddelden worden logischerwijs niet getoont bij geen
-                        of slechts een geselecteerde student.
-                      </p>
+                        of slechts één geselecteerde student.
+                        <br />
+                      </MDBModalBody>
                     </div>
                   </div>
                 ) : (

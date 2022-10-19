@@ -125,7 +125,7 @@ const uiSlice = createSlice({
         averageFunNumberOfAllSelectedStudents: action.payload,
       };
     },
-    toggleAlertCard(state, action) {
+    toggleAlert(state, action) {
       return {
         ...state,
         isAlertCardChecked: action.payload,
@@ -137,7 +137,7 @@ const uiSlice = createSlice({
 export const {
   toggleAddStudentModal,
   toggleEditStudentCard,
-  toggleAlertCard,
+  toggleAlert,
   setSelectedStudent,
   editSelectedStudent,
   toggleFunColorPicker,

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleAllStudentsChecked,
   toggleEditStudentCard,
-  toggleAlertCard,
+  toggleAlert,
   addToSelectedStudentsList,
   removeFromSelectedStudentsList,
   toggleDifficultyColorPicker,
@@ -150,17 +150,17 @@ const App = () => {
         dispatch(toggleAverageCheckBox(false));
         dispatch(toggleEditStudentCard(true));
         AlertOn();
-        setTimeout(() => AlertOff(), 2000);
+        setTimeout(() => AlertOff(), 30000);
       }
     }
   };
 
   const AlertOn = () => {
-    dispatch(toggleAlertCard(true));
+    dispatch(toggleAlert(true));
   };
 
   const AlertOff = () => {
-    dispatch(toggleAlertCard(false));
+    dispatch(toggleAlert(false));
   };
 
   // const handleSelectedStudentsChange = (e) => {
@@ -343,6 +343,8 @@ const App = () => {
           index
           element={
             <Overview
+              alertOn={AlertOn}
+              alertOff={AlertOff}
               studentNames={studentNames}
               courses={courses}
               students={students}
