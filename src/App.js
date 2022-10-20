@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -74,15 +74,31 @@ const App = () => {
 
   // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
+  const prevSelectedStudentsList = useRef();
+
+  //TODO: getState() uitzoeken
+
   useEffect(() => {
-    console.log("useEffect");
+    console.log(
+      "prevSelectedStudentsList.current.length",
+      prevSelectedStudentsList.current.length
+    );
+    prevSelectedStudentsList.current = selectedStudentsList;
     if (students.length === selectedStudentsList.length) {
       dispatch(toggleAllStudentsChecked(true));
     } else {
       dispatch(toggleAllStudentsChecked(false));
     }
+
     if (selectedStudentsList.length === 0) {
       dispatch(toggleAverageCheckBox(false));
+    } else if (selectedStudentsList.length === 1) {
+      console.log("er is nog maar één student over, average uit");
+      dispatch(toggleAverageCheckBox(false));
+      dispatch(toggleEditStudentCard(true));
+      if (prevSelectedStudentsList.current.length === 2) {
+        AlertOn(5000);
+      }
     }
   }, [selectedStudentsList]);
 
@@ -91,47 +107,6 @@ const App = () => {
     const selectedStudent = students.find((s) => s.id === e.id);
 
     dispatch(addToSelectedStudentsList(selectedStudent));
-    // const indexOfStudentToEdit = students.findIndex(
-    //   (selected) => selected.id === e.id
-    // );
-    // setIndexOfStudentToEdit(indexOfStudentToEdit);
-
-    // if (selectedStudentsList.length === 1) {
-    //   const selectedStudent = students.find((s) => s.id === e.id);
-
-    //   if (isStudentChecked(selectedStudent)) {
-    //     dispatch(removeFromSelectedStudentsList(selectedStudent));
-    //   } else {
-    //     dispatch(addToSelectedStudentsList(selectedStudent));
-    //     const indexOfStudentToEdit = students.findIndex(
-    //       (selected) => selected.id === e.id
-    //     );
-    //     setIndexOfStudentToEdit(indexOfStudentToEdit);
-    //   }
-    // } else if (
-    //   selectedStudentsList.length > 1 &&
-    //   selectedStudentsList.length !== students.length
-    // ) {
-    //   // console.log("handleSelectedStudentChange: > 1 maar niet allemaal");
-    //   const selectedStudent = students.find((s) => s.id === e.id);
-    //   if (isStudentChecked(selectedStudent)) {
-    //     dispatch(removeFromSelectedStudentsList(selectedStudent));
-    //   } else if (!isStudentChecked(selectedStudent)) {
-    //     dispatch(addToSelectedStudentsList(selectedStudent));
-    //   }
-    // } else if (selectedStudentsList.length === students.length) {
-    //   // console.log("handleSelectedStudentChange: allemaal");
-    // } else if (selectedStudentsList.length === 0) {
-    //   // console.log("handleSelectedStudentChange: geen studenten geselecteerd");
-    //   const selectedStudent = students.find((s) => s.id === e.id);
-    //   // console.log(selectedStudent);
-    //   dispatch(addToSelectedStudentsList(selectedStudent));
-
-    //   const indexOfStudentToEdit = students.findIndex(
-    //     (selected) => selected.id === e.id
-    //   );
-    //   setIndexOfStudentToEdit(indexOfStudentToEdit);
-    // }
   };
 
   const studentCheckboxChange = (e) => {
@@ -144,19 +119,14 @@ const App = () => {
     } else {
       console.log("student is checked");
       dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
-      console.log(selectedStudentsList.length);
-      if (selectedStudentsList.length <= 2) {
-        console.log("er is nog maar één student over, average uit");
-        dispatch(toggleAverageCheckBox(false));
-        dispatch(toggleEditStudentCard(true));
-        AlertOn();
-        setTimeout(() => AlertOff(), 30000);
-      }
     }
   };
 
-  const AlertOn = () => {
+  const AlertOn = (timeout) => {
     dispatch(toggleAlert(true));
+    setTimeout(() => {
+      dispatch(toggleAlert(false));
+    }, timeout);
   };
 
   const AlertOff = () => {

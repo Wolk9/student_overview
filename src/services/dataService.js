@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3005/";
+const baseUrl = "http://0.0.0.0:3005/";
 
 const getAll = (subset) => {
   return axios.get(baseUrl + subset + "/");
