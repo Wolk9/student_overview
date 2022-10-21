@@ -263,19 +263,10 @@ const App = () => {
   };
 
   const handleAverageBoxChange = () => {
-    console.log(
-      "handleAverageBoxChange. Status isAverageBoxChecked =",
-      isAverageBoxChecked
-    );
-    if (selectedStudentsList.length === 0) {
-      alert("Er is niet zoiets...\n  ...als het gemiddelde van niets");
-    } else if (selectedStudentsList.length === 1) {
+    if (isAverageBoxChecked === true) {
       dispatch(toggleAverageCheckBox(false));
     } else {
       dispatch(toggleAverageCheckBox(true));
-      if (isAverageBoxChecked === true) {
-        dispatch(toggleAverageCheckBox(false));
-      }
     }
   };
 
