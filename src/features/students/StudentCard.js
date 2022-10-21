@@ -31,11 +31,12 @@ export const StudentCard = ({
           <div className="card-header">
             <div className="card-title h5 p-3">
               <p>
-                You can edit here the info about
+                Je kan hier de gegvens van
                 {" " +
                   students[indexOfStudentToEdit].firstName +
                   " " +
-                  students[indexOfStudentToEdit].lastName}
+                  students[indexOfStudentToEdit].lastName}{" "}
+                veranderen
               </p>
             </div>
           </div>
@@ -45,7 +46,7 @@ export const StudentCard = ({
                 <MDBInput
                   type="text"
                   className="mb-4"
-                  label="First Name"
+                  label="Voornaam"
                   value={students[indexOfStudentToEdit].firstName}
                   name="firstName"
                   id="firstName"
@@ -55,7 +56,7 @@ export const StudentCard = ({
                 <MDBInput
                   type="text"
                   className="mb-4"
-                  label="Last Name"
+                  label="Achternaam"
                   value={students[indexOfStudentToEdit].lastName}
                   name="lastName"
                   id="lastName"
@@ -76,7 +77,7 @@ export const StudentCard = ({
                 <MDBInput
                   type="text"
                   className="mb-4"
-                  label="phone"
+                  label="telefoon"
                   value={students[indexOfStudentToEdit].phone}
                   name="phone"
                   id="phone"
@@ -84,11 +85,11 @@ export const StudentCard = ({
               </div>
             </div>
             <hr />
-            <h6>Personal Graph Colors</h6>
+            <h6>Persoonlijke grafiek kleuren</h6>
             <div className="row">
               <div className="col">
                 <div className="picker">
-                  Difficulty
+                  Moeilijkheid
                   <div
                     className="swatch"
                     style={{
@@ -111,7 +112,7 @@ export const StudentCard = ({
                         aria-label="Close"
                         name="colorDifficulty"
                         onClick={() => onCloseDifficultyColor(colorDifficulty)}>
-                        Select
+                        Selecteer
                       </MDBBtn>
                     </div>
                   )}
@@ -119,7 +120,7 @@ export const StudentCard = ({
               </div>
               <MDBCol>
                 <div className="picker">
-                  Fun
+                  Plezier
                   <div
                     className="swatch"
                     style={{
@@ -139,7 +140,7 @@ export const StudentCard = ({
                         aria-label="Close"
                         name="colorFun"
                         onClick={() => onCloseFunColor(colorFun)}>
-                        Select
+                        Selecteer
                       </MDBBtn>
                     </div>
                   )}
