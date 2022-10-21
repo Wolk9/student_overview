@@ -33,8 +33,8 @@ const App = () => {
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
   const showaddmodal = useSelector((state) => state.ui.addStudentModalOpen);
-  const editStudentCardDisplay = useSelector(
-    (state) => state.ui.editStudentCardDisplay
+  const isStudentCardChecked = useSelector(
+    (state) => state.ui.isStudentCardChecked
   );
   const isAllBoxChecked = useSelector((state) => state.ui.isAllBoxChecked);
   const isAverageBoxChecked = useSelector(
@@ -74,34 +74,6 @@ const App = () => {
 
   // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
-  const prevSelectedStudentsList = useRef();
-
-  //TODO: getState() uitzoeken
-
-  useEffect(() => {
-    console.log(
-      "prevSelectedStudentsList.current.length",
-      prevSelectedStudentsList.current.length
-    );
-    prevSelectedStudentsList.current = selectedStudentsList;
-    if (students.length === selectedStudentsList.length) {
-      dispatch(toggleAllStudentsChecked(true));
-    } else {
-      dispatch(toggleAllStudentsChecked(false));
-    }
-
-    if (selectedStudentsList.length === 0) {
-      dispatch(toggleAverageCheckBox(false));
-    } else if (selectedStudentsList.length === 1) {
-      console.log("er is nog maar één student over, average uit");
-      dispatch(toggleAverageCheckBox(false));
-      dispatch(toggleEditStudentCard(true));
-      if (prevSelectedStudentsList.current.length === 2) {
-        AlertOn(5000);
-      }
-    }
-  }, [selectedStudentsList]);
-
   const handleSelectedStudentsURL = (e) => {
     console.log("handleSelectedStudentsURL", e);
     const selectedStudent = students.find((s) => s.id === e.id);
@@ -117,8 +89,9 @@ const App = () => {
       console.log("student is not checked");
       dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
     } else {
-      console.log("student is checked");
+      console.log("student", indexOfStudent, "is checked, so remove");
       dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
+      console.log("isStudentCardChecked:", isStudentCardChecked);
     }
   };
 
@@ -306,6 +279,27 @@ const App = () => {
     }
   };
 
+  if (students.length === selectedStudentsList.length) {
+    console.log("Alle studenten zijn geselecteerd");
+    dispatch(toggleAllStudentsChecked(true));
+  } else {
+    console.log("Niet alle studenten zijn geselecteerd");
+    dispatch(toggleAllStudentsChecked(false));
+  }
+
+  if (selectedStudentsList.length === 0) {
+    console.log("SelectedStudentsList = 0");
+    dispatch(toggleAverageCheckBox(false));
+    dispatch(toggleEditStudentCard(false));
+  } else if (selectedStudentsList.length === 1) {
+    console.log("er is nog maar één student over, average uit");
+    dispatch(toggleAverageCheckBox(false));
+    dispatch(toggleEditStudentCard(true));
+  } else if (selectedStudentsList.length > 1) {
+    console.log("er is meer dan 1 geselecteerde student");
+    dispatch(toggleEditStudentCard(false));
+  }
+
   return (
     <div className="App">
       <Routes>
@@ -347,7 +341,7 @@ const App = () => {
               isFunBoxChecked={isFunBoxChecked}
               isDifficultyBoxChecked={isDifficultyBoxChecked}
               selectedStudentsList={selectedStudentsList}
-              editStudentCardDisplay={editStudentCardDisplay}
+              isStudentCardChecked={isStudentCardChecked}
               averageFunNumberOfAllSelectedStudents={
                 averageFunNumberOfAllSelectedStudents
               }
@@ -393,7 +387,7 @@ const App = () => {
               isAverageBoxChecked={isAverageBoxChecked}
               isAlertCardChecked={isAlertCardChecked}
               selectedStudentsList={selectedStudentsList}
-              editStudentCardDisplay={editStudentCardDisplay}
+              isStudentCardChecked={isStudentCardChecked}
               averageFunNumberOfAllSelectedStudents={
                 averageFunNumberOfAllSelectedStudents
               }
@@ -412,7 +406,7 @@ const App = () => {
               students={students}
               indexOfStudentToEdit={indexOfStudentToEdit}
               showaddmodal={showaddmodal}
-              editStudentCardDisplay={editStudentCardDisplay}
+              isStudentCardChecked={isStudentCardChecked}
               onSubmit={onSubmit}
               handleChange={handleChange}
               colorDifficulty={colorDifficulty}

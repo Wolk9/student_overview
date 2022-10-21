@@ -4,7 +4,7 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: {
     addStudentModalOpen: false,
-    editStudentCardDisplay: false,
+    isStudentCardChecked: false,
     selectedStudent: {
       firstName: "",
       lastName: "",
@@ -40,7 +40,7 @@ const uiSlice = createSlice({
     toggleEditStudentCard(state, action) {
       return {
         ...state,
-        editStudentCardDisplay: action.payload,
+        isStudentCardChecked: action.payload,
       };
     },
     setSelectedStudent(state, action) {

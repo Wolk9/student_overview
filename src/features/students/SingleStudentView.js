@@ -38,7 +38,7 @@ const SingleStudentView = ({
   isAverageBoxChecked,
   isAllBoxChecked,
   selectedStudentsList,
-  editStudentCardDisplay,
+  isStudentCardChecked,
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
   flushSelectedStudentsList,
@@ -110,7 +110,7 @@ const SingleStudentView = ({
         isDifficultyBoxChecked={isDifficultyBoxChecked}
         isAverageBoxChecked={isAverageBoxChecked}
         selectedStudentsList={selectedStudentsList}
-        editStudentCardDisplay={editStudentCardDisplay}
+        isStudentCardChecked={isStudentCardChecked}
         studentCheckboxChange={studentCheckboxChange}
       />
     </>

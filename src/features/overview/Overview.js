@@ -57,7 +57,7 @@ const Overview = ({
   isAllBoxChecked,
   isAlertCardChecked,
   selectedStudentsList,
-  editStudentCardDisplay,
+  isStudentCardChecked,
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
   flushSelectedStudentsList,
@@ -305,7 +305,7 @@ const Overview = ({
                   isStudentChecked={isStudentChecked}
                   isAllBoxChecked={isAllBoxChecked}
                   handleEditClick={handleEditClick}
-                  editStudentCardDisplay={editStudentCardDisplay}
+                  isStudentCardChecked={isStudentCardChecked}
                   toggleDifficultyCheckBox={toggleDifficultyCheckBox}
                   toggleFunCheckBox={toggleFunCheckBox}
                   addToSelectedStudentsList={addToSelectedStudentsList}
@@ -332,7 +332,7 @@ const Overview = ({
                 />
               </div>
               <div className="row">
-                {editStudentCardDisplay ? (
+                {isStudentCardChecked ? (
                   <StudentCard
                     students={students}
                     indexOfStudentToEdit={indexOfStudentToEdit}
