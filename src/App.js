@@ -25,6 +25,7 @@ import {
 import { editStudent } from "../src/features/students/studentSlice";
 import Overview from "./features/overview/Overview";
 import SingleStudentView from "../src/features/students/SingleStudentView";
+import { mdiSourceCommitStartNextLocal } from "@mdi/js";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -68,6 +69,8 @@ const App = () => {
     (state) => state.ui.averageFunNumberOfAllSelectedStudents
   );
 
+  const [formerLength, setFormerLength] = useState(0);
+
   const indexOfStudentToEdit = students.findIndex(
     (s) => s.id == selectedStudentsList[0]
   );
@@ -92,6 +95,29 @@ const App = () => {
       console.log("student", indexOfStudent, "is checked, so remove");
       dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
       console.log("isStudentCardChecked:", isStudentCardChecked);
+    }
+    if (students.length === selectedStudentsList.length) {
+      console.log("Alle studenten zijn geselecteerd");
+      dispatch(toggleAllStudentsChecked(true));
+      setFormerLength(selectedStudentsList.length);
+    } else {
+      console.log("Niet alle studenten zijn geselecteerd");
+      dispatch(toggleAllStudentsChecked(false));
+    }
+    if (selectedStudentsList.length === 0) {
+      console.log("SelectedStudentsList = 0");
+      dispatch(toggleAverageCheckBox(false));
+      dispatch(toggleEditStudentCard(false));
+      setFormerLength(0);
+    } else if (selectedStudentsList.length === 1) {
+      console.log("er is nog maar één student over, average uit");
+      dispatch(toggleAverageCheckBox(false));
+      dispatch(toggleEditStudentCard(true));
+      setFormerLength(1);
+    } else if (selectedStudentsList.length > 1) {
+      console.log("er is meer dan 1 geselecteerde student");
+      dispatch(toggleEditStudentCard(false));
+      setFormerLength(selectedStudentsList.length);
     }
   };
 
@@ -270,25 +296,11 @@ const App = () => {
     }
   };
 
-  if (students.length === selectedStudentsList.length) {
-    console.log("Alle studenten zijn geselecteerd");
-    dispatch(toggleAllStudentsChecked(true));
-  } else {
-    console.log("Niet alle studenten zijn geselecteerd");
-    dispatch(toggleAllStudentsChecked(false));
-  }
+  console.log("formerLength:", formerLength);
 
-  if (selectedStudentsList.length === 0) {
-    console.log("SelectedStudentsList = 0");
+  if (formerLength != 0 && selectedStudentsList.length === 1) {
+    console.log("gemiddelden zijn uitgeschakeld");
     dispatch(toggleAverageCheckBox(false));
-    dispatch(toggleEditStudentCard(false));
-  } else if (selectedStudentsList.length === 1) {
-    console.log("er is nog maar één student over, average uit");
-    dispatch(toggleAverageCheckBox(false));
-    dispatch(toggleEditStudentCard(true));
-  } else if (selectedStudentsList.length > 1) {
-    console.log("er is meer dan 1 geselecteerde student");
-    dispatch(toggleEditStudentCard(false));
   }
 
   return (

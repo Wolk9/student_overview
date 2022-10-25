@@ -139,8 +139,8 @@ const Overview = ({
     };
   });
 
-  const funNumbers = [];
-  const difficultyNumbers = [];
+  let funNumbers = [];
+  let difficultyNumbers = [];
 
   const divideArray = (array, divisor) => {
     // console.log("array", array);
@@ -157,6 +157,7 @@ const Overview = ({
   let averagesOfDifficultyNumbers = [];
 
   if (isAverageBoxChecked) {
+    funNumbers = [];
     selectedStudentsList.map((s) => {
       const funNumbersToAdd = courses.map((c) =>
         assignments
@@ -168,7 +169,7 @@ const Overview = ({
 
       funNumbers.push(funNumbersToAdd);
 
-      // console.log("funNumbers after push", funNumbers);
+      console.log("funNumbers after push", funNumbers);
 
       return funNumbers;
     });
