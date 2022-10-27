@@ -2,11 +2,8 @@
 
 This is an assignment from the WINC Acadamy done by Martin de Bes
 
-Front-end Development
-0 VOLTOOIDE CURSUSSEN
-ASSIGNMENT: REACT STUDENT DASHBOARD 
-MEER 
-Final assignment: React Student Dashboard
+#Student Board
+
 For this final assignment, you will make a "real-life" project. This will be a project of which the end result will actually be used by Winc Academy: a Student Dashboard!
 Goal: to make it easy for Winc teachers to see how the students evaluate the assignments
 
@@ -16,12 +13,12 @@ Design: We would like to see, per assignment, the evaluation of each student in 
 
 Tools: Use a JavaScript framework such as React.
 
-The data
+##The data
 The link below is to a spreadsheet file (in Google Docs) with a mountain of fake data (also called mock data), with fake students. These are the results of students once they have completed all assignment evaluations.
 Winc Final Assignment – ​​Student Mock data
 As you can see, this data has the following structure:
 
-Name of student
+##Name of student
 Name of the assignment / project (including the project code)
 Rate how much fun the assignment was
 Rate how difficult the assignment was
@@ -36,7 +33,7 @@ Your WebApplication must display the following
 Dashboard Overview User-story: As a user, when I open the homepage of the application I want to see an overview in the form of a bar chart of the evaluations (fun & difficult) of all students.
 As a user, I must be able to distinguish at a glance between the assignments and the fun/difficult evaluation. Make sure that a clear distinction is made visually, for example by working with clear colours. See the example with red and yellow below.
 
-image
+
 
 Separate routing per student As a user I want to see a list of the names of all students and be able to click on one of these students. When I click on a student name I am taken to the route /{name-of-student}. The bar chart adjusts with the data of only this student.
 Tip: the chart remains the same on the X and Y axes, only gets "less" data, namely the data of 1 student.
@@ -88,47 +85,3 @@ Also think about the structure and files of the different parts (don't forget th
 You may use a CSS Framework (such as Bootstrap).
 
 If you need a reminder on how to start a React project: look at the lesson you've had about this.
-
-Voltooien en doorgaan
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
