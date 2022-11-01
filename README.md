@@ -2,6 +2,13 @@
 
 This is an assignment from the WINC Acadamy done by Martin de Bes
 
+#start the app
+
+ npx json-server --watch data.json --port 3005 --host 0.0.0.0
+ npm start
+
+
+
 #Student Board
 
 For this final assignment, you will make a "real-life" project. This will be a project of which the end result will actually be used by Winc Academy: a Student Dashboard!
