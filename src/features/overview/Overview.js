@@ -16,7 +16,7 @@ import "chart.js/auto";
 import {} from "../ui/uiSlice";
 import { StudentCard } from "../students/StudentCard";
 import { SelectorCard } from "./SelectorCard";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import ReactJsAlert from "reactjs-alert";
 
@@ -56,7 +56,6 @@ const Overview = ({
   isAverageBoxChecked,
   isAllBoxChecked,
   isAlertCardChecked,
-  selectedStudentsList,
   isStudentCardChecked,
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
@@ -66,6 +65,9 @@ const Overview = ({
   studentCheckboxChange,
 }) => {
   const dispatch = useDispatch();
+  const selectedStudentsList = useSelector(
+    (state) => state.ui.selectedStudentsList
+  );
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -333,7 +335,7 @@ const Overview = ({
                 />
               </div>
               <div className="row">
-                {isStudentCardChecked ? (
+                {selectedStudentsList.length === 1 ? (
                   <StudentCard
                     students={students}
                     indexOfStudentToEdit={indexOfStudentToEdit}
