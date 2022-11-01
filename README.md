@@ -2,14 +2,14 @@
 
 This is an assignment from the WINC Acadamy done by Martin de Bes
 
-#start the app
+# start the app
 
  npx json-server --watch data.json --port 3005 --host 0.0.0.0
  npm start
 
 
 
-#Student Board
+# Student Board
 
 For this final assignment, you will make a "real-life" project. This will be a project of which the end result will actually be used by Winc Academy: a Student Dashboard!
 Goal: to make it easy for Winc teachers to see how the students evaluate the assignments
@@ -20,12 +20,12 @@ Design: We would like to see, per assignment, the evaluation of each student in 
 
 Tools: Use a JavaScript framework such as React.
 
-##The data
+## The data
 The link below is to a spreadsheet file (in Google Docs) with a mountain of fake data (also called mock data), with fake students. These are the results of students once they have completed all assignment evaluations.
 Winc Final Assignment – ​​Student Mock data
 As you can see, this data has the following structure:
 
-##Name of student
+## Name of student
 Name of the assignment / project (including the project code)
 Rate how much fun the assignment was
 Rate how difficult the assignment was
