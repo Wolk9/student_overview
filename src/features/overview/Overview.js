@@ -100,19 +100,21 @@ const Overview = ({
   // console.log("SelectedStudentsList: ", selectedStudentsList);
 
   const funData = selectedStudentsList.map((s) => {
+    const data = courses.map((c) =>
+      assignments
+        .filter((a) => a.assignment.course_id === c.id)
+        .filter((x) => x.user_id === s)
+        .map((a) => a.assignment.fun)
+        .at(c)
+    );
     return {
       type: "bar",
       inflateAmount: 1,
       order: 2,
       label: students
         .filter((x, index) => x.id === s)
-        .map((x) => x.firstName + " " + x.lastName + " fun"),
-      data: courses.map((c) =>
-        assignments
-          .filter((a) => a.assignment.course_id === c.id)
-          .filter((x) => x.user_id === s)
-          .map((a) => a.assignment.fun)
-      ),
+        .map((x) => x.firstName + " " + x.lastName + " plezier"),
+      data: data,
       backgroundColor: students
         .filter((x) => x.id === s)
         .map((x) => x.colorFun),
@@ -122,19 +124,21 @@ const Overview = ({
   // console.log(funData);
 
   const difficultyData = selectedStudentsList.map((s) => {
+    const data = courses.map((c) =>
+      assignments
+        .filter((a) => a.assignment.course_id === c.id)
+        .filter((x) => x.user_id === s)
+        .map((a) => a.assignment.difficulty)
+        .at(c)
+    );
     return {
       type: "bar",
       inflateAmount: 1,
       order: 2,
       label: students
         .filter((x) => x.id === s)
-        .map((x) => x.firstName + " " + x.lastName + " difficulty"),
-      data: courses.map((c) =>
-        assignments
-          .filter((a) => a.assignment.course_id === c.id)
-          .filter((x) => x.user_id === s)
-          .map((a) => a.assignment.difficulty)
-      ),
+        .map((x) => x.firstName + " " + x.lastName + " moeilijkheid"),
+      data: data,
       backgroundColor: students
         .filter((x) => x.id === s)
         .map((x) => x.colorDifficulty),
@@ -171,8 +175,6 @@ const Overview = ({
 
       funNumbers.push(funNumbersToAdd);
 
-      console.log("funNumbers after push", funNumbers);
-
       return funNumbers;
     });
 
@@ -186,8 +188,6 @@ const Overview = ({
       );
 
       difficultyNumbers.push(difficultyNumbersToAdd);
-
-      // console.log("difNumbers after push", difficultyNumbers);
 
       return difficultyNumbers;
     });
@@ -216,8 +216,8 @@ const Overview = ({
     {
       type: "line",
       fill: true,
-      tension: 0,
-      pointStyle: "star",
+      tension: 0.2,
+      pointStyle: "circle",
       radius: 5,
       order: 1,
       label: "fun Average",
@@ -232,8 +232,8 @@ const Overview = ({
     {
       type: "line",
       fill: true,
-      tension: 0,
-      pointStyle: "star",
+      tension: 0.2,
+      pointStyle: "rect",
       radius: 5,
       order: 1,
       label: "difficulty Average",
