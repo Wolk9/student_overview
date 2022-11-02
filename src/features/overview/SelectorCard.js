@@ -24,117 +24,134 @@ export const SelectorCard = ({
       </div>
       <div className="card-body">
         <div style={{ backgroundColor: "#fafafa", borderRadius: "10px" }}>
-          <div className="d-flex align-content-end ">
-            <div className="p-2 d-inline-flex w-100"></div>
-            <div
-              className="p-2 flex-grow-0"
-              style={{ backgroundColor: "#ffffff" }}>
-              <p className="rotate">Moeilijkheid</p>
+          <div className="d-flex justify-content-between mw-100">
+            <div className="d-flex justify-content-start">
+              <div className="p-2"></div>
             </div>
-            <div
-              className="p-2 flex-grow-0"
-              style={{ backgroundColor: "#f1f1f1" }}>
-              <p className="rotate">Plezier</p>
+            <div className="d-flex justify-content-end w-25">
+              <div
+                className="d-flex justify-content-center"
+                style={{ backgroundColor: "#ffffff" }}>
+                <p className="rotate" style={{ width: "45px" }}>
+                  Moeilijkheid
+                </p>
+              </div>
+              <div
+                className="d-flex pb-2 justify-content-center"
+                style={{ backgroundColor: "#f1f1f1" }}>
+                <p className="rotate" style={{ width: "45px" }}>
+                  Plezier
+                </p>
+              </div>
             </div>
           </div>
           <div
-            className="d-flex align-content-end"
+            className="d-flex justify-content-between mw-100"
             style={{ borderBottom: "1px solid #e9e9e9" }}>
-            <div className="p-2 d-inline-flex w-100">
-              <div className="d-flex d-flex-shrink-0 m-1">
+            <div className="d-flex justify-content-start">
+              <div className="p-2">
                 <MDBCheckbox
                   checked={isAllBoxChecked}
                   onChange={() => handleAllBoxChange()}
                 />
-                <div className="d-flex w-100">Allemaal</div>
+              </div>
+              <div className="pt-2 text-truncate studentName">Allemaal</div>
+            </div>
+            <div className="d-flex justify-content-end">
+              <div
+                style={{
+                  width: "45px",
+                  textAlign: "center",
+                  backgroundColor: "#ffffff",
+                }}
+                className="d-flex justify-content-center">
+                <div className="p-2">
+                  <MDBCheckbox
+                    checked={isDifficultyBoxChecked}
+                    onChange={() => handleDifficultyCheckBoxChange()}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "45px",
+                  textAlign: "center",
+                  backgroundColor: "#f1f1f1",
+                }}
+                className="d-flex justify-content-center">
+                <div className="p-2">
+                  <MDBCheckbox
+                    checked={isFunBoxChecked}
+                    onChange={() => handleFunCheckboxChange()}
+                  />
+                </div>
               </div>
             </div>
-            <div
-              style={{
-                color: "white",
-                width: "60px",
-                textAlign: "center",
-                backgroundColor: "#ffffff",
-              }}
-              className="p-2 flex-grow-0">
-              <div>
-                <MDBCheckbox
-                  checked={isDifficultyBoxChecked}
-                  onChange={() => handleDifficultyCheckBoxChange()}
-                />
-              </div>
-            </div>
-            <div
-              style={{
-                color: "white",
-                width: "60px",
-                textAlign: "center",
-                backgroundColor: "#f1f1f1",
-              }}
-              className="p-2 flex-grow-0">
-              <MDBCheckbox
-                checked={isFunBoxChecked}
-                onChange={() => handleFunCheckboxChange()}
-              />
-            </div>
-            <div></div>
           </div>
           {selectedStudentsList.length >= 2 ? (
             <div
-              className="d-flex align-content-end"
+              className="d-flex justify-content-between mw-100"
               style={{ borderBottom: "1px solid #e9e9e9" }}>
-              <div className="p-2 d-inline-flex w-100">
-                <div className="d-flex d-flex-shrink-0 m-1">
+              <div className="d-flex justify-content-start">
+                <div className="p-2">
                   <MDBCheckbox
                     checked={isAverageBoxChecked}
                     onChange={() => handleAverageBoxChange()}
                   />
-                  <div className="d-flex w-100">Gemiddelden</div>
+                </div>
+                <div className="pt-2 text-truncate studentName">
+                  Gemiddelden
                 </div>
               </div>
-              <div
-                className="p-2 flex-grow-0"
-                style={{
-                  width: "60px",
-                  textAlign: "center",
-                  backgroundColor: "#ffffff",
-                }}>
-                {isAverageBoxChecked ? (
+              <div className="d-flex justify-content-end w-25">
+                <div className="d-flex justify-content-center">
                   <div
-                    className="swatch"
-                    style={{ backgroundColor: "rgb(253, 162, 235)" }}
-                  />
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div
-                className="p-2 flex-grow-0"
-                style={{
-                  width: "60px",
-                  textAlign: "center",
-                  backgroundColor: "#f1f1f1",
-                }}>
-                {isAverageBoxChecked ? (
+                    className="p-2"
+                    style={{
+                      width: "45px",
+                      textAlign: "center",
+                      backgroundColor: "#ffffff",
+                    }}>
+                    {isAverageBoxChecked ? (
+                      <div
+                        className="swatch"
+                        style={{ backgroundColor: "rgb(253, 162, 235)" }}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+                <div className="d-flex justify-content-center">
                   <div
-                    className="swatch"
-                    style={{ backgroundColor: "rgb(53, 162, 235)" }}
-                  />
-                ) : (
-                  <></>
-                )}
+                    className="p-2"
+                    style={{
+                      width: "45px",
+                      textAlign: "center",
+                      backgroundColor: "#f1f1f1",
+                    }}>
+                    {isAverageBoxChecked ? (
+                      <div
+                        className="swatch"
+                        style={{ backgroundColor: "rgb(53, 162, 235)" }}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           ) : (
             <></>
           )}
-
           {students.map((student) => (
-            <div key={student.id} className="d-flex align-content-end">
-              <div className="p-2 d-inline-flex w-100">
-                <div className="d-flex flex-shrink-0">
+            <div
+              key={student.id}
+              className="d-flex justify-content-between mw-100">
+              <div className="d-flex justify-content-start">
+                <div className="p-2">
                   <MDBCheckbox
-                    // btn={true}
                     size="sm"
                     id={student.id}
                     name={student.id}
@@ -145,45 +162,52 @@ export const SelectorCard = ({
                     }
                   />
                 </div>
-                <div className="d-flex w-100 text-nowrap studentName">
+                <div className="pt-2 text-truncate studentName">
                   {student.firstName + " " + student.lastName}
                 </div>
               </div>
-
-              <div
-                className="p-2 flex-grow-0"
-                style={{
-                  width: "60px",
-                  textAlign: "center",
-                  backgroundColor: "#ffffff",
-                }}>
-                {!isAverageBoxChecked ? (
+              <div className="d-flex justify-content-end w-25">
+                <div
+                  className="d-flex justify-content-center"
+                  style={{ width: "45px" }}>
                   <div
-                    className="swatch"
-                    style={{ backgroundColor: student.colorDifficulty }}
-                  />
-                ) : (
-                  <></>
-                )}
-              </div>
-
-              <div
-                className="p-2 flex-grow-0"
-                style={{
-                  width: "60px",
-                  textAlign: "center",
-                  backgroundColor: "#f1f1f1",
-                }}>
-                {!isAverageBoxChecked ? (
+                    className="p-2"
+                    style={{
+                      width: "45px",
+                      textAlign: "center",
+                      backgroundColor: "#ffffff",
+                    }}>
+                    {!isAverageBoxChecked ? (
+                      <div
+                        className="swatch"
+                        style={{ backgroundColor: student.colorDifficulty }}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+                <div
+                  className="d-flex justify-content-center"
+                  style={{ width: "45px" }}>
                   <div
-                    className="swatch"
-                    style={{ backgroundColor: student.colorFun }}
-                  />
-                ) : (
-                  <></>
-                )}
+                    className="p-2"
+                    style={{
+                      width: "45px",
+                      textAlign: "center",
+                      backgroundColor: "#f1f1f1",
+                    }}>
+                    {!isAverageBoxChecked ? (
+                      <div
+                        className="swatch"
+                        style={{ backgroundColor: student.colorFun }}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="col"></div>
             </div>
           ))}
         </div>

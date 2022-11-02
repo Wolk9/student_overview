@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -25,11 +25,9 @@ import {
 import { editStudent } from "../src/features/students/studentSlice";
 import Overview from "./features/overview/Overview";
 import SingleStudentView from "../src/features/students/SingleStudentView";
-import { mdiSourceCommitStartNextLocal } from "@mdi/js";
 
 const App = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const students = useSelector((state) => state.students);
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
@@ -131,53 +129,6 @@ const App = () => {
   const AlertOff = () => {
     dispatch(toggleAlert(false));
   };
-
-  // const handleSelectedStudentsChange = (e) => {
-  //   console.log("handleSelectedStudentsChange");
-  //   if (selectedStudentsList.length === 1) {
-  //     console.log("handleSelectedStudentsChange SelectedStudentsList = 1");
-  //     const selectedStudent = students.find((s) => s.id === e.id);
-
-  //     if (isStudentChecked(selectedStudent)) {
-  //       console.log("student is geselecteerd, dus verwijderen");
-  //       dispatch(removeFromSelectedStudentsList(selectedStudent));
-  //     } else {
-  //       console.log("student is niet geselecteerd dus selecteer maar");
-  //       dispatch(addToSelectedStudentsList(selectedStudent));
-  //     }
-  //   } else if (
-  //     selectedStudentsList.length > 1 &&
-  //     selectedStudentsList.length !== students.length
-  //   ) {
-  //     console.log("handleSelectedStudentChange: > 1 maar niet allemaal");
-  //     const selectedStudent = students.find((s) => s.id === e.id);
-  //     if (isStudentChecked(selectedStudent)) {
-  //       console.log("selected > 1 | !allemaal, student selected");
-  //       if (selectedStudentsList.length === 2) {
-  //         console.log("2 selected student selected");
-  //         handleAverageBoxChange();
-  //         dispatch(removeFromSelectedStudentsList(selectedStudent));
-  //       } else {
-  //         console.log("> 2 selected student selected");
-  //         dispatch(removeFromSelectedStudentsList(selectedStudent));
-  //       }
-  //     } else if (!isStudentChecked(selectedStudent)) {
-  //       dispatch(addToSelectedStudentsList(selectedStudent));
-  //     }
-  //   } else if (selectedStudentsList.length === students.length) {
-  //     // console.log("handleSelectedStudentChange: allemaal");
-  //   } else if (selectedStudentsList.length === 0) {
-  //     // console.log("handleSelectedStudentChange: geen studenten geselecteerd");
-  //     const selectedStudent = students.find((s) => s.id === e.id);
-  //     // console.log(selectedStudent);
-  //     dispatch(addToSelectedStudentsList(selectedStudent));
-
-  //     // const indexOfStudentToEdit = students.findIndex(
-  //     //   (selected) => selected.id === e.id
-  //     // );
-  //     // setIndexOfStudentToEdit(indexOfStudentToEdit);
-  //   }
-  // };
 
   const onSubmit = (event) => {
     // console.log("clicked on onSubmit");

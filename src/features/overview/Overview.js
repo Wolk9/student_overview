@@ -290,14 +290,9 @@ const Overview = ({
 
   return (
     <div>
-      <ReactJsAlert
-        status={isAlertCardChecked} // true or false
-        type="info" // success, warning, error, info
-        title="Het gemiddelde van één is geen. Gemiddelden zijn weer uit gezet" // title you want to display
-      />
-      <div className="container-fluid p-4 m4">
+      <div className="container-fluid p-4">
         <div className="row">
-          <div className="col-4">
+          <div className="col-lg-4 col-md-12 col-sm-12">
             <div className="card">
               <div className="row">
                 <SelectorCard
@@ -370,7 +365,7 @@ const Overview = ({
               </div>
             </div>
           </div>
-          <div className="col">
+          <div className="col-lg-8 col-md-12 col-sm-12">
             <div className="card">
               <div className="card-header">
                 <div className="card-title h5 p-3">

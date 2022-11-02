@@ -21,14 +21,14 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <MDBNavbar expand="lg" dark bgColor="primary">
+        <MDBNavbar expand="md" dark bgColor="primary">
           <MDBContainer fluid>
             <MDBNavbarBrand href="/"> MdB StudentBoard </MDBNavbarBrand>
             <MDBNavbarNav className="me-auto">
               <MDBNavbarLink href="/">Home</MDBNavbarLink>
-              <MDBNavbarLink href="/students">Students</MDBNavbarLink>
-              <MDBNavbarLink href="/courses">Courses</MDBNavbarLink>
-              <MDBNavbarLink href="/assignments">Assignments</MDBNavbarLink>
+              <MDBNavbarLink href="/students">Studenten</MDBNavbarLink>
+              <MDBNavbarLink href="/courses">Cursussen</MDBNavbarLink>
+              <MDBNavbarLink href="/assignments">Opdrachten</MDBNavbarLink>
             </MDBNavbarNav>
           </MDBContainer>
         </MDBNavbar>

@@ -13,12 +13,18 @@
   border: 3px solid #eee;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  margin-left: 2px;
-  margin-right: 2px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.studentSelector::after {
+  display: block;
+  content: "";
+  clear: both;
 }
 
 .studentName {
-  cursor: zoom-in;
+  cursor: default;
 }
 
 .rotate {
