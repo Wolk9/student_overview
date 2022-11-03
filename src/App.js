@@ -5,6 +5,7 @@ import "./App.css";
 import StudentsList from "./features/students/StudentsList";
 import CoursesList from "./features/courses/CoursesList";
 import AssignmentsList from "./features/assignments/AssignmentsList";
+import dataService from "../src/services/dataService";
 import { useDispatch, useSelector } from "react-redux";
 import {
   toggleAllStudentsChecked,
@@ -141,13 +142,17 @@ const App = () => {
   };
 
   const handleChange = (e) => {
-    // console.log(event.target.name, event.target.value);
+    console.log("handleChange: \n", e.target.id, e.target.name, e.target.value);
     dispatch(
       editStudent({
         ...students[indexOfStudentToEdit],
         [e.target.name]: e.target.value,
       })
     );
+    dataService.update("students", e.target.id, {
+      ...students[indexOfStudentToEdit],
+      [e.target.name]: e.target.value,
+    });
   };
 
   const onClickDifficultySwatch = () => {
@@ -160,20 +165,34 @@ const App = () => {
     dispatch(toggleFunColorPicker());
   };
 
-  const onChangeDifficultyColor = (e) => {
+  const onChangeDifficultyColor = (color) => {
     // console.log("difficulty Value", e);
-    dispatch(setDifficultyColor(e));
-
+    dispatch(setDifficultyColor(color.hex));
     dispatch(
-      editStudent({ ...students[indexOfStudentToEdit], colorDifficulty: e })
+      editStudent({
+        ...students[indexOfStudentToEdit],
+        colorDifficulty: color.hex,
+      })
     );
+    const id = students[indexOfStudentToEdit].id;
+    dataService.update("students", id, {
+      ...students[indexOfStudentToEdit],
+      colorDifficulty: color.hex,
+    });
+    dispatch(toggleDifficultyColorPicker());
   };
-  const onChangeFunColor = (e) => {
+  const onChangeFunColor = (color) => {
     // console.log("fun Value", e);
-    dispatch(setFunColor(e));
-
-    // setStudentEdit({ ...studentEdit, colorFun: e });
-    dispatch(editStudent({ ...students[indexOfStudentToEdit], colorFun: e }));
+    dispatch(setFunColor(color.hex));
+    dispatch(
+      editStudent({ ...students[indexOfStudentToEdit], colorFun: color.hex })
+    );
+    const id = students[indexOfStudentToEdit].id;
+    dataService.update("students", id, {
+      ...students[indexOfStudentToEdit],
+      funColor: color.hex,
+    });
+    dispatch(toggleFunColorPicker());
   };
 
   const onCloseDifficultyColor = (x) => {

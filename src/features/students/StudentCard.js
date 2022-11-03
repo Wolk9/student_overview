@@ -1,6 +1,7 @@
 import React from "react";
 import { MDBCol, MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { HexColorPicker } from "react-colorful";
+import { GithubPicker } from "react-color";
 
 export const StudentCard = ({
   students,
@@ -24,6 +25,7 @@ export const StudentCard = ({
     indexOfStudentToEdit,
     students[indexOfStudentToEdit]
   );
+
   return (
     <div>
       <div className="card">
@@ -49,7 +51,7 @@ export const StudentCard = ({
                   label="Voornaam"
                   value={students[indexOfStudentToEdit].firstName}
                   name="firstName"
-                  id="firstName"
+                  id={students[indexOfStudentToEdit].id}
                 />
               </div>
               <div className="col">
@@ -59,7 +61,7 @@ export const StudentCard = ({
                   label="Achternaam"
                   value={students[indexOfStudentToEdit].lastName}
                   name="lastName"
-                  id="lastName"
+                  id={students[indexOfStudentToEdit].id}
                 />
               </div>
             </div>
@@ -72,7 +74,7 @@ export const StudentCard = ({
                   label="email"
                   value={students[indexOfStudentToEdit].email}
                   name="email"
-                  id="email"
+                  id={students[indexOfStudentToEdit].id}
                 />
                 <MDBInput
                   type="text"
@@ -80,7 +82,7 @@ export const StudentCard = ({
                   label="telefoon"
                   value={students[indexOfStudentToEdit].phone}
                   name="phone"
-                  id="phone"
+                  id={students[indexOfStudentToEdit].id}
                 />
               </div>
             </div>
@@ -101,19 +103,22 @@ export const StudentCard = ({
                     }}
                   />
                   {isDifficultyColorPickerOpen && (
-                    <div className="popover">
-                      <HexColorPicker
+                    <div className="">
+                      <GithubPicker
                         color={students[indexOfStudentToEdit].colorDifficulty}
-                        name="colorDifficulty"
-                        onChange={(e) => onChangeDifficultyColor(e)}
+                        // value={students[indexOfStudentToEdit].colorDifficulty}
+                        // name="colorDifficulty"
+                        // id={students[indexOfStudentToEdit].id}
+                        onChange={(color) => onChangeDifficultyColor(color)}
                       />
-                      <MDBBtn
+                      {/* <MDBBtn
                         type="button"
                         aria-label="Close"
                         name="colorDifficulty"
-                        onClick={() => onCloseDifficultyColor(colorDifficulty)}>
+                        id={students[indexOfStudentToEdit].id}
+                        onClick={(color) => onCloseDifficultyColor(color)}>
                         Selecteer
-                      </MDBBtn>
+                      </MDBBtn> */}
                     </div>
                   )}
                 </div>
@@ -129,19 +134,22 @@ export const StudentCard = ({
                     onClick={() => onClickFunSwatch()}
                   />
                   {isFunColorPickerOpen && (
-                    <div className="popover">
-                      <HexColorPicker
+                    <div className="">
+                      <GithubPicker
                         color={students[indexOfStudentToEdit].colorFun}
-                        name="colorFun"
-                        onChange={(e) => onChangeFunColor(e)}
+                        // value={students[indexOfStudentToEdit].colorFun}
+                        // name="colorFun"
+                        // id={students[indexOfStudentToEdit].id}
+                        onChange={(color) => onChangeFunColor(color)}
                       />
-                      <MDBBtn
+                      {/* <MDBBtn
                         type="button"
                         aria-label="Close"
                         name="colorFun"
-                        onClick={() => onCloseFunColor(colorFun)}>
+                        id={students[indexOfStudentToEdit].id}
+                        onChange={(color) => onCloseFunColor(color)}>
                         Selecteer
-                      </MDBBtn>
+                      </MDBBtn> */}
                     </div>
                   )}
                 </div>
