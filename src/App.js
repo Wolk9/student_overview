@@ -266,9 +266,9 @@ const App = () => {
 
   return (
     <div className="App">
-      <MDBNavbar expand="" dark bgColor="primary">
+      <MDBNavbar expand="sm" dark bgColor="primary">
         <MDBContainer fluid>
-          <MDBNavbarBrand href="/"> MdB StudentBoard </MDBNavbarBrand>
+          <MDBNavbarBrand href="/">WINC StudentBoard </MDBNavbarBrand>
           <MDBNavbarNav className="me-auto">
             <MDBNavbarLink href="/">Home</MDBNavbarLink>
             <MDBNavbarLink href="/students">Studenten</MDBNavbarLink>

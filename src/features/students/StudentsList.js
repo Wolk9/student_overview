@@ -15,7 +15,6 @@ const StudentsList = ({
   students,
   showaddmodal,
   showeditmodal,
-  handleEditClick,
   onSubmit,
   handleChange,
   colorDifficulty,
@@ -35,17 +34,23 @@ const StudentsList = ({
     dispatch(toggleAddStudentModal());
   };
 
+  const handleEditClick = (e) => {
+    console.log("Click on StudentEdit happend", e);
+    const indexOfStudentToEdit = students.findIndex((s) => s.id == e.id);
+    console.log(students[indexOfStudentToEdit].firstName);
+  };
+
   console.log(showaddmodal, showeditmodal, selectedStudent);
 
   const columns = [
     {
-      name: "Name",
+      name: "Naam",
       selector: (row) => row.firstName + " " + row.lastName,
       sortable: true,
       width: "40%",
     },
     {
-      name: "Phone",
+      name: "Telefoon",
       selector: (row) => row.phone,
       sortable: true,
     },
@@ -55,7 +60,7 @@ const StudentsList = ({
       sortable: true,
     },
     {
-      name: "Colors",
+      name: "Kleuren",
       selector: (row) => (
         <MDBRow>
           <MDBCol>
