@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Overview from "../overview/Overview";
@@ -82,42 +82,32 @@ const SingleStudentView = ({
       student.firstName == firstNameLC || student.lastName == lastNameLC
   );
 
-  if (indexOfStudentToUse >= 0) {
-    console.log(
-      "Index of student to use: ",
-      indexOfStudentToUse,
-      students[indexOfStudentToUse].firstName,
-      students[indexOfStudentToUse].lastName
-    );
-  } else {
-    console.log("Index of student to use: ", indexOfStudentToUse);
-    dispatch(setShowAlert(true));
-    navigate("/");
-  }
+  useEffect(() => {
+    if (indexOfStudentToUse != -1) {
+      console.log(
+        "Index of student to use: ",
+        indexOfStudentToUse,
+        students[indexOfStudentToUse].firstName,
+        students[indexOfStudentToUse].lastName
+      );
+    } else {
+      console.log("Index of student to use: ", indexOfStudentToUse);
 
-  // const studentToUse = () => {
-  //   console.log(students);
-  //   const isStudentNameInStudents = studentsLC.findIndex((s) => {});
+      dispatch(setShowAlert(true));
+      navigate("/");
+    }
+  }, [indexOfStudentToUse]);
 
-  //   console.log(isStudentNameInStudents, selectedStudentsList.length);
-  //   console.log(
-  //     isStudentNameInStudents === -1 && selectedStudentsList.length <= 1
-  //   );
-  //   if (isStudentNameInStudents !== -1 && selectedStudentsList.length <= 1) {
-  //     console.log("ja");
-  //     const studentId = students[isStudentNameInStudents].id;
-  //     console.log(studentId);
-  //     handleSelectedStudentsURL({ id: studentId });
-  //   } else {
-  //     console.log("nee");
-  //   }
-  // };
-
-  // studentToUse();
+  useEffect(() => {
+    if (selectedStudentsList.length > 1) {
+      navigate("/");
+    }
+  }, [selectedStudentsList]);
 
   return (
     <>
       <Overview
+        singleStudentView={indexOfStudentToUse != -1 ? true : false}
         showAlert={showAlert}
         studentName={studentName}
         studentNames={studentNames}
@@ -125,7 +115,7 @@ const SingleStudentView = ({
         students={students}
         assignments={assignments}
         handleEditClick={handleEditClick}
-        indexOfStudentToEdit={indexOfStudentToEdit}
+        indexOfStudentToEdit={indexOfStudentToUse}
         setIndexOfStudentToEdit={setIndexOfStudentToEdit}
         onSubmit={onSubmit}
         handleChange={handleChange}

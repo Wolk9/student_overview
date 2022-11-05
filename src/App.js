@@ -70,6 +70,9 @@ const App = () => {
   );
   const showAlert = useSelector((state) => state.ui.showAlert);
 
+  console.log(showAlert);
+  console.log(isAverageBoxChecked);
+
   const averageFunNumberOfAllSelectedStudents = useSelector(
     (state) => state.ui.averageFunNumberOfAllSelectedStudents
   );
@@ -82,12 +85,7 @@ const App = () => {
 
   // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
-  const handleSelectedStudentsURL = (e) => {
-    console.log("handleSelectedStudentsURL", e);
-    const selectedStudent = students.find((s) => s.id === e.id);
-
-    dispatch(addToSelectedStudentsList(selectedStudent));
-  };
+  const handleSelectedStudentsURL = (e) => {};
 
   const studentCheckboxChange = (e) => {
     console.log("studentCheckboxChange");
@@ -284,7 +282,6 @@ const App = () => {
           path="/"
           element={
             <Overview
-              showAlert={showAlert}
               setShowAlert={setShowAlert}
               studentNames={studentNames}
               courses={courses}
@@ -325,6 +322,7 @@ const App = () => {
                 setAverageFunOfAllSelectedStudents
               }
               studentCheckboxChange={studentCheckboxChange}
+              toggleAllStudentsChecked={toggleAllStudentsChecked}
             />
           }></Route>
         <Route
@@ -355,6 +353,7 @@ const App = () => {
               addToSelectedStudentsList={addToSelectedStudentsList}
               removeFromSelectedStudentsList={removeFromSelectedStudentsList}
               handleAllBoxChange={handleAllBoxChange}
+              handleAverageBoxChange={handleAverageBoxChange}
               depolulateSelectedStudentList={depolulateSelectedStudentList}
               populateSelectedStudentList={populateSelectedStudentList}
               handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
@@ -371,6 +370,7 @@ const App = () => {
                 setAverageFunOfAllSelectedStudents
               }
               studentCheckboxChange={studentCheckboxChange}
+              toggleAllStudentsChecked={toggleAllStudentsChecked}
             />
           }
         />

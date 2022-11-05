@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import {
   MDBCardText,
   MDBModal,
@@ -16,8 +15,7 @@ import { StudentCard } from "../students/StudentCard";
 import { SelectorCard } from "./SelectorCard";
 import { AlertMessage } from "./Alert";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import ReactJsAlert from "reactjs-alert";
+import { toggleAllStudentsChecked } from "../ui/uiSlice";
 
 const Overview = ({
   setShowAlert,
@@ -57,11 +55,17 @@ const Overview = ({
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
   flushSelectedStudentsList,
-  toggleAllStudentsChecked,
   averageFunNumberOfAllSelectedStudents,
   studentCheckboxChange,
+  singleStudentView,
 }) => {
   const dispatch = useDispatch();
+
+  if (singleStudentView) {
+    console.log("selecter alleen student met index ", indexOfStudentToEdit);
+    dispatch(toggleAllStudentsChecked(false));
+    dispatch(addToSelectedStudentsList(students[indexOfStudentToEdit].id));
+  }
 
   const showAlert = useSelector((state) => state.ui.showAlert);
 
@@ -341,17 +345,18 @@ const Overview = ({
             </div>
           </div>
           <div className="col-lg-8 col-md-12 col-sm-12">
-            {showAlert ? (
-              <AlertMessage
-                variant="danger"
-                message={
-                  "Deze URL kan ik niet aan een van de studenten relateren. Probeer het opnieuw"
-                }
-              />
-            ) : (
-              <></>
-            )}
             <div className="card">
+              {showAlert ? (
+                <AlertMessage
+                  variant="success"
+                  header={"Die kennen we niet"}
+                  message={
+                    "Van die URL kunnen we geen chocola van maken. Probeer het opnieuw"
+                  }
+                />
+              ) : (
+                <></>
+              )}
               <div className="card-header">
                 {selectedStudentsList.length < 1 ? (
                   <div className="card-title h5 p-3">Hints</div>
