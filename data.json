@@ -5139,9 +5139,9 @@
       "phone": "+31 6 1234 5671",
       "email": "mcguire@gmail.com",
       "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
-      "colorDifficulty": "#db3e00",
-      "colorFun": "#008b02",
-      "funColor": "#bf406b"
+      "colorDifficulty": "#4dd0e1",
+      "colorFun": "#ffeb3b",
+      "funColor": "#9c27b0"
     },
     {
       "id": 2,
@@ -5230,8 +5230,9 @@
       "phone": "+1 492 1293 231",
       "email": "glass@gmail.com",
       "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
-      "colorDifficulty": "#db3e00",
-      "colorFun": "#1273de"
+      "colorDifficulty": "#fef3bd",
+      "colorFun": "#1273de",
+      "funColor": "#d4c4fb"
     }
   ],
   "courses": [

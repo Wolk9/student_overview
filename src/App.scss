@@ -12,6 +12,12 @@
 
 .picker {
   position: relative;
+
+}
+
+.color-picker {
+  position: absolute;
+  z-index: 100;
 }
 
 .swatch {

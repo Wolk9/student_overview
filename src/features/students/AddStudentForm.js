@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { HexColorPicker } from "react-colorful";
+import { SwatchesPicker } from "react-color";
 
 import { MDBCardBody, MDBCol, MDBInput, MDBRow } from "mdb-react-ui-kit";
 import {
@@ -132,7 +132,7 @@ const AddStudentForm = (props) => {
               />
               {isDifficultyColorPickerOpen && (
                 <div className="popover">
-                  <HexColorPicker
+                  <SwatchesPicker
                     color={colorDifficulty}
                     onChange={(x) => onChangeDifficultyColor(x)}
                   />
@@ -157,7 +157,7 @@ const AddStudentForm = (props) => {
               />
               {isFunColorPickerOpen && (
                 <div className="popover">
-                  <HexColorPicker
+                  <SwatchesPicker
                     color={colorFun}
                     onChange={(x) => onChangeFunColor(x)}
                   />

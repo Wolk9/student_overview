@@ -14,7 +14,7 @@ import {
   MDBCardBody,
 } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
-import { HexColorPicker } from "react-colorful";
+import { SwatchesPicker } from "react-color";
 import {
   toggleDifficultyColorPicker,
   setDifficultyColor,
@@ -159,7 +159,7 @@ const EditStudentModal = (props) => {
                       />
                       {isDifficultyColorPickerOpen && (
                         <div className="popover">
-                          <HexColorPicker
+                          <SwatchesPicker
                             color={selectedStudent.colorDifficulty}
                             name="colorDifficulty"
                             onChange={(x) => onChangeDifficultyColor(x)}
@@ -187,7 +187,7 @@ const EditStudentModal = (props) => {
                       />
                       {isFunColorPickerOpen && (
                         <div className="popover">
-                          <HexColorPicker
+                          <SwatchesPicker
                             color={selectedStudent.colorFun}
                             name="colorFun"
                             onChange={(x) => onChangeFunColor(colorFun)}

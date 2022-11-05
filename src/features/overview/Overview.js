@@ -244,20 +244,9 @@ const Overview = ({
     },
   ];
 
-  const selectedData2 = () => {
+  const selectedData = () => {
     const averageData = funAverage.concat(difficultyAverage);
-    const data = funData.concat(difficultyData);
-    // if (isAverageBoxChecked) {
-    //   // console.log("A checked");
-    //   if (isFunBoxChecked && isDifficultyBoxChecked) {
-    //     return data.concat(averageData);
-    //   } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
-    //     return data.concat(funData.concat(funAverage));
-    //   } else if (!isFunBoxChecked && isDifficultyBoxChecked) {
-    //     return data.concat(difficultyData.concat(difficultyAverage));
-    //   } else return;
     if (isAverageBoxChecked) {
-      // console.log("A checked");
       if (isFunBoxChecked && isDifficultyBoxChecked) {
         return averageData;
       } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
@@ -266,7 +255,6 @@ const Overview = ({
         return difficultyAverage;
       } else return;
     } else {
-      // console.log("A not checked");
       if (isFunBoxChecked && isDifficultyBoxChecked) {
         return funData.concat(difficultyData);
       } else if (isFunBoxChecked && !isDifficultyBoxChecked) {
@@ -277,7 +265,7 @@ const Overview = ({
     }
   };
 
-  const selectedData = selectedData2();
+  // const selectedData = selectedData2();
 
   // console.log("selectedData", selectedData);
 
@@ -285,7 +273,7 @@ const Overview = ({
 
   const data = {
     labels: courses.map((c) => c.code),
-    datasets: selectedData,
+    datasets: selectedData(),
   };
 
   return (

@@ -332,7 +332,7 @@ const App = () => {
               courses={courses}
               students={students}
               assignments={assignments}
-              indexOfStudentToEdit={indexOfStudentToEdit}
+              // indexOfStudentToEdit={indexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
               isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}

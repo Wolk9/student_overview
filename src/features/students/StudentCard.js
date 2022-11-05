@@ -1,7 +1,6 @@
 import React from "react";
 import { MDBCol, MDBInput, MDBBtn } from "mdb-react-ui-kit";
-import { HexColorPicker } from "react-colorful";
-import { GithubPicker } from "react-color";
+import { SwatchesPicker } from "react-color";
 
 export const StudentCard = ({
   students,
@@ -10,14 +9,10 @@ export const StudentCard = ({
   handleChange,
   isDifficultyColorPickerOpen,
   isFunColorPickerOpen,
-  colorDifficulty,
-  colorFun,
   onClickDifficultySwatch,
   onClickFunSwatch,
   onChangeDifficultyColor,
   onChangeFunColor,
-  onCloseDifficultyColor,
-  onCloseFunColor,
 }) => {
   console.log(
     "StudentCard: ",
@@ -103,22 +98,12 @@ export const StudentCard = ({
                     }}
                   />
                   {isDifficultyColorPickerOpen && (
-                    <div className="">
-                      <GithubPicker
+                    <div className="color-picker">
+                      <SwatchesPicker
                         color={students[indexOfStudentToEdit].colorDifficulty}
-                        // value={students[indexOfStudentToEdit].colorDifficulty}
-                        // name="colorDifficulty"
-                        // id={students[indexOfStudentToEdit].id}
+                        width={220}
                         onChange={(color) => onChangeDifficultyColor(color)}
                       />
-                      {/* <MDBBtn
-                        type="button"
-                        aria-label="Close"
-                        name="colorDifficulty"
-                        id={students[indexOfStudentToEdit].id}
-                        onClick={(color) => onCloseDifficultyColor(color)}>
-                        Selecteer
-                      </MDBBtn> */}
                     </div>
                   )}
                 </div>
@@ -134,22 +119,12 @@ export const StudentCard = ({
                     onClick={() => onClickFunSwatch()}
                   />
                   {isFunColorPickerOpen && (
-                    <div className="">
-                      <GithubPicker
+                    <div className="color-picker">
+                      <SwatchesPicker
                         color={students[indexOfStudentToEdit].colorFun}
-                        // value={students[indexOfStudentToEdit].colorFun}
-                        // name="colorFun"
-                        // id={students[indexOfStudentToEdit].id}
+                        width={220}
                         onChange={(color) => onChangeFunColor(color)}
                       />
-                      {/* <MDBBtn
-                        type="button"
-                        aria-label="Close"
-                        name="colorFun"
-                        id={students[indexOfStudentToEdit].id}
-                        onChange={(color) => onCloseFunColor(color)}>
-                        Selecteer
-                      </MDBBtn> */}
                     </div>
                   )}
                 </div>

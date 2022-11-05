@@ -6,6 +6,11 @@
   position: relative;
 }
 
+.color-picker {
+  position: absolute;
+  z-index: 100;
+}
+
 .swatch {
   width: 25px;
   height: 25px;

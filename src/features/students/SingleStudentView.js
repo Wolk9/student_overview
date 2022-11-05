@@ -49,13 +49,19 @@ const SingleStudentView = ({
   console.log(studentName);
 
   const [firstName, lastName] = studentName.split("_");
+  const firstNameLC = firstName.toLowerCase();
+  const lastNameLC = lastName.toLowerCase();
+
   console.log(firstName, lastName);
+  console.log(firstNameLC, lastNameLC);
 
   const studentToUse = () => {
     console.log(students);
-    const isStudentNameInStudents = students.findIndex(
-      (s) => s.firstName === firstName && s.lastName === lastName
-    );
+    const isStudentNameInStudents = students.findIndex((s) => {
+      const studentsFirstNameLC = s.firstName.toLowerCase();
+      const studentsLastNameLC = s.lastName.toLowerCase();
+      //studentsFirstNameLC === firstName && studentsLastNameLC === lastName;
+    });
 
     console.log(isStudentNameInStudents, selectedStudentsList.length);
     console.log(
