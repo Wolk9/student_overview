@@ -8,6 +8,14 @@ import AssignmentsList from "./features/assignments/AssignmentsList";
 import dataService from "../src/services/dataService";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  MDBContainer,
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarLink,
+  MDBNavbarNav,
+} from "mdb-react-ui-kit";
+import {
+  setShowAlert,
   toggleAllStudentsChecked,
   toggleEditStudentCard,
   toggleAlert,
@@ -60,9 +68,7 @@ const App = () => {
   const isDifficultyBoxChecked = useSelector(
     (state) => state.ui.isDifficultyBoxChecked
   );
-  const isAlertCardChecked = useSelector(
-    (state) => state.ui.isAlertCardChecked
-  );
+  const showAlert = useSelector((state) => state.ui.showAlert);
 
   const averageFunNumberOfAllSelectedStudents = useSelector(
     (state) => state.ui.averageFunNumberOfAllSelectedStudents
@@ -118,17 +124,6 @@ const App = () => {
       dispatch(toggleEditStudentCard(false));
       setFormerLength(selectedStudentsList.length);
     }
-  };
-
-  const AlertOn = (timeout) => {
-    dispatch(toggleAlert(true));
-    setTimeout(() => {
-      dispatch(toggleAlert(false));
-    }, timeout);
-  };
-
-  const AlertOff = () => {
-    dispatch(toggleAlert(false));
   };
 
   const onSubmit = (event) => {
@@ -266,8 +261,6 @@ const App = () => {
     }
   };
 
-  console.log("formerLength:", formerLength);
-
   if (formerLength != 0 && selectedStudentsList.length === 1) {
     console.log("gemiddelden zijn uitgeschakeld");
     dispatch(toggleAverageCheckBox(false));
@@ -275,13 +268,24 @@ const App = () => {
 
   return (
     <div className="App">
+      <MDBNavbar expand="" dark bgColor="primary">
+        <MDBContainer fluid>
+          <MDBNavbarBrand href="/"> MdB StudentBoard </MDBNavbarBrand>
+          <MDBNavbarNav className="me-auto">
+            <MDBNavbarLink href="/">Home</MDBNavbarLink>
+            <MDBNavbarLink href="/students">Studenten</MDBNavbarLink>
+            <MDBNavbarLink href="/courses">Cursussen</MDBNavbarLink>
+            <MDBNavbarLink href="/assignments">Opdrachten</MDBNavbarLink>
+          </MDBNavbarNav>
+        </MDBContainer>
+      </MDBNavbar>
       <Routes>
         <Route
-          index
+          path="/"
           element={
             <Overview
-              alertOn={AlertOn}
-              alertOff={AlertOff}
+              showAlert={showAlert}
+              setShowAlert={setShowAlert}
               studentNames={studentNames}
               courses={courses}
               students={students}
@@ -302,7 +306,6 @@ const App = () => {
               isAllBoxChecked={isAllBoxChecked}
               isAverageBoxChecked={isAverageBoxChecked}
               isStudentChecked={isStudentChecked}
-              isAlertCardChecked={isAlertCardChecked}
               addToSelectedStudentsList={addToSelectedStudentsList}
               removeFromSelectedStudentsList={removeFromSelectedStudentsList}
               handleAllBoxChange={handleAllBoxChange}
@@ -328,11 +331,12 @@ const App = () => {
           path=":studentName"
           element={
             <SingleStudentView
+              showAlert={showAlert}
+              setShowAlert={setShowAlert}
               studentNames={studentNames}
               courses={courses}
               students={students}
               assignments={assignments}
-              // indexOfStudentToEdit={indexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
               isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
@@ -358,7 +362,6 @@ const App = () => {
               isFunBoxChecked={isFunBoxChecked}
               isDifficultyBoxChecked={isDifficultyBoxChecked}
               isAverageBoxChecked={isAverageBoxChecked}
-              isAlertCardChecked={isAlertCardChecked}
               selectedStudentsList={selectedStudentsList}
               isStudentCardChecked={isStudentCardChecked}
               averageFunNumberOfAllSelectedStudents={

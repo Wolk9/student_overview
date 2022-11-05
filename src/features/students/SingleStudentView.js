@@ -1,8 +1,11 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import Overview from "../overview/Overview";
 
 const SingleStudentView = ({
+  showAlert,
+  setShowAlert,
   courses,
   students,
   studentNames,
@@ -45,43 +48,77 @@ const SingleStudentView = ({
   toggleAllStudentsChecked,
   studentCheckboxChange,
 }) => {
-  const { studentName } = useParams();
-  console.log(studentName);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [firstName, lastName] = studentName.split("_");
+  const { studentName } = useParams();
+  console.log("URL name: ", studentName);
+
+  const test = /[-_. ]/;
+  let [firstName, lastName] = studentName.split(test);
+
+  if (studentName.search(test) == -1) {
+    console.log("zit geen dingetje in");
+    lastName = "noname";
+  }
+
+  console.log(firstName, lastName);
+
   const firstNameLC = firstName.toLowerCase();
   const lastNameLC = lastName.toLowerCase();
 
-  console.log(firstName, lastName);
-  console.log(firstNameLC, lastNameLC);
+  console.log("Extracted URL Name: ", firstName, lastName);
+  console.log("Lowercase Extracted Name: ", firstNameLC, lastNameLC);
 
-  const studentToUse = () => {
-    console.log(students);
-    const isStudentNameInStudents = students.findIndex((s) => {
-      const studentsFirstNameLC = s.firstName.toLowerCase();
-      const studentsLastNameLC = s.lastName.toLowerCase();
-      //studentsFirstNameLC === firstName && studentsLastNameLC === lastName;
-    });
+  const studentsLC = students.map((student) => ({
+    firstName: student.firstName.toLowerCase(),
+    lastName: student.lastName.toLowerCase(),
+  }));
 
-    console.log(isStudentNameInStudents, selectedStudentsList.length);
+  console.log("Lowercase studentslist: ", studentsLC);
+
+  const indexOfStudentToUse = studentsLC.findIndex(
+    (student) =>
+      student.firstName == firstNameLC || student.lastName == lastNameLC
+  );
+
+  if (indexOfStudentToUse >= 0) {
     console.log(
-      isStudentNameInStudents === -1 && selectedStudentsList.length <= 1
+      "Index of student to use: ",
+      indexOfStudentToUse,
+      students[indexOfStudentToUse].firstName,
+      students[indexOfStudentToUse].lastName
     );
-    if (isStudentNameInStudents !== -1 && selectedStudentsList.length <= 1) {
-      console.log("ja");
-      const studentId = students[isStudentNameInStudents].id;
-      console.log(studentId);
-      handleSelectedStudentsURL({ id: studentId });
-    } else {
-      console.log("nee");
-    }
-  };
+  } else {
+    console.log("Index of student to use: ", indexOfStudentToUse);
+    dispatch(setShowAlert(true));
+    navigate("/");
+  }
 
-  studentToUse();
+  // const studentToUse = () => {
+  //   console.log(students);
+  //   const isStudentNameInStudents = studentsLC.findIndex((s) => {});
+
+  //   console.log(isStudentNameInStudents, selectedStudentsList.length);
+  //   console.log(
+  //     isStudentNameInStudents === -1 && selectedStudentsList.length <= 1
+  //   );
+  //   if (isStudentNameInStudents !== -1 && selectedStudentsList.length <= 1) {
+  //     console.log("ja");
+  //     const studentId = students[isStudentNameInStudents].id;
+  //     console.log(studentId);
+  //     handleSelectedStudentsURL({ id: studentId });
+  //   } else {
+  //     console.log("nee");
+  //   }
+  // };
+
+  // studentToUse();
 
   return (
     <>
       <Overview
+        showAlert={showAlert}
         studentName={studentName}
         studentNames={studentNames}
         courses={courses}

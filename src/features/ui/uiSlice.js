@@ -25,12 +25,18 @@ const uiSlice = createSlice({
     isFunBoxChecked: true,
     isDifficultyBoxChecked: true,
     isAllBoxChecked: false,
-    isAlertCardChecked: false,
+    showAlert: false,
     isAverageBoxChecked: false,
     colorFun: "#334455",
     colorDifficulty: "#554433",
   },
   reducers: {
+    setShowAlert(state, action) {
+      return {
+        ...state,
+        showAlert: action.payload,
+      };
+    },
     toggleAddStudentModal(state, action) {
       return {
         ...state,
@@ -128,13 +134,14 @@ const uiSlice = createSlice({
     toggleAlert(state, action) {
       return {
         ...state,
-        isAlertCardChecked: action.payload,
+        showAlert: action.payload,
       };
     },
   },
 });
 
 export const {
+  setShowAlert,
   toggleAddStudentModal,
   toggleEditStudentCard,
   toggleAlert,

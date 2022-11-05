@@ -10,19 +10,17 @@ import {
   MDBModalBody,
   MDBModalFooter,
 } from "mdb-react-ui-kit";
-import Alert from "react-bootstrap/Alert";
 import { Chart } from "react-chartjs-2";
 import "chart.js/auto";
-import {} from "../ui/uiSlice";
 import { StudentCard } from "../students/StudentCard";
 import { SelectorCard } from "./SelectorCard";
+import { AlertMessage } from "./Alert";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import ReactJsAlert from "reactjs-alert";
 
 const Overview = ({
-  alertOn,
-  alertOff,
+  setShowAlert,
   courses,
   students,
   assignments,
@@ -55,7 +53,6 @@ const Overview = ({
   isDifficultyBoxChecked,
   isAverageBoxChecked,
   isAllBoxChecked,
-  isAlertCardChecked,
   isStudentCardChecked,
   toggleDifficultyCheckBox,
   toggleFunCheckBox,
@@ -65,6 +62,9 @@ const Overview = ({
   studentCheckboxChange,
 }) => {
   const dispatch = useDispatch();
+
+  const showAlert = useSelector((state) => state.ui.showAlert);
+
   const selectedStudentsList = useSelector(
     (state) => state.ui.selectedStudentsList
   );
@@ -97,8 +97,6 @@ const Overview = ({
     },
   };
 
-  // console.log("SelectedStudentsList: ", selectedStudentsList);
-
   const funData = selectedStudentsList.map((s) => {
     const data = courses.map((c) =>
       assignments
@@ -120,8 +118,6 @@ const Overview = ({
         .map((x) => x.colorFun),
     };
   });
-
-  // console.log(funData);
 
   const difficultyData = selectedStudentsList.map((s) => {
     const data = courses.map((c) =>
@@ -149,13 +145,10 @@ const Overview = ({
   let difficultyNumbers = [];
 
   const divideArray = (array, divisor) => {
-    // console.log("array", array);
-    // console.log("divisor", divisor);
     const array2 = [];
     for (let x = 0; x < array.length; x++) {
       array2[x] = Math.round((array[x] / divisor + Number.EPSILON) * 100) / 100;
     }
-    // console.log(array2);
     return array2;
   };
 
@@ -265,12 +258,6 @@ const Overview = ({
     }
   };
 
-  // const selectedData = selectedData2();
-
-  // console.log("selectedData", selectedData);
-
-  // console.log(indexOfStudentToEdit);
-
   const data = {
     labels: courses.map((c) => c.code),
     datasets: selectedData(),
@@ -354,12 +341,25 @@ const Overview = ({
             </div>
           </div>
           <div className="col-lg-8 col-md-12 col-sm-12">
+            {showAlert ? (
+              <AlertMessage
+                variant="danger"
+                message={
+                  "Deze URL kan ik niet aan een van de studenten relateren. Probeer het opnieuw"
+                }
+              />
+            ) : (
+              <></>
+            )}
             <div className="card">
               <div className="card-header">
-                <div className="card-title h5 p-3">
-                  {selectedStudentsList.length < 1 ? "Hints" : "Grafiek"}
-                </div>
+                {selectedStudentsList.length < 1 ? (
+                  <div className="card-title h5 p-3">Hints</div>
+                ) : (
+                  <div className="card-title h5 p-3">Grafiek</div>
+                )}
               </div>
+
               <div className="card-body">
                 {selectedStudentsList.length < 1 ? (
                   <div className="card-text">
