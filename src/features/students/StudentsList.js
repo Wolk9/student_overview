@@ -4,21 +4,38 @@ import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { toggleAddStudentModal } from "../ui/uiSlice";
+import {
+  toggleStudentModal,
+  setSelectedStudent,
+  addToSelectedStudentsList,
+} from "../ui/uiSlice";
 import AddStudentModal from "./AddStudentModal";
-import EditStudentModal from "./EditStudentModal";
+import StudentModal from "./StudentModal";
 import { mdiAccountPlus } from "@mdi/js";
 import Icon from "@mdi/react";
 import DataTable from "react-data-table-component";
 
 const StudentsList = ({
   students,
-  showaddmodal,
-  showeditmodal,
+  indexOfStudentToEdit,
   onSubmit,
   handleChange,
   colorDifficulty,
   colorFun,
+  onClickDifficultySwatch,
+  onClickFunSwatch,
+  onChangeDifficultyColor,
+  onChangeFunColor,
+  onCloseDifficultyColor,
+  onCloseFunColor,
+  isStudentChecked,
+  handleAllBoxChange,
+  depolulateSelectedStudentList,
+  populateSelectedStudentList,
+  handleDifficultyCheckBoxChange,
+  handleFunCheckboxChange,
+  studentCheckboxChange,
+  isStudentModalOpen,
 }) => {
   const dispatch = useDispatch();
   const selectedStudent = useSelector((state) => state.ui.selectedStudent);
@@ -31,16 +48,18 @@ const StudentsList = ({
 
   const handleAddClick = () => {
     console.log("Click on StudentAdd happend");
-    dispatch(toggleAddStudentModal());
+    dispatch(toggleStudentModal(true));
   };
 
   const handleEditClick = (e) => {
     console.log("Click on StudentEdit happend", e);
-    const indexOfStudentToEdit = students.findIndex((s) => s.id == e.id);
-    console.log(students[indexOfStudentToEdit].firstName);
+    const indexOfStudent = students.findIndex((s) => s.id == e.id);
+    console.log(students[indexOfStudent]);
+    dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
+    dispatch(toggleStudentModal(true));
   };
 
-  console.log(showaddmodal, showeditmodal, selectedStudent);
+  console.log(isStudentModalOpen);
 
   const columns = [
     {
@@ -80,20 +99,31 @@ const StudentsList = ({
 
   return (
     <div>
-      {showaddmodal && (
-        <AddStudentModal showaddmodal={showaddmodal} students={students} />
-      )}
-      {showeditmodal && (
-        <EditStudentModal
-          showeditmodal={showeditmodal}
+      {isStudentModalOpen && (
+        <StudentModal
           students={students}
-          selectedStudent={selectedStudent}
-          isFunColorPickerOpen={isFunColorPickerOpen}
-          isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+          indexOfStudentToEdit={indexOfStudentToEdit}
+          // setIndexOfStudentToEdit={setIndexOfStudentToEdit}
           onSubmit={onSubmit}
           handleChange={handleChange}
+          isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+          isFunColorPickerOpen={isFunColorPickerOpen}
           colorDifficulty={colorDifficulty}
           colorFun={colorFun}
+          onClickDifficultySwatch={onClickDifficultySwatch}
+          onClickFunSwatch={onClickFunSwatch}
+          onChangeDifficultyColor={onChangeDifficultyColor}
+          onChangeFunColor={onChangeFunColor}
+          onCloseDifficultyColor={onCloseDifficultyColor}
+          onCloseFunColor={onCloseFunColor}
+          isStudentChecked={isStudentChecked}
+          handleAllBoxChange={handleAllBoxChange}
+          depolulateSelectedStudentList={depolulateSelectedStudentList}
+          populateSelectedStudentList={populateSelectedStudentList}
+          handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
+          handleFunCheckboxChange={handleFunCheckboxChange}
+          studentCheckboxChange={studentCheckboxChange}
+          isStudentModalOpen={isStudentModalOpen}
         />
       )}
       <MDBContainer fluid className="p-4 m4">

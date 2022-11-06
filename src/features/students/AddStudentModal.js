@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, CloseButton } from "react-bootstrap";
 import { MDBContainer } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleAddStudentModal } from "../ui/uiSlice";
+import { toggleStudentModal } from "../ui/uiSlice";
 import AddStudentForm from "./AddStudentForm";
 import { addStudent } from "./studentSlice";
 
@@ -16,7 +16,7 @@ const AddStudentModal = (props) => {
 
   const handleClose = () => {
     console.log("Click on closed");
-    dispatch(toggleAddStudentModal());
+    dispatch(toggleStudentModal());
   };
   const setValue2 = (value2) => {
     dispatch(addStudent(value2));
@@ -33,7 +33,7 @@ const AddStudentModal = (props) => {
     } else {
       setAlert(true);
     }
-    dispatch(toggleAddStudentModal());
+    dispatch(toggleStudentModal());
 
     //TODO: redux result reflect into JSON server
     //TODO: format phone and email check and alert

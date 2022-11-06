@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const uiSlice = createSlice({
   name: "ui",
   initialState: {
-    addStudentModalOpen: false,
+    isStudentModalOpen: false,
     isStudentCardChecked: false,
     selectedStudent: {
       firstName: "",
@@ -37,10 +37,10 @@ const uiSlice = createSlice({
         showAlert: action.payload,
       };
     },
-    toggleAddStudentModal(state, action) {
+    toggleStudentModal(state, action) {
       return {
         ...state,
-        addStudentModalOpen: !state.addStudentModalOpen,
+        isStudentModalOpen: action.payload,
       };
     },
     toggleEditStudentCard(state, action) {
@@ -142,7 +142,7 @@ const uiSlice = createSlice({
 
 export const {
   setShowAlert,
-  toggleAddStudentModal,
+  toggleStudentModal,
   toggleEditStudentCard,
   toggleAlert,
   setSelectedStudent,

@@ -7,12 +7,14 @@ export const StudentCard = ({
   indexOfStudentToEdit,
   onSubmit,
   handleChange,
+  handleClose,
   isDifficultyColorPickerOpen,
   isFunColorPickerOpen,
   onClickDifficultySwatch,
   onClickFunSwatch,
   onChangeDifficultyColor,
   onChangeFunColor,
+  notInOverview,
 }) => {
   console.log(
     "StudentCard: ",
@@ -28,7 +30,7 @@ export const StudentCard = ({
           <div className="card-header">
             <div className="card-title h5 p-3">
               <p>
-                Je kan hier de gegvens van
+                Je kan hier de gegevens van
                 {" " +
                   students[indexOfStudentToEdit].firstName +
                   " " +
@@ -131,7 +133,15 @@ export const StudentCard = ({
               </MDBCol>
             </div>
           </div>
-          <div className="card-footer"></div>
+          {notInOverview ? (
+            <div className="card-footer">
+              <MDBBtn color="primary" onClick={handleClose} type="submit">
+                save
+              </MDBBtn>
+            </div>
+          ) : (
+            <></>
+          )}
         </form>
       </div>
     </div>

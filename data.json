@@ -5134,14 +5134,14 @@
   "students": [
     {
       "id": 1,
-      "firstName": "Evelyne",
+      "firstName": "Evelyned",
       "lastName": "McGuire",
-      "phone": "+31 6 1234 5671",
+      "phone": "+31 6 1234 5672",
       "email": "mcguire@gmail.com",
       "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
       "colorDifficulty": "#4dd0e1",
       "colorFun": "#ffeb3b",
-      "funColor": "#9c27b0"
+      "funColor": "#c2185b"
     },
     {
       "id": 2,

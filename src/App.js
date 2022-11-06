@@ -40,7 +40,6 @@ const App = () => {
   const students = useSelector((state) => state.students);
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
-  const showaddmodal = useSelector((state) => state.ui.addStudentModalOpen);
   const isStudentCardChecked = useSelector(
     (state) => state.ui.isStudentCardChecked
   );
@@ -70,11 +69,11 @@ const App = () => {
   );
   const showAlert = useSelector((state) => state.ui.showAlert);
 
-  console.log(showAlert);
-  console.log(isAverageBoxChecked);
-
   const averageFunNumberOfAllSelectedStudents = useSelector(
     (state) => state.ui.averageFunNumberOfAllSelectedStudents
+  );
+  const isStudentModalOpen = useSelector(
+    (state) => state.ui.isStudentModalOpen
   );
 
   const [formerLength, setFormerLength] = useState(0);
@@ -83,7 +82,7 @@ const App = () => {
     (s) => s.id == selectedStudentsList[0]
   );
 
-  // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
+  console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
   const handleSelectedStudentsURL = (e) => {};
 
@@ -381,12 +380,26 @@ const App = () => {
             <StudentsList
               students={students}
               indexOfStudentToEdit={indexOfStudentToEdit}
-              showaddmodal={showaddmodal}
-              isStudentCardChecked={isStudentCardChecked}
               onSubmit={onSubmit}
               handleChange={handleChange}
+              isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+              isFunColorPickerOpen={isFunColorPickerOpen}
               colorDifficulty={colorDifficulty}
               colorFun={colorFun}
+              onClickDifficultySwatch={onClickDifficultySwatch}
+              onClickFunSwatch={onClickFunSwatch}
+              onChangeDifficultyColor={onChangeDifficultyColor}
+              onChangeFunColor={onChangeFunColor}
+              onCloseDifficultyColor={onCloseDifficultyColor}
+              onCloseFunColor={onCloseFunColor}
+              isStudentChecked={isStudentChecked}
+              handleAllBoxChange={handleAllBoxChange}
+              depolulateSelectedStudentList={depolulateSelectedStudentList}
+              populateSelectedStudentList={populateSelectedStudentList}
+              handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
+              handleFunCheckboxChange={handleFunCheckboxChange}
+              studentCheckboxChange={studentCheckboxChange}
+              isStudentModalOpen={isStudentModalOpen}
             />
           }
         />

@@ -337,6 +337,7 @@ const Overview = ({
                     }
                     handleFunCheckboxChange={handleFunCheckboxChange}
                     studentCheckboxChange={studentCheckboxChange}
+                    notInOverview={false}
                   />
                 ) : (
                   <></>
