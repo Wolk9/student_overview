@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
   toggleStudentModal,
-  setSelectedStudent,
+  toggleEdit,
   addToSelectedStudentsList,
 } from "../ui/uiSlice";
 import AddStudentModal from "./AddStudentModal";
@@ -38,7 +38,7 @@ const StudentsList = ({
   isStudentModalOpen,
 }) => {
   const dispatch = useDispatch();
-  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
+  const edit = useSelector((state) => state.ui.edit);
   const isFunColorPickerOpen = useSelector(
     (state) => state.ui.isFunColorPickerOpen
   );
@@ -49,6 +49,7 @@ const StudentsList = ({
   const handleAddClick = () => {
     console.log("Click on StudentAdd happend");
     dispatch(toggleStudentModal(true));
+    dispatch(toggleEdit(true));
   };
 
   const handleEditClick = (e) => {
@@ -59,7 +60,7 @@ const StudentsList = ({
     dispatch(toggleStudentModal(true));
   };
 
-  console.log(isStudentModalOpen);
+  console.log("edit: ", edit);
 
   const columns = [
     {
@@ -99,33 +100,6 @@ const StudentsList = ({
 
   return (
     <div>
-      {isStudentModalOpen && (
-        <StudentModal
-          students={students}
-          indexOfStudentToEdit={indexOfStudentToEdit}
-          // setIndexOfStudentToEdit={setIndexOfStudentToEdit}
-          onSubmit={onSubmit}
-          handleChange={handleChange}
-          isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
-          isFunColorPickerOpen={isFunColorPickerOpen}
-          colorDifficulty={colorDifficulty}
-          colorFun={colorFun}
-          onClickDifficultySwatch={onClickDifficultySwatch}
-          onClickFunSwatch={onClickFunSwatch}
-          onChangeDifficultyColor={onChangeDifficultyColor}
-          onChangeFunColor={onChangeFunColor}
-          onCloseDifficultyColor={onCloseDifficultyColor}
-          onCloseFunColor={onCloseFunColor}
-          isStudentChecked={isStudentChecked}
-          handleAllBoxChange={handleAllBoxChange}
-          depolulateSelectedStudentList={depolulateSelectedStudentList}
-          populateSelectedStudentList={populateSelectedStudentList}
-          handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
-          handleFunCheckboxChange={handleFunCheckboxChange}
-          studentCheckboxChange={studentCheckboxChange}
-          isStudentModalOpen={isStudentModalOpen}
-        />
-      )}
       <MDBContainer fluid className="p-4 m4">
         <MDBRow className="p-4">
           <MDBCol>
@@ -150,6 +124,34 @@ const StudentsList = ({
             onRowClicked={(e) => handleEditClick(e)}
           />
         </MDBCol>
+        {isStudentModalOpen && (
+          <StudentModal
+            edit={edit}
+            students={students}
+            indexOfStudentToEdit={indexOfStudentToEdit}
+            // setIndexOfStudentToEdit={setIndexOfStudentToEdit}
+            onSubmit={onSubmit}
+            handleChange={handleChange}
+            isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+            isFunColorPickerOpen={isFunColorPickerOpen}
+            colorDifficulty={colorDifficulty}
+            colorFun={colorFun}
+            onClickDifficultySwatch={onClickDifficultySwatch}
+            onClickFunSwatch={onClickFunSwatch}
+            onChangeDifficultyColor={onChangeDifficultyColor}
+            onChangeFunColor={onChangeFunColor}
+            onCloseDifficultyColor={onCloseDifficultyColor}
+            onCloseFunColor={onCloseFunColor}
+            isStudentChecked={isStudentChecked}
+            handleAllBoxChange={handleAllBoxChange}
+            depolulateSelectedStudentList={depolulateSelectedStudentList}
+            populateSelectedStudentList={populateSelectedStudentList}
+            handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
+            handleFunCheckboxChange={handleFunCheckboxChange}
+            studentCheckboxChange={studentCheckboxChange}
+            isStudentModalOpen={isStudentModalOpen}
+          />
+        )}
       </MDBContainer>
     </div>
   );

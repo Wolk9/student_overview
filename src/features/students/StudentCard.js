@@ -1,8 +1,11 @@
 import React from "react";
 import { MDBCol, MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { SwatchesPicker } from "react-color";
+import { addStudent } from "./studentSlice";
+import { useDispatch } from "react-redux";
 
 export const StudentCard = ({
+  edit,
   students,
   indexOfStudentToEdit,
   onSubmit,
@@ -16,12 +19,38 @@ export const StudentCard = ({
   onChangeFunColor,
   notInOverview,
 }) => {
-  console.log(
-    "StudentCard: ",
-    students,
-    indexOfStudentToEdit,
-    students[indexOfStudentToEdit]
-  );
+  const dispatch = useDispatch();
+  if (edit == true) {
+    console.log(
+      "edit",
+      "StudentCard: ",
+      students,
+      indexOfStudentToEdit,
+      students[indexOfStudentToEdit]
+    );
+  } else {
+    console.log("add");
+    // dispatch(
+    //   addStudent({
+    //     firstName: "",
+    //     LastName: "",
+    //     phone: "",
+    //     email: "",
+    //     photo: "",
+    //     colorDifficulty: "#ffffff",
+    //     colorFun: "#000000",
+    //   })
+    // );
+  }
+  const newOrExistingStudent = students[indexOfStudentToEdit];
+
+  const handleCancel = () => {
+    console.log("cancel");
+  };
+
+  const handleSave = () => {
+    console.log("cancel");
+  };
 
   return (
     <div>
@@ -29,14 +58,18 @@ export const StudentCard = ({
         <form onSubmit={onSubmit} onChange={(event) => handleChange(event)}>
           <div className="card-header">
             <div className="card-title h5 p-3">
-              <p>
-                Je kan hier de gegevens van
-                {" " +
-                  students[indexOfStudentToEdit].firstName +
-                  " " +
-                  students[indexOfStudentToEdit].lastName}{" "}
-                veranderen
-              </p>
+              {edit ? (
+                <p>Voeg een nieuwe student toe</p>
+              ) : (
+                <p>
+                  Je kan hier de gegevens van
+                  {" " +
+                    newOrExistingStudent.firstName +
+                    " " +
+                    newOrExistingStudent.lastName}{" "}
+                  veranderen
+                </p>
+              )}
             </div>
           </div>
           <div className="card-body">
@@ -46,9 +79,9 @@ export const StudentCard = ({
                   type="text"
                   className="mb-4"
                   label="Voornaam"
-                  value={students[indexOfStudentToEdit].firstName}
+                  value={newOrExistingStudent.firstName}
                   name="firstName"
-                  id={students[indexOfStudentToEdit].id}
+                  id={newOrExistingStudent.id}
                 />
               </div>
               <div className="col">
@@ -56,9 +89,9 @@ export const StudentCard = ({
                   type="text"
                   className="mb-4"
                   label="Achternaam"
-                  value={students[indexOfStudentToEdit].lastName}
+                  value={newOrExistingStudent.lastName}
                   name="lastName"
-                  id={students[indexOfStudentToEdit].id}
+                  id={newOrExistingStudent.id}
                 />
               </div>
             </div>
@@ -69,17 +102,17 @@ export const StudentCard = ({
                   type="text"
                   className="mb-4"
                   label="email"
-                  value={students[indexOfStudentToEdit].email}
+                  value={newOrExistingStudent.email}
                   name="email"
-                  id={students[indexOfStudentToEdit].id}
+                  id={newOrExistingStudent.id}
                 />
                 <MDBInput
                   type="text"
                   className="mb-4"
                   label="telefoon"
-                  value={students[indexOfStudentToEdit].phone}
+                  value={newOrExistingStudent.phone}
                   name="phone"
-                  id={students[indexOfStudentToEdit].id}
+                  id={newOrExistingStudent.id}
                 />
               </div>
             </div>
@@ -92,8 +125,7 @@ export const StudentCard = ({
                   <div
                     className="swatch"
                     style={{
-                      backgroundColor:
-                        students[indexOfStudentToEdit].colorDifficulty,
+                      backgroundColor: newOrExistingStudent.colorDifficulty,
                     }}
                     onClick={() => {
                       onClickDifficultySwatch();
@@ -102,7 +134,7 @@ export const StudentCard = ({
                   {isDifficultyColorPickerOpen && (
                     <div className="color-picker">
                       <SwatchesPicker
-                        color={students[indexOfStudentToEdit].colorDifficulty}
+                        color={newOrExistingStudent.colorDifficulty}
                         width={220}
                         onChange={(color) => onChangeDifficultyColor(color)}
                       />
@@ -116,14 +148,14 @@ export const StudentCard = ({
                   <div
                     className="swatch"
                     style={{
-                      backgroundColor: students[indexOfStudentToEdit].colorFun,
+                      backgroundColor: newOrExistingStudent.colorFun,
                     }}
                     onClick={() => onClickFunSwatch()}
                   />
                   {isFunColorPickerOpen && (
                     <div className="color-picker">
                       <SwatchesPicker
-                        color={students[indexOfStudentToEdit].colorFun}
+                        color={newOrExistingStudent.colorFun}
                         width={220}
                         onChange={(color) => onChangeFunColor(color)}
                       />
@@ -134,10 +166,21 @@ export const StudentCard = ({
             </div>
           </div>
           {notInOverview ? (
-            <div className="card-footer">
-              <MDBBtn color="primary" onClick={handleClose} type="submit">
-                save
-              </MDBBtn>
+            <div className="d-flex justify-content-end card-footer">
+              <div className="flex-row">
+                <div className="flex-col">
+                  <MDBBtn
+                    outline
+                    color="primary"
+                    onClick={handleCancel}
+                    type="cancel">
+                    Cancel
+                  </MDBBtn>
+                  <MDBBtn color="primary" onClick={handleSave} type="submit">
+                    Opslaan
+                  </MDBBtn>
+                </div>
+              </div>
             </div>
           ) : (
             <></>

@@ -4,6 +4,7 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: {
     isStudentModalOpen: false,
+    edit: false,
     isStudentCardChecked: false,
     selectedStudent: {
       firstName: "",
@@ -41,6 +42,12 @@ const uiSlice = createSlice({
       return {
         ...state,
         isStudentModalOpen: action.payload,
+      };
+    },
+    toggleEdit(state, action) {
+      return {
+        ...state,
+        edit: action.payload,
       };
     },
     toggleEditStudentCard(state, action) {
@@ -143,6 +150,7 @@ const uiSlice = createSlice({
 export const {
   setShowAlert,
   toggleStudentModal,
+  toggleEdit,
   toggleEditStudentCard,
   toggleAlert,
   setSelectedStudent,
