@@ -8,6 +8,7 @@ import {
   toggleStudentModal,
   toggleEdit,
   addToSelectedStudentsList,
+  editSelectedStudent,
 } from "../ui/uiSlice";
 import AddStudentModal from "./AddStudentModal";
 import StudentModal from "./StudentModal";
@@ -56,7 +57,9 @@ const StudentsList = ({
     console.log("Click on StudentEdit happend", e);
     const indexOfStudent = students.findIndex((s) => s.id == e.id);
     console.log(students[indexOfStudent]);
+    dispatch(toggleEdit(true));
     dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
+    dispatch(editSelectedStudent(students[indexOfStudent]));
     dispatch(toggleStudentModal(true));
   };
 

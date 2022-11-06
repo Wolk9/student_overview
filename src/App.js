@@ -19,6 +19,7 @@ import {
   toggleAllStudentsChecked,
   toggleEditStudentCard,
   toggleAlert,
+  editSelectedStudent,
   addToSelectedStudentsList,
   removeFromSelectedStudentsList,
   toggleDifficultyColorPicker,
@@ -31,7 +32,7 @@ import {
   flushSelectedStudentsList,
   setAverageFunOfAllSelectedStudents,
 } from "../src/features/ui/uiSlice";
-import { editStudent } from "../src/features/students/studentSlice";
+import { editStudent, addStudent } from "../src/features/students/studentSlice";
 import Overview from "./features/overview/Overview";
 import SingleStudentView from "../src/features/students/SingleStudentView";
 
@@ -81,10 +82,9 @@ const App = () => {
   const indexOfStudentToEdit = students.findIndex(
     (s) => s.id == selectedStudentsList[0]
   );
+  const edit = useSelector((state) => state.ui.edit);
 
   console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
-
-  const handleSelectedStudentsURL = (e) => {};
 
   const studentCheckboxChange = (e) => {
     console.log("studentCheckboxChange");
@@ -134,17 +134,35 @@ const App = () => {
   };
 
   const handleChange = (e) => {
-    console.log("handleChange: \n", e.target.id, e.target.name, e.target.value);
-    dispatch(
-      editStudent({
+    console.log(
+      "Edit: ",
+      edit,
+      ". HandleChange: \n",
+      e.target.id,
+      e.target.name,
+      e.target.value
+    );
+    if (edit) {
+      dispatch(
+        editStudent({
+          ...students[indexOfStudentToEdit],
+          [e.target.name]: e.target.value,
+        })
+      );
+      dispatch(
+        editSelectedStudent({
+          ...selectedStudent,
+          [e.target.name]: e.target.value,
+        })
+      );
+      dataService.update("students", e.target.id, {
         ...students[indexOfStudentToEdit],
         [e.target.name]: e.target.value,
-      })
-    );
-    dataService.update("students", e.target.id, {
-      ...students[indexOfStudentToEdit],
-      [e.target.name]: e.target.value,
-    });
+      });
+    } else {
+      console.log("handleChange add");
+      dispatch();
+    }
   };
 
   const onClickDifficultySwatch = () => {
@@ -348,7 +366,6 @@ const App = () => {
               onCloseFunColor={onCloseFunColor}
               isAllBoxChecked={isAllBoxChecked}
               isStudentChecked={isStudentChecked}
-              handleSelectedStudentsURL={handleSelectedStudentsURL}
               addToSelectedStudentsList={addToSelectedStudentsList}
               removeFromSelectedStudentsList={removeFromSelectedStudentsList}
               handleAllBoxChange={handleAllBoxChange}

@@ -56,14 +56,11 @@ const uiSlice = createSlice({
         isStudentCardChecked: action.payload,
       };
     },
-    setSelectedStudent(state, action) {
+    editSelectedStudent(state, action) {
       return {
         ...state,
         selectedStudent: action.payload,
       };
-    },
-    editSelectedStudent(state, action) {
-      // console.log(action.payload);
     },
     toggleFunColorPicker(state) {
       return {
@@ -153,7 +150,6 @@ export const {
   toggleEdit,
   toggleEditStudentCard,
   toggleAlert,
-  setSelectedStudent,
   editSelectedStudent,
   toggleFunColorPicker,
   toggleDifficultyColorPicker,

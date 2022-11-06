@@ -5134,7 +5134,7 @@
   "students": [
     {
       "id": 1,
-      "firstName": "Evelyned",
+      "firstName": "Evelynede",
       "lastName": "McGuire",
       "phone": "+31 6 1234 5672",
       "email": "mcguire@gmail.com",
@@ -5175,13 +5175,14 @@
     },
     {
       "id": 5,
-      "firstName": "Martina",
-      "lastName": "Navratilova",
+      "firstName": "Martine",
+      "lastName": "Van Bokhoven",
       "phone": "+32 5 1234 1231",
       "email": "navratilova@tennis.net",
       "photo": "http://dummyimage.com/128x100.png/5f2add/ffffff",
       "colorDifficulty": "#548c53",
-      "colorFun": "#d7bdff"
+      "colorFun": "#d7bdff",
+      "funColor": "#d32f2f"
     },
     {
       "id": 6,

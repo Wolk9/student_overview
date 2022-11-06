@@ -19,7 +19,7 @@ const AssignmentsList = ({
   // const selectStudent = (picked) => {
   //   const pickedStudent = students.filter((student) => student.id === picked);
   //   console.log("pickedStudent", pickedStudent);
-  //   dispatch(setSelectedStudent(pickedStudent));
+  //   dispatch(editSelectedStudent(pickedStudent));
   // };
 
   const getNamesUser = (user_id) => {

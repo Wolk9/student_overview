@@ -2,7 +2,7 @@ import React from "react";
 import { MDBCol, MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { SwatchesPicker } from "react-color";
 import { addStudent } from "./studentSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const StudentCard = ({
   edit,
@@ -20,6 +20,10 @@ export const StudentCard = ({
   notInOverview,
 }) => {
   const dispatch = useDispatch();
+  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
+
+  let newOrExistingStudent = students[indexOfStudentToEdit];
+
   if (edit == true) {
     console.log(
       "edit",
@@ -41,8 +45,8 @@ export const StudentCard = ({
     //     colorFun: "#000000",
     //   })
     // );
+    newOrExistingStudent = selectedStudent;
   }
-  const newOrExistingStudent = students[indexOfStudentToEdit];
 
   const handleCancel = () => {
     console.log("cancel");
