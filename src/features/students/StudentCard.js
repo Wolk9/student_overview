@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBCol, MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { SwatchesPicker } from "react-color";
-import { addStudent } from "./studentSlice";
+import { toggleStudentModal, toggleEdit } from "../ui/uiSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export const StudentCard = ({
@@ -17,14 +17,21 @@ export const StudentCard = ({
   onClickFunSwatch,
   onChangeDifficultyColor,
   onChangeFunColor,
-  notInOverview,
+  inOverview,
 }) => {
   const dispatch = useDispatch();
   const selectedStudent = useSelector((state) => state.ui.selectedStudent);
 
+  console.log("StudentCard edit: ", edit);
+  console.log("inOverview: ", inOverview);
+
+  if (inOverview) {
+    dispatch(toggleEdit(true));
+  }
+
   let newOrExistingStudent = students[indexOfStudentToEdit];
 
-  if (edit == true) {
+  if (edit === true) {
     console.log(
       "edit",
       "StudentCard: ",
@@ -33,7 +40,7 @@ export const StudentCard = ({
       students[indexOfStudentToEdit]
     );
   } else {
-    console.log("add");
+    // console.log("add");
     // dispatch(
     //   addStudent({
     //     firstName: "",
@@ -49,20 +56,22 @@ export const StudentCard = ({
   }
 
   const handleCancel = () => {
-    console.log("cancel");
+    // console.log("cancel");
   };
 
-  const handleSave = () => {
-    console.log("cancel");
+  const handleSave = (e) => {
+    // console.log("sluit");
+    e.preventDefault();
+    dispatch(toggleStudentModal(false));
   };
 
   return (
     <div>
       <div className="card">
-        <form onSubmit={onSubmit} onChange={(event) => handleChange(event)}>
+        <form onChange={(event) => handleChange(event)}>
           <div className="card-header">
             <div className="card-title h5 p-3">
-              {edit ? (
+              {!edit ? (
                 <p>Voeg een nieuwe student toe</p>
               ) : (
                 <p>
@@ -169,19 +178,12 @@ export const StudentCard = ({
               </MDBCol>
             </div>
           </div>
-          {notInOverview ? (
+          {!inOverview ? (
             <div className="d-flex justify-content-end card-footer">
               <div className="flex-row">
                 <div className="flex-col">
-                  <MDBBtn
-                    outline
-                    color="primary"
-                    onClick={handleCancel}
-                    type="cancel">
-                    Cancel
-                  </MDBBtn>
                   <MDBBtn color="primary" onClick={handleSave} type="submit">
-                    Opslaan
+                    Sluit
                   </MDBBtn>
                 </div>
               </div>

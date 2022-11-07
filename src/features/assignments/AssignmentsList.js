@@ -18,7 +18,7 @@ const AssignmentsList = ({
 }) => {
   // const selectStudent = (picked) => {
   //   const pickedStudent = students.filter((student) => student.id === picked);
-  //   console.log("pickedStudent", pickedStudent);
+  //   // console.log("pickedStudent", pickedStudent);
   //   dispatch(editSelectedStudent(pickedStudent));
   // };
 
@@ -30,14 +30,14 @@ const AssignmentsList = ({
 
   const getCourseName = (course_id) => {
     const [result] = courses.filter((course) => course.id === course_id);
-    console.log(result);
+    // console.log(result);
     const code = result.code !== undefined ? result.code : "";
     const project = result.project !== undefined ? result.project : "";
     return code + " " + project;
   };
 
   //   const handleAddClick = () => {
-  //     console.log("Click on AssignmentAdd happend");
+  //     // console.log("Click on AssignmentAdd happend");
   //     dispatch(openAddAssignmentModal(true));
   //   };
 

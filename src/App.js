@@ -18,7 +18,7 @@ import {
   setShowAlert,
   toggleAllStudentsChecked,
   toggleEditStudentCard,
-  toggleAlert,
+  toggleEdit,
   editSelectedStudent,
   addToSelectedStudentsList,
   removeFromSelectedStudentsList,
@@ -37,6 +37,8 @@ import Overview from "./features/overview/Overview";
 import SingleStudentView from "../src/features/students/SingleStudentView";
 
 const App = () => {
+  // Redux State interaction ----------------------------------------------------
+
   const dispatch = useDispatch();
   const students = useSelector((state) => state.students);
   const courses = useSelector((state) => state.courses);
@@ -76,60 +78,62 @@ const App = () => {
   const isStudentModalOpen = useSelector(
     (state) => state.ui.isStudentModalOpen
   );
-
   const [formerLength, setFormerLength] = useState(0);
-
   const indexOfStudentToEdit = students.findIndex(
     (s) => s.id == selectedStudentsList[0]
   );
   const edit = useSelector((state) => state.ui.edit);
 
-  console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
+  // Logic functions ------------------------------------------------------------
+
+  console.log("App edit: ", edit);
+
+  // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
 
   const studentCheckboxChange = (e) => {
-    console.log("studentCheckboxChange");
+    // console.log("studentCheckboxChange");
     const indexOfStudent = students.findIndex((s) => s.id == e.target.name);
-    console.log("index of the selected Student:", indexOfStudent);
+    // console.log("index of the selected Student:", indexOfStudent);
     if (!isStudentChecked({ id: e.target.id })) {
-      console.log("student is not checked");
+      // console.log("student is not checked");
       dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
     } else {
-      console.log("student", indexOfStudent, "is checked, so remove");
+      // console.log("student", indexOfStudent, "is checked, so remove");
       dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
-      console.log("isStudentCardChecked:", isStudentCardChecked);
+      // console.log("isStudentCardChecked:", isStudentCardChecked);
     }
     if (students.length === selectedStudentsList.length) {
-      console.log("Alle studenten zijn geselecteerd");
+      // console.log("Alle studenten zijn geselecteerd");
       dispatch(toggleAllStudentsChecked(true));
       setFormerLength(selectedStudentsList.length);
     } else {
-      console.log("Niet alle studenten zijn geselecteerd");
+      // console.log("Niet alle studenten zijn geselecteerd");
       dispatch(toggleAllStudentsChecked(false));
     }
     if (selectedStudentsList.length === 0) {
-      console.log("SelectedStudentsList = 0");
+      // console.log("SelectedStudentsList = 0");
       dispatch(toggleAverageCheckBox(false));
       dispatch(toggleEditStudentCard(false));
+      dispatch(toggleEdit(false));
       setFormerLength(0);
     } else if (selectedStudentsList.length === 1) {
-      console.log("er is nog maar één student over, average uit");
+      // console.log("er is nog maar één student over, average uit");
+      setFormerLength(1);
       dispatch(toggleAverageCheckBox(false));
       dispatch(toggleEditStudentCard(true));
-      setFormerLength(1);
+      dispatch(toggleEdit(true));
     } else if (selectedStudentsList.length > 1) {
-      console.log("er is meer dan 1 geselecteerde student");
+      // console.log("er is meer dan 1 geselecteerde student");
       dispatch(toggleEditStudentCard(false));
       setFormerLength(selectedStudentsList.length);
     }
   };
 
   const onSubmit = (event) => {
-    // console.log("clicked on onSubmit");
-    event.preventDefault();
+    // // console.log("clicked on onSubmit");
 
     dispatch(toggleEditStudentCard());
 
-    //TODO: redux result reflect into JSON server
     //TODO: format phone and email check and alert
   };
 
@@ -142,6 +146,7 @@ const App = () => {
       e.target.name,
       e.target.value
     );
+
     if (edit) {
       dispatch(
         editStudent({
@@ -160,69 +165,65 @@ const App = () => {
         [e.target.name]: e.target.value,
       });
     } else {
-      console.log("handleChange add");
+      // console.log("handleChange add");
       dispatch();
     }
   };
 
   const onClickDifficultySwatch = () => {
-    // console.log("Clicked on DifficultySwatch");
+    // // console.log("Clicked on DifficultySwatch");
     dispatch(toggleDifficultyColorPicker());
   };
 
   const onClickFunSwatch = () => {
-    //  console.log("Clicked on FunSwatch");
+    //  // console.log("Clicked on FunSwatch");
     dispatch(toggleFunColorPicker());
   };
 
   const onChangeDifficultyColor = (color) => {
-    // console.log("difficulty Value", e);
+    console.log("difficulty Value", color);
     dispatch(setDifficultyColor(color.hex));
-    dispatch(
-      editStudent({
-        ...students[indexOfStudentToEdit],
-        colorDifficulty: color.hex,
-      })
-    );
-    const id = students[indexOfStudentToEdit].id;
-    dataService.update("students", id, {
-      ...students[indexOfStudentToEdit],
-      colorDifficulty: color.hex,
+    handleChange({
+      target: {
+        id: students[indexOfStudentToEdit].id,
+        name: "colorDifficulty",
+        value: color.hex,
+      },
     });
+
     dispatch(toggleDifficultyColorPicker());
   };
   const onChangeFunColor = (color) => {
-    // console.log("fun Value", e);
+    console.log("fun Value", color.hex);
     dispatch(setFunColor(color.hex));
-    dispatch(
-      editStudent({ ...students[indexOfStudentToEdit], colorFun: color.hex })
-    );
-    const id = students[indexOfStudentToEdit].id;
-    dataService.update("students", id, {
-      ...students[indexOfStudentToEdit],
-      funColor: color.hex,
+    handleChange({
+      target: {
+        id: students[indexOfStudentToEdit].id,
+        name: "colorFun",
+        value: color.hex,
+      },
     });
     dispatch(toggleFunColorPicker());
   };
 
   const onCloseDifficultyColor = (x) => {
-    // console.log("close Difficulty Color", x);
+    // // console.log("close Difficulty Color", x);
     dispatch(toggleDifficultyColorPicker());
   };
 
   const onCloseFunColor = (x) => {
-    // console.log("Close Fun Color", x);
+    // // console.log("Close Fun Color", x);
     dispatch(toggleFunColorPicker());
   };
 
   const isStudentChecked = (e) => {
     const checked = selectedStudentsList.some((s) => s == e.id);
-    // console.log(e, checked);
+    // // console.log(e, checked);
     return checked;
   };
 
   const handleFunCheckboxChange = () => {
-    // console.log("fun clicked");
+    // // console.log("fun clicked");
     if (isDifficultyBoxChecked === true) {
       dispatch(toggleFunCheckBox());
     } else {
@@ -232,7 +233,7 @@ const App = () => {
   };
 
   const handleDifficultyCheckBoxChange = () => {
-    // console.log("difficulty clicked");
+    // // console.log("difficulty clicked");
     if (isFunBoxChecked === true) {
       dispatch(toggleDifficultyCheckBox());
     } else {
@@ -251,14 +252,14 @@ const App = () => {
 
   const handleAllBoxChange = () => {
     //
-    console.log("handleAllBoxChange");
+    // console.log("handleAllBoxChange");
     dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
 
     if (selectedStudentsList.length !== students.length) {
-      console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
+      // console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
       populateSelectedStudentList();
     } else {
-      // console.log(
+      // // console.log(
       //   "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit"
       // );
       if (isAverageBoxChecked) {
@@ -277,7 +278,7 @@ const App = () => {
   };
 
   if (formerLength != 0 && selectedStudentsList.length === 1) {
-    console.log("gemiddelden zijn uitgeschakeld");
+    // console.log("gemiddelden zijn uitgeschakeld");
     dispatch(toggleAverageCheckBox(false));
   }
 
@@ -340,6 +341,7 @@ const App = () => {
               }
               studentCheckboxChange={studentCheckboxChange}
               toggleAllStudentsChecked={toggleAllStudentsChecked}
+              edit={edit}
             />
           }></Route>
         <Route
@@ -387,6 +389,7 @@ const App = () => {
               }
               studentCheckboxChange={studentCheckboxChange}
               toggleAllStudentsChecked={toggleAllStudentsChecked}
+              edit={edit}
             />
           }
         />
@@ -417,6 +420,7 @@ const App = () => {
               handleFunCheckboxChange={handleFunCheckboxChange}
               studentCheckboxChange={studentCheckboxChange}
               isStudentModalOpen={isStudentModalOpen}
+              edit={edit}
             />
           }
         />

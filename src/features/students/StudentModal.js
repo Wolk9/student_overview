@@ -27,6 +27,7 @@ import {
 import { StudentCard } from "./StudentCard";
 
 const StudentModal = ({
+  edit,
   students,
   indexOfStudentToEdit,
   onSubmit,
@@ -53,7 +54,7 @@ const StudentModal = ({
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    console.log("Click on closed");
+    // console.log("Click on closed");
     dispatch(toggleStudentModal(false));
   };
 
@@ -63,6 +64,7 @@ const StudentModal = ({
         <MDBModalBody>
           <MDBContainer>
             <StudentCard
+              edit={edit}
               students={students}
               indexOfStudentToEdit={indexOfStudentToEdit}
               // setIndexOfStudentToEdit={setIndexOfStudentToEdit}

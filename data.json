@@ -5134,55 +5134,53 @@
   "students": [
     {
       "id": 1,
-      "firstName": "Evelynede",
+      "firstName": "Barbara",
       "lastName": "McGuire",
       "phone": "+31 6 1234 5672",
       "email": "mcguire@gmail.com",
       "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
-      "colorDifficulty": "#4dd0e1",
-      "colorFun": "#ffeb3b",
-      "funColor": "#b71c1c"
+      "colorDifficulty": "#ffcdd2",
+      "colorFun": "#e57373"
     },
     {
       "id": 2,
-      "firstName": "Aranka",
-      "lastName": "Smith",
-      "phone": "+31 6 1234 7618",
+      "firstName": "Shelly",
+      "lastName": "Smiths",
+      "phone": "+31 6 1234 7617",
       "email": "smith@gmail.com",
       "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
-      "colorDifficulty": "#008b02",
-      "colorFun": "#bed3f3"
+      "colorDifficulty": "#dce775",
+      "colorFun": "#3f51b5"
     },
     {
       "id": 3,
-      "firstName": "Floris",
-      "lastName": "Beyond",
-      "phone": "+31 6 1234 1231",
-      "email": "beyond@gmail.com",
-      "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff",
-      "colorDifficulty": "#ff0022",
-      "colorFun": "#7700ff"
+      "firstName": "Sandra",
+      "lastName": "Beyondt",
+      "phone": "+1 492 1293 1923",
+      "email": "Bullock@gmail.com",
+      "photo": "http://dummyimage.com/128x100.png/cc0000/ffffff",
+      "colorDifficulty": "#000000",
+      "colorFun": "#cfd8dc"
     },
     {
       "id": 4,
-      "firstName": "Hector",
-      "lastName": "Liberal",
+      "firstName": "Aranka",
+      "lastName": "Smiths",
       "phone": "+31 6 3414 1231",
-      "email": "libHec@live.com",
-      "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
-      "colorDifficulty": "#00e5ff",
-      "colorFun": "#ffb300"
+      "email": "smith@gmail.com",
+      "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
+      "colorDifficulty": "#008b02",
+      "colorFun": "#c2185b"
     },
     {
       "id": 5,
       "firstName": "Martine",
       "lastName": "Van Bokhoven",
-      "phone": "+32 5 1234 1231",
+      "phone": "+32 5 1234 1234",
       "email": "navratilova@tennis.net",
       "photo": "http://dummyimage.com/128x100.png/5f2add/ffffff",
       "colorDifficulty": "#548c53",
-      "colorFun": "#d7bdff",
-      "funColor": "#d32f2f"
+      "colorFun": "#d32f2f"
     },
     {
       "id": 6,
@@ -5192,7 +5190,7 @@
       "email": "vandenberg@gmail.com",
       "photo": "http://dummyimage.com/128x100.png/cc0000/ffffff",
       "colorDifficulty": "rgb(55, 199, 132)",
-      "colorFun": "rgb(55, 199,232)"
+      "colorFun": "#ffeb3b"
     },
     {
       "id": 7,
@@ -5232,8 +5230,7 @@
       "email": "glass@gmail.com",
       "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
       "colorDifficulty": "#fef3bd",
-      "colorFun": "#1273de",
-      "funColor": "#d4c4fb"
+      "colorFun": "#1273de"
     }
   ],
   "courses": [

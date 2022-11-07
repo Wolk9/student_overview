@@ -58,11 +58,14 @@ const Overview = ({
   averageFunNumberOfAllSelectedStudents,
   studentCheckboxChange,
   singleStudentView,
+  edit,
 }) => {
   const dispatch = useDispatch();
 
+  console.log("Overview edit: ", edit);
+
   if (singleStudentView) {
-    console.log("selecter alleen student met index ", indexOfStudentToEdit);
+    // console.log("selecter alleen student met index ", indexOfStudentToEdit);
     dispatch(toggleAllStudentsChecked(false));
     dispatch(addToSelectedStudentsList(students[indexOfStudentToEdit].id));
   }
@@ -311,6 +314,7 @@ const Overview = ({
               <div className="row">
                 {selectedStudentsList.length === 1 ? (
                   <StudentCard
+                    edit={edit}
                     students={students}
                     indexOfStudentToEdit={indexOfStudentToEdit}
                     setIndexOfStudentToEdit={setIndexOfStudentToEdit}
@@ -337,7 +341,7 @@ const Overview = ({
                     }
                     handleFunCheckboxChange={handleFunCheckboxChange}
                     studentCheckboxChange={studentCheckboxChange}
-                    notInOverview={false}
+                    inOverview={true}
                   />
                 ) : (
                   <></>

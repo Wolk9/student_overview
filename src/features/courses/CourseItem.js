@@ -9,7 +9,7 @@ const CourseItem = ({ id, code, project }) => {
   const dispatch = useDispatch();
 
   //   const handleEditClick = () => {
-  //     console.log("Click on CourseEdit " + id + " happend");
+  //     // console.log("Click on CourseEdit " + id + " happend");
   //     dispatch(editCourse({ id }));
   //   };
 

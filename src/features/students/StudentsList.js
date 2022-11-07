@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 
@@ -9,8 +9,8 @@ import {
   toggleEdit,
   addToSelectedStudentsList,
   editSelectedStudent,
+  flushSelectedStudentsList,
 } from "../ui/uiSlice";
-import AddStudentModal from "./AddStudentModal";
 import StudentModal from "./StudentModal";
 import { mdiAccountPlus } from "@mdi/js";
 import Icon from "@mdi/react";
@@ -48,7 +48,7 @@ const StudentsList = ({
   );
 
   const handleAddClick = () => {
-    console.log("Click on StudentAdd happend");
+    // console.log("Click on StudentAdd happend");
     dispatch(toggleStudentModal(true));
     dispatch(toggleEdit(true));
   };
@@ -58,12 +58,13 @@ const StudentsList = ({
     const indexOfStudent = students.findIndex((s) => s.id == e.id);
     console.log(students[indexOfStudent]);
     dispatch(toggleEdit(true));
+    dispatch(flushSelectedStudentsList());
     dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
     dispatch(editSelectedStudent(students[indexOfStudent]));
     dispatch(toggleStudentModal(true));
   };
 
-  console.log("edit: ", edit);
+  // console.log("StudentList edit: ", edit);
 
   const columns = [
     {
@@ -132,7 +133,6 @@ const StudentsList = ({
             edit={edit}
             students={students}
             indexOfStudentToEdit={indexOfStudentToEdit}
-            // setIndexOfStudentToEdit={setIndexOfStudentToEdit}
             onSubmit={onSubmit}
             handleChange={handleChange}
             isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}

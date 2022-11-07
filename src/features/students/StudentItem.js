@@ -21,7 +21,7 @@ const StudentItem = ({
   let colorDifficulty = colorFun;
 
   const handleEditClick = () => {
-    console.log("Click on StudentEdit " + id + " happend");
+    // console.log("Click on StudentEdit " + id + " happend");
     dispatch(editStudent({ id }));
   };
 
