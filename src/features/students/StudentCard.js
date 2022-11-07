@@ -64,8 +64,11 @@ export const StudentCard = ({
     e.preventDefault();
     if (!edit) {
       dispatch(addStudent(selectedStudent));
-      dataService.create("students", students[students.length - 1].id);
-      dataService.update("students", selectedStudent.id, selectedStudent);
+      const indexOfLatestStudent = students.length;
+      console.log(indexOfLatestStudent);
+      //TODO: students wordt niet geupdate voor de volgende acties. Dat moet ik aanpassen.
+      // const newStudent = students[indexOfLatestStudent];
+      // console.log(students);
     }
     dispatch(toggleStudentModal(false));
     dispatch(toggleEdit(false));
