@@ -11,7 +11,6 @@ const uiSlice = createSlice({
       lastName: "",
       phone: "",
       email: "",
-      id: 0,
       photo: "",
       colorDifficulty: "",
       colorFun: "",

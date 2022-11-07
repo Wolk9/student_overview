@@ -17,13 +17,7 @@ import {
 } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
 import { SwatchesPicker } from "react-color";
-import {
-  toggleDifficultyColorPicker,
-  setDifficultyColor,
-  toggleFunColorPicker,
-  setFunColor,
-  toggleStudentModal,
-} from "../ui/uiSlice";
+import { toggleStudentModal, toggleEdit } from "../ui/uiSlice";
 import { StudentCard } from "./StudentCard";
 
 const StudentModal = ({
@@ -53,9 +47,12 @@ const StudentModal = ({
 }) => {
   const dispatch = useDispatch();
 
+  console.log("StudentModal Edit: ", edit);
+
   const handleClose = () => {
     // console.log("Click on closed");
     dispatch(toggleStudentModal(false));
+    dispatch(toggleEdit(false));
   };
 
   return (

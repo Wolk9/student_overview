@@ -11,6 +11,7 @@ import {
   editSelectedStudent,
   flushSelectedStudentsList,
 } from "../ui/uiSlice";
+import { addStudent } from "../students/studentSlice";
 import StudentModal from "./StudentModal";
 import { mdiAccountPlus } from "@mdi/js";
 import Icon from "@mdi/react";
@@ -48,9 +49,9 @@ const StudentsList = ({
   );
 
   const handleAddClick = () => {
-    // console.log("Click on StudentAdd happend");
+    dispatch(toggleEdit(false));
+    console.log("Click on StudentAdd happend");
     dispatch(toggleStudentModal(true));
-    dispatch(toggleEdit(true));
   };
 
   const handleEditClick = (e) => {

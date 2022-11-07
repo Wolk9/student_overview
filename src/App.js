@@ -79,16 +79,22 @@ const App = () => {
     (state) => state.ui.isStudentModalOpen
   );
   const [formerLength, setFormerLength] = useState(0);
-  const indexOfStudentToEdit = students.findIndex(
-    (s) => s.id == selectedStudentsList[0]
-  );
+
   const edit = useSelector((state) => state.ui.edit);
 
   // Logic functions ------------------------------------------------------------
 
+  let indexOfStudentToEdit = students.findIndex(
+    (s) => s.id == selectedStudentsList[0]
+  );
+
   console.log("App edit: ", edit);
 
-  // console.log(students[indexOfStudentToEdit], indexOfStudentToEdit);
+  console.log(
+    "huidige student om te editten: ",
+    students[indexOfStudentToEdit],
+    indexOfStudentToEdit
+  );
 
   const studentCheckboxChange = (e) => {
     // console.log("studentCheckboxChange");
@@ -147,7 +153,16 @@ const App = () => {
       e.target.value
     );
 
-    if (edit) {
+    if (!edit) {
+      console.log("handleChange add");
+      indexOfStudentToEdit = students[students.length - 1];
+      dispatch(
+        editSelectedStudent({
+          ...selectedStudent,
+          [e.target.name]: e.target.value,
+        })
+      );
+    } else {
       dispatch(
         editStudent({
           ...students[indexOfStudentToEdit],
@@ -164,9 +179,6 @@ const App = () => {
         ...students[indexOfStudentToEdit],
         [e.target.name]: e.target.value,
       });
-    } else {
-      // console.log("handleChange add");
-      dispatch();
     }
   };
 

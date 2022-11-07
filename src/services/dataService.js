@@ -9,12 +9,14 @@ const getAll = (subset) => {
 };
 
 const create = (subset, newObject) => {
+  console.log(subset, newObject);
   return axios
-    .post(baseUrl + subset + "/, newObject")
+    .post(baseUrl + subset + "/" + newObject)
     .then((response) => console.log(response));
 };
 
 const update = (subset, id, newObject) => {
+  console.log(subset, id, newObject);
   return axios.put(`${baseUrl}${subset}/${id}`, newObject);
 };
 

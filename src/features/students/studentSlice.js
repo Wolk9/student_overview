@@ -6,16 +6,21 @@ const studentSlice = createSlice({
   reducers: {
     addStudent: {
       reducer: (state, action) => {
+        console.log("Lets add a student");
         state.push(action.payload);
       },
-      prepare: (action) => {
-        const id = nanoid();
-        action.id = id;
-        return { payload: action };
+      prepare: (value) => {
+        console.log("Lets prepare a student");
+        return {
+          payload: {
+            ...value,
+            id: nanoid(),
+          },
+        };
       },
     },
     editStudent(state, action) {
-      // // console.log(action.payload, action.payload.id);
+      console.log(action.payload, action.payload.id);
       const id = action.payload.id;
       const payload = action.payload;
       const result = state.map((student) =>
