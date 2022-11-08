@@ -44,6 +44,7 @@ const StudentModal = ({
   handleFunCheckboxChange,
   studentCheckboxChange,
   isStudentModalOpen,
+  storeNewStudent,
 }) => {
   const dispatch = useDispatch();
 
@@ -52,7 +53,6 @@ const StudentModal = ({
   const handleClose = () => {
     // console.log("Click on closed");
     dispatch(toggleStudentModal(false));
-    dispatch(toggleEdit(false));
   };
 
   return (
@@ -61,10 +61,8 @@ const StudentModal = ({
         <MDBModalBody>
           <MDBContainer>
             <StudentCard
-              edit={edit}
               students={students}
               indexOfStudentToEdit={indexOfStudentToEdit}
-              // setIndexOfStudentToEdit={setIndexOfStudentToEdit}
               onSubmit={onSubmit}
               handleChange={handleChange}
               isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}

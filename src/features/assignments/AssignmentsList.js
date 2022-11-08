@@ -11,17 +11,9 @@ import { Rating } from "react-simple-star-rating";
 const AssignmentsList = ({
   assignments,
   students,
-  studentNames,
-  pickedStudent,
-  courses,
-  show,
-}) => {
-  // const selectStudent = (picked) => {
-  //   const pickedStudent = students.filter((student) => student.id === picked);
-  //   // console.log("pickedStudent", pickedStudent);
-  //   dispatch(editSelectedStudent(pickedStudent));
-  // };
 
+  courses,
+}) => {
   const getNamesUser = (user_id) => {
     const [result] = students.filter((student) => student.id === user_id);
     const nameResult = result.firstName + " " + result.lastName;
@@ -30,16 +22,11 @@ const AssignmentsList = ({
 
   const getCourseName = (course_id) => {
     const [result] = courses.filter((course) => course.id === course_id);
-    // console.log(result);
-    const code = result.code !== undefined ? result.code : "";
-    const project = result.project !== undefined ? result.project : "";
+    console.log(result);
+    const code = result.code != undefined ? result.code : "";
+    const project = result.project != undefined ? result.project : "";
     return code + " " + project;
   };
-
-  //   const handleAddClick = () => {
-  //     // console.log("Click on AssignmentAdd happend");
-  //     dispatch(openAddAssignmentModal(true));
-  //   };
 
   const columns = [
     {

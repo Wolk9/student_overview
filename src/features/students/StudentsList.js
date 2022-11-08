@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
+import { MDBContainer, MDBCol, MDBRow, MDBIcon } from "mdb-react-ui-kit";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -10,15 +10,17 @@ import {
   addToSelectedStudentsList,
   editSelectedStudent,
   flushSelectedStudentsList,
+  setTempNanoID,
 } from "../ui/uiSlice";
 import { addStudent } from "../students/studentSlice";
 import StudentModal from "./StudentModal";
-import { mdiAccountPlus } from "@mdi/js";
+import { mdiAccountPlus, mdiTrashCan } from "@mdi/js";
 import Icon from "@mdi/react";
 import DataTable from "react-data-table-component";
+import { getByDisplayValue, getByTestId } from "@testing-library/react";
+import { nanoid } from "@reduxjs/toolkit";
 
 const StudentsList = ({
-  students,
   indexOfStudentToEdit,
   onSubmit,
   handleChange,
@@ -40,19 +42,15 @@ const StudentsList = ({
   isStudentModalOpen,
 }) => {
   const dispatch = useDispatch();
-  const edit = useSelector((state) => state.ui.edit);
+  const students = useSelector((state) => state.students);
+
   const isFunColorPickerOpen = useSelector(
     (state) => state.ui.isFunColorPickerOpen
   );
   const isDifficultyColorPickerOpen = useSelector(
     (state) => state.ui.isDifficultyColorPickerOpen
   );
-
-  const handleAddClick = () => {
-    dispatch(toggleEdit(false));
-    console.log("Click on StudentAdd happend");
-    dispatch(toggleStudentModal(true));
-  };
+  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
 
   const handleEditClick = (e) => {
     console.log("Click on StudentEdit happend", e);
@@ -64,8 +62,6 @@ const StudentsList = ({
     dispatch(editSelectedStudent(students[indexOfStudent]));
     dispatch(toggleStudentModal(true));
   };
-
-  // console.log("StudentList edit: ", edit);
 
   const columns = [
     {
@@ -100,24 +96,13 @@ const StudentsList = ({
         </MDBRow>
       ),
       width: "10%",
+      sortable: false,
     },
   ];
 
   return (
     <div>
       <MDBContainer fluid className="p-4 m4">
-        <MDBRow className="p-4">
-          <MDBCol>
-            <div align="right">
-              <Icon
-                path={mdiAccountPlus}
-                size={1}
-                onClick={handleAddClick}
-                color="#0077ff"
-              />
-            </div>
-          </MDBCol>
-        </MDBRow>
         <MDBCol>
           <DataTable
             title={students.length + " Students"}
@@ -131,7 +116,6 @@ const StudentsList = ({
         </MDBCol>
         {isStudentModalOpen && (
           <StudentModal
-            edit={edit}
             students={students}
             indexOfStudentToEdit={indexOfStudentToEdit}
             onSubmit={onSubmit}

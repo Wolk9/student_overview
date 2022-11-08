@@ -81,6 +81,7 @@ const App = () => {
   const [formerLength, setFormerLength] = useState(0);
 
   const edit = useSelector((state) => state.ui.edit);
+  const tempNanoId = useSelector((state) => state.ui.tempNanoId);
 
   // Logic functions ------------------------------------------------------------
 
@@ -153,33 +154,22 @@ const App = () => {
       e.target.value
     );
 
-    if (!edit) {
-      console.log("handleChange add");
-      indexOfStudentToEdit = students[students.length - 1];
-      dispatch(
-        editSelectedStudent({
-          ...selectedStudent,
-          [e.target.name]: e.target.value,
-        })
-      );
-    } else {
-      dispatch(
-        editStudent({
-          ...students[indexOfStudentToEdit],
-          [e.target.name]: e.target.value,
-        })
-      );
-      dispatch(
-        editSelectedStudent({
-          ...selectedStudent,
-          [e.target.name]: e.target.value,
-        })
-      );
-      dataService.update("students", e.target.id, {
+    dispatch(
+      editStudent({
         ...students[indexOfStudentToEdit],
         [e.target.name]: e.target.value,
-      });
-    }
+      })
+    );
+    dispatch(
+      editSelectedStudent({
+        ...selectedStudent,
+        [e.target.name]: e.target.value,
+      })
+    );
+    dataService.update("students", e.target.id, {
+      ...students[indexOfStudentToEdit],
+      [e.target.name]: e.target.value,
+    });
   };
 
   const onClickDifficultySwatch = () => {
@@ -202,9 +192,9 @@ const App = () => {
         value: color.hex,
       },
     });
-
     dispatch(toggleDifficultyColorPicker());
   };
+
   const onChangeFunColor = (color) => {
     console.log("fun Value", color.hex);
     dispatch(setFunColor(color.hex));
@@ -219,18 +209,15 @@ const App = () => {
   };
 
   const onCloseDifficultyColor = (x) => {
-    // // console.log("close Difficulty Color", x);
     dispatch(toggleDifficultyColorPicker());
   };
 
   const onCloseFunColor = (x) => {
-    // // console.log("Close Fun Color", x);
     dispatch(toggleFunColorPicker());
   };
 
   const isStudentChecked = (e) => {
     const checked = selectedStudentsList.some((s) => s == e.id);
-    // // console.log(e, checked);
     return checked;
   };
 

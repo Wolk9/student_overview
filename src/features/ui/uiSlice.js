@@ -29,8 +29,16 @@ const uiSlice = createSlice({
     isAverageBoxChecked: false,
     colorFun: "#334455",
     colorDifficulty: "#554433",
+    tempNanoId: "",
   },
   reducers: {
+    setTempNanoID(state, action) {
+      return {
+        ...state,
+        tempNanoId: action.payload,
+      };
+    },
+
     setShowAlert(state, action) {
       return {
         ...state,
@@ -144,6 +152,7 @@ const uiSlice = createSlice({
 });
 
 export const {
+  setTempNanoID,
   setShowAlert,
   toggleStudentModal,
   toggleEdit,

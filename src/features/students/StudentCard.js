@@ -3,7 +3,6 @@ import { MDBCol, MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { SwatchesPicker } from "react-color";
 import {
   toggleStudentModal,
-  toggleEdit,
   flushSelectedStudentsList,
   editSelectedStudent,
 } from "../ui/uiSlice";
@@ -12,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import dataService from "../../services/dataService";
 
 export const StudentCard = ({
-  edit,
   students,
   indexOfStudentToEdit,
   handleChange,
@@ -23,55 +21,31 @@ export const StudentCard = ({
   onChangeDifficultyColor,
   onChangeFunColor,
   inOverview,
+  storeNewStudent,
 }) => {
   const dispatch = useDispatch();
   const selectedStudent = useSelector((state) => state.ui.selectedStudent);
+  const tempNanoId = useSelector((state) => state.ui.tempNanoId);
 
-  console.log("StudentCard edit: ", edit);
   console.log("inOverview: ", inOverview);
 
   if (inOverview) {
-    dispatch(toggleEdit(true));
   }
 
   let newOrExistingStudent = students[indexOfStudentToEdit];
 
-  if (edit === true) {
-    console.log(
-      "edit",
-      "StudentCard: ",
-      students,
-      indexOfStudentToEdit,
-      students[indexOfStudentToEdit]
-    );
-  } else {
-    console.log("add");
-
-    newOrExistingStudent = selectedStudent;
-  }
-
-  const handleCancel = (e) => {
-    console.log("cancel");
-    e.preventDefault();
-    dispatch(toggleStudentModal(false));
-    dispatch(toggleEdit(false));
-    dispatch(flushSelectedStudentsList());
-    dispatch(editSelectedStudent({}));
-  };
+  console.log(
+    "edit",
+    "StudentCard: ",
+    students,
+    indexOfStudentToEdit,
+    students[indexOfStudentToEdit]
+  );
 
   const handleSave = (e) => {
     // console.log("sluit");
     e.preventDefault();
-    if (!edit) {
-      dispatch(addStudent(selectedStudent));
-      const indexOfLatestStudent = students.length;
-      console.log(indexOfLatestStudent);
-      //TODO: students wordt niet geupdate voor de volgende acties. Dat moet ik aanpassen.
-      // const newStudent = students[indexOfLatestStudent];
-      // console.log(students);
-    }
     dispatch(toggleStudentModal(false));
-    dispatch(toggleEdit(false));
     dispatch(flushSelectedStudentsList());
     dispatch(editSelectedStudent({}));
   };
@@ -82,18 +56,14 @@ export const StudentCard = ({
         <form onSubmit={handleSave} onChange={(event) => handleChange(event)}>
           <div className="card-header">
             <div className="card-title h5 p-3">
-              {!edit ? (
-                <p>Voeg een nieuwe student toe</p>
-              ) : (
-                <p>
-                  Je kan hier de gegevens van
-                  {" " +
-                    newOrExistingStudent.firstName +
-                    " " +
-                    newOrExistingStudent.lastName}{" "}
-                  veranderen
-                </p>
-              )}
+              <p>
+                Je kan hier de gegevens van
+                {" " +
+                  newOrExistingStudent.firstName +
+                  " " +
+                  newOrExistingStudent.lastName}{" "}
+                veranderen
+              </p>
             </div>
           </div>
           <div className="card-body">
@@ -193,13 +163,6 @@ export const StudentCard = ({
             <div className="d-flex justify-content-end card-footer">
               <div className="flex-row">
                 <div className="flex-col">
-                  <MDBBtn
-                    outline
-                    color="primary"
-                    onClick={handleCancel}
-                    type="cancel">
-                    Terug
-                  </MDBBtn>
                   <MDBBtn color="primary" onClick={handleSave} type="submit">
                     Sla op
                   </MDBBtn>

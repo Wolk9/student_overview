@@ -4,21 +4,11 @@ const studentSlice = createSlice({
   name: "students",
   initialState: [],
   reducers: {
-    addStudent: {
-      reducer: (state, action) => {
-        console.log("Lets add a student");
-        state.push(action.payload);
-      },
-      prepare: (value) => {
-        console.log("Lets prepare a student");
-        return {
-          payload: {
-            ...value,
-            id: nanoid(),
-          },
-        };
-      },
+    addStudent(state, action) {
+      console.log("Lets add a student");
+      state.push(action.payload);
     },
+
     editStudent(state, action) {
       console.log(action.payload, action.payload.id);
       const id = action.payload.id;

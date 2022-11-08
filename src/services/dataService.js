@@ -9,19 +9,25 @@ const getAll = (subset) => {
 };
 
 const create = (subset, newObject) => {
-  console.log(subset, newObject);
+  console.log("Create: ", subset, newObject);
   return axios
-    .post(baseUrl + subset + "/" + newObject)
+    .post(`${baseUrl}${subset}`, newObject)
     .then((response) => console.log(response));
 };
 
 const update = (subset, id, newObject) => {
-  console.log(subset, id, newObject);
+  console.log("Update: ", subset, id, newObject);
   return axios.put(`${baseUrl}${subset}/${id}`, newObject);
+};
+
+const remove = (subset, id) => {
+  console.log("Delete: ", subset, id);
+  return axios.delete(`${baseUrl}${subset}/${id}`);
 };
 
 export default {
   getAll,
   create,
   update,
+  remove,
 };

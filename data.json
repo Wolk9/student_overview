@@ -5139,17 +5139,17 @@
       "phone": "+31 6 1234 5672",
       "email": "mcguire@gmail.com",
       "photo": "http://dummyimage.com/128x100.png/5fa2dd/ffffff",
-      "colorDifficulty": "#ffcdd2",
+      "colorDifficulty": "#512da8",
       "colorFun": "#e57373"
     },
     {
       "id": 2,
       "firstName": "Shelly",
-      "lastName": "Smiths",
+      "lastName": "Smith",
       "phone": "+31 6 1234 7617",
       "email": "smith@gmail.com",
       "photo": "http://dummyimage.com/128x100.png/dddddd/000000",
-      "colorDifficulty": "#dce775",
+      "colorDifficulty": "#00bcd4",
       "colorFun": "#3f51b5"
     },
     {
@@ -5200,7 +5200,7 @@
       "email": "info@rahima.in",
       "photo": "http://dummyimage.com/128x100.png/ff4444/ffffff",
       "colorDifficulty": "#360087",
-      "colorFun": "#dbc200"
+      "colorFun": "#d32f2f"
     },
     {
       "id": 8,
