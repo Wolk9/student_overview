@@ -23,8 +23,8 @@ const AssignmentsList = ({
   const getCourseName = (course_id) => {
     const [result] = courses.filter((course) => course.id === course_id);
     console.log(result);
-    const code = result.code != undefined ? result.code : "";
-    const project = result.project != undefined ? result.project : "";
+    const code = result?.code ?? "";
+    const project = result?.project ?? "";
     return code + " " + project;
   };
 

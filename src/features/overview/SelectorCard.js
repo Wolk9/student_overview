@@ -156,13 +156,10 @@ export const SelectorCard = ({
                     id={student.id}
                     name={student.id}
                     checked={isStudentChecked({ id: student.id })}
-                    onChange={(e) =>
-                      //handleSelectedStudentsChange({ id: student.id })
-                      studentCheckboxChange(e)
-                    }
+                    onChange={(e) => studentCheckboxChange(e)}
                   />
                 </div>
-                <div className="pt-2 text-truncate studentName">
+                <div className="pt-2 studentName">
                   {student.firstName + " " + student.lastName}
                 </div>
               </div>
