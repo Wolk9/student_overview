@@ -1,45 +1,35 @@
 import { MDBBtn, MDBCol, MDBInput } from "mdb-react-ui-kit";
 import React from "react";
 import { SwatchesPicker } from "react-color";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  editSelectedStudent, flushSelectedStudentsList, toggleStudentModal
+  editSelectedStudent,
+  flushSelectedStudentsList,
+  toggleStudentModal,
 } from "../ui/uiSlice";
 
+// The StudenCard is the component where an user can alter
+// the students credentials and graph colors.
+//
+// It is called from both Components Overview as from StudentsList via StudentModal
+
 export const StudentCard = ({
-  students,
-  indexOfStudentToEdit,
   handleChange,
+  indexOfStudentToEdit,
+  inOverview,
   isDifficultyColorPickerOpen,
   isFunColorPickerOpen,
-  onClickDifficultySwatch,
-  onClickFunSwatch,
   onChangeDifficultyColor,
   onChangeFunColor,
-  inOverview,
-  storeNewStudent,
+  onClickDifficultySwatch,
+  onClickFunSwatch,
+  students,
 }) => {
   const dispatch = useDispatch();
-  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
-  const tempNanoId = useSelector((state) => state.ui.tempNanoId);
-
-  console.log("inOverview: ", inOverview);
-
-  if (inOverview) {
-  }
 
   let newOrExistingStudent = students[indexOfStudentToEdit];
 
-  console.log(
-    "edit",
-    "StudentCard: ",
-    students,
-    indexOfStudentToEdit,
-    students[indexOfStudentToEdit]
-  );
-
   const handleSave = (e) => {
-    // console.log("sluit");
     e.preventDefault();
     dispatch(toggleStudentModal(false));
     dispatch(flushSelectedStudentsList());

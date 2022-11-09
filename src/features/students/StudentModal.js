@@ -1,73 +1,37 @@
 import { MDBContainer, MDBModal, MDBModalBody } from "mdb-react-ui-kit";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { toggleStudentModal } from "../ui/uiSlice";
 import { StudentCard } from "./StudentCard";
 
+// StudentModal is called from StudentList when a user is edited.
+
 const StudentModal = ({
-  edit,
-  students,
-  indexOfStudentToEdit,
-  onSubmit,
   handleChange,
+  indexOfStudentToEdit,
   isDifficultyColorPickerOpen,
   isFunColorPickerOpen,
-  colorDifficulty,
-  colorFun,
-  onClickDifficultySwatch,
-  onClickFunSwatch,
+  isStudentModalOpen,
   onChangeDifficultyColor,
   onChangeFunColor,
-  onCloseDifficultyColor,
-  onCloseFunColor,
-  isStudentChecked,
-  handleAllBoxChange,
-  depolulateSelectedStudentList,
-  populateSelectedStudentList,
-  handleDifficultyCheckBoxChange,
-  handleFunCheckboxChange,
-  studentCheckboxChange,
-  isStudentModalOpen,
-  storeNewStudent,
+  onClickDifficultySwatch,
+  onClickFunSwatch,
+  students,
 }) => {
-  const dispatch = useDispatch();
-
-  console.log("StudentModal Edit: ", edit);
-
-  const handleClose = () => {
-    // console.log("Click on closed");
-    dispatch(toggleStudentModal(false));
-  };
-
   return (
     <>
       <MDBModal size="md" show={isStudentModalOpen}>
         <MDBModalBody>
           <MDBContainer>
             <StudentCard
-              students={students}
-              indexOfStudentToEdit={indexOfStudentToEdit}
-              onSubmit={onSubmit}
               handleChange={handleChange}
+              indexOfStudentToEdit={indexOfStudentToEdit}
+              inOverview={false}
               isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
               isFunColorPickerOpen={isFunColorPickerOpen}
-              colorDifficulty={colorDifficulty}
-              colorFun={colorFun}
-              onClickDifficultySwatch={onClickDifficultySwatch}
-              onClickFunSwatch={onClickFunSwatch}
               onChangeDifficultyColor={onChangeDifficultyColor}
               onChangeFunColor={onChangeFunColor}
-              onCloseDifficultyColor={onCloseDifficultyColor}
-              onCloseFunColor={onCloseFunColor}
-              isStudentChecked={isStudentChecked}
-              handleAllBoxChange={handleAllBoxChange}
-              depolulateSelectedStudentList={depolulateSelectedStudentList}
-              populateSelectedStudentList={populateSelectedStudentList}
-              handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
-              handleFunCheckboxChange={handleFunCheckboxChange}
-              studentCheckboxChange={studentCheckboxChange}
-              handleClose={handleClose}
-              notInOverview={true}
+              onClickDifficultySwatch={onClickDifficultySwatch}
+              onClickFunSwatch={onClickFunSwatch}
+              students={students}
             />
           </MDBContainer>
         </MDBModalBody>

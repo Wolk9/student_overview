@@ -1,19 +1,22 @@
 import { MDBCheckbox } from "mdb-react-ui-kit";
 import React from "react";
 
+// The SelectorCard is the component where the user selects
+// students and what to view
+
 export const SelectorCard = ({
-  students,
-  selectedStudentsList,
-  isFunBoxChecked,
-  isDifficultyBoxChecked,
-  isAllBoxChecked,
-  isAverageBoxChecked,
-  isStudentChecked,
   handleAllBoxChange,
   handleAverageBoxChange,
   handleDifficultyCheckBoxChange,
   handleFunCheckboxChange,
+  isAllBoxChecked,
+  isAverageBoxChecked,
+  isDifficultyBoxChecked,
+  isFunBoxChecked,
+  isStudentChecked,
+  selectedStudentsList,
   studentCheckboxChange,
+  students,
 }) => {
   return (
     <div>

@@ -9,54 +9,33 @@ import { AlertMessage } from "./Alert";
 import { SelectorCard } from "./SelectorCard";
 
 const Overview = ({
-  setShowAlert,
-  courses,
-  students,
-  assignments,
-  handleEditClick,
-  indexOfStudentToEdit,
-  setIndexOfStudentToEdit,
-  onSubmit,
-  handleChange,
-  isDifficultyColorPickerOpen,
-  isFunColorPickerOpen,
-  colorDifficulty,
-  colorFun,
-  onClickDifficultySwatch,
-  onClickFunSwatch,
-  onChangeDifficultyColor,
-  onChangeFunColor,
-  onCloseDifficultyColor,
-  onCloseFunColor,
-  isStudentChecked,
-  handleSelectedStudentsChange,
   addToSelectedStudentsList,
-  removeFromSelectedStudentsList,
+  assignments,
+  courses,
   handleAllBoxChange,
   handleAverageBoxChange,
-  depolulateSelectedStudentList,
-  populateSelectedStudentList,
+  handleChange,
   handleDifficultyCheckBoxChange,
   handleFunCheckboxChange,
-  isFunBoxChecked,
-  isDifficultyBoxChecked,
-  isAverageBoxChecked,
+  indexOfStudentToEdit,
   isAllBoxChecked,
-  isStudentCardChecked,
-  toggleDifficultyCheckBox,
-  toggleFunCheckBox,
-  flushSelectedStudentsList,
-  averageFunNumberOfAllSelectedStudents,
-  studentCheckboxChange,
+  isAverageBoxChecked,
+  isDifficultyBoxChecked,
+  isDifficultyColorPickerOpen,
+  isFunBoxChecked,
+  isFunColorPickerOpen,
+  isStudentChecked,
+  onChangeDifficultyColor,
+  onChangeFunColor,
+  onClickDifficultySwatch,
+  onClickFunSwatch,
   singleStudentView,
-  edit,
+  studentCheckboxChange,
+  students,
 }) => {
   const dispatch = useDispatch();
 
-  console.log("Overview edit: ", edit);
-
   if (singleStudentView) {
-    // console.log("selecter alleen student met index ", indexOfStudentToEdit);
     dispatch(toggleAllStudentsChecked(false));
     dispatch(addToSelectedStudentsList(students[indexOfStudentToEdit].id));
   }
@@ -66,6 +45,8 @@ const Overview = ({
   const selectedStudentsList = useSelector(
     (state) => state.ui.selectedStudentsList
   );
+
+  // Styling and content of ChartjS:
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -94,6 +75,8 @@ const Overview = ({
       },
     },
   };
+
+  // Creation of proper data components for ChartJS:
 
   const funData = selectedStudentsList.map((s) => {
     const data = courses.map((c) =>
@@ -141,14 +124,6 @@ const Overview = ({
 
   let funNumbers = [];
   let difficultyNumbers = [];
-
-  const divideArray = (array, divisor) => {
-    const array2 = [];
-    for (let x = 0; x < array.length; x++) {
-      array2[x] = Math.round((array[x] / divisor + Number.EPSILON) * 100) / 100;
-    }
-    return array2;
-  };
 
   let averagesOfFunNumbers = [];
   let averagesOfDifficultyNumbers = [];
@@ -235,6 +210,8 @@ const Overview = ({
     },
   ];
 
+  // Construction of the definitive selection dependent concatenated data for ChartJS:
+
   const selectedData = () => {
     const averageData = funAverage.concat(difficultyAverage);
     if (isAverageBoxChecked) {
@@ -269,70 +246,35 @@ const Overview = ({
             <div className="card">
               <div className="row">
                 <SelectorCard
-                  students={students}
-                  selectedStudentsList={selectedStudentsList}
-                  isFunBoxChecked={isFunBoxChecked}
-                  isDifficultyBoxChecked={isDifficultyBoxChecked}
-                  isStudentChecked={isStudentChecked}
-                  isAllBoxChecked={isAllBoxChecked}
-                  handleEditClick={handleEditClick}
-                  isStudentCardChecked={isStudentCardChecked}
-                  toggleDifficultyCheckBox={toggleDifficultyCheckBox}
-                  toggleFunCheckBox={toggleFunCheckBox}
-                  addToSelectedStudentsList={addToSelectedStudentsList}
-                  removeFromSelectedStudentsList={
-                    removeFromSelectedStudentsList
-                  }
-                  flushSelectedStudentsList={flushSelectedStudentsList}
-                  toggleAllStudentsChecked={toggleAllStudentsChecked}
-                  setIndexOfStudentToEdit={setIndexOfStudentToEdit}
-                  handleSelectedStudentsChange={handleSelectedStudentsChange}
                   handleAllBoxChange={handleAllBoxChange}
                   handleAverageBoxChange={handleAverageBoxChange}
-                  depolulateSelectedStudentList={depolulateSelectedStudentList}
-                  populateSelectedStudentList={populateSelectedStudentList}
                   handleDifficultyCheckBoxChange={
                     handleDifficultyCheckBoxChange
                   }
                   handleFunCheckboxChange={handleFunCheckboxChange}
+                  isAllBoxChecked={isAllBoxChecked}
                   isAverageBoxChecked={isAverageBoxChecked}
-                  averageFunNumberOfAllSelectedStudents={
-                    averageFunNumberOfAllSelectedStudents
-                  }
+                  isDifficultyBoxChecked={isDifficultyBoxChecked}
+                  isFunBoxChecked={isFunBoxChecked}
+                  isStudentChecked={isStudentChecked}
+                  selectedStudentsList={selectedStudentsList}
                   studentCheckboxChange={studentCheckboxChange}
+                  students={students}
                 />
               </div>
               <div className="row">
                 {selectedStudentsList.length === 1 ? (
                   <StudentCard
-                    edit={edit}
-                    students={students}
-                    indexOfStudentToEdit={indexOfStudentToEdit}
-                    setIndexOfStudentToEdit={setIndexOfStudentToEdit}
-                    onSubmit={onSubmit}
                     handleChange={handleChange}
+                    indexOfStudentToEdit={indexOfStudentToEdit}
+                    inOverview={true}
                     isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
                     isFunColorPickerOpen={isFunColorPickerOpen}
-                    colorDifficulty={colorDifficulty}
-                    colorFun={colorFun}
-                    onClickDifficultySwatch={onClickDifficultySwatch}
-                    onClickFunSwatch={onClickFunSwatch}
                     onChangeDifficultyColor={onChangeDifficultyColor}
                     onChangeFunColor={onChangeFunColor}
-                    onCloseDifficultyColor={onCloseDifficultyColor}
-                    onCloseFunColor={onCloseFunColor}
-                    isStudentChecked={isStudentChecked}
-                    handleAllBoxChange={handleAllBoxChange}
-                    depolulateSelectedStudentList={
-                      depolulateSelectedStudentList
-                    }
-                    populateSelectedStudentList={populateSelectedStudentList}
-                    handleDifficultyCheckBoxChange={
-                      handleDifficultyCheckBoxChange
-                    }
-                    handleFunCheckboxChange={handleFunCheckboxChange}
-                    studentCheckboxChange={studentCheckboxChange}
-                    inOverview={true}
+                    onClickDifficultySwatch={onClickDifficultySwatch}
+                    onClickFunSwatch={onClickFunSwatch}
+                    students={students}
                   />
                 ) : (
                   <></>

@@ -81,8 +81,6 @@ const App = () => {
   const [formerLength, setFormerLength] = useState(0);
 
   const edit = useSelector((state) => state.ui.edit);
-  const tempNanoId = useSelector((state) => state.ui.tempNanoId);
-
   // Logic functions ------------------------------------------------------------
 
   let indexOfStudentToEdit = students.findIndex(
@@ -98,62 +96,39 @@ const App = () => {
   );
 
   const studentCheckboxChange = (e) => {
-    // console.log("studentCheckboxChange");
     const indexOfStudent = students.findIndex((s) => s.id == e.target.name);
-    // console.log("index of the selected Student:", indexOfStudent);
     if (!isStudentChecked({ id: e.target.id })) {
-      // console.log("student is not checked");
       dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
     } else {
-      // console.log("student", indexOfStudent, "is checked, so remove");
       dispatch(removeFromSelectedStudentsList(students[indexOfStudent].id));
-      // console.log("isStudentCardChecked:", isStudentCardChecked);
     }
     if (students.length === selectedStudentsList.length) {
-      // console.log("Alle studenten zijn geselecteerd");
       dispatch(toggleAllStudentsChecked(true));
       setFormerLength(selectedStudentsList.length);
     } else {
-      // console.log("Niet alle studenten zijn geselecteerd");
       dispatch(toggleAllStudentsChecked(false));
     }
     if (selectedStudentsList.length === 0) {
-      // console.log("SelectedStudentsList = 0");
       dispatch(toggleAverageCheckBox(false));
       dispatch(toggleEditStudentCard(false));
       dispatch(toggleEdit(false));
       setFormerLength(0);
     } else if (selectedStudentsList.length === 1) {
-      // console.log("er is nog maar één student over, average uit");
       setFormerLength(1);
       dispatch(toggleAverageCheckBox(false));
       dispatch(toggleEditStudentCard(true));
       dispatch(toggleEdit(true));
     } else if (selectedStudentsList.length > 1) {
-      // console.log("er is meer dan 1 geselecteerde student");
       dispatch(toggleEditStudentCard(false));
       setFormerLength(selectedStudentsList.length);
     }
   };
 
-  const onSubmit = (event) => {
-    // // console.log("clicked on onSubmit");
-
+  const onSubmit = () => {
     dispatch(toggleEditStudentCard());
-
-    //TODO: format phone and email check and alert
   };
 
   const handleChange = (e) => {
-    console.log(
-      "Edit: ",
-      edit,
-      ". HandleChange: \n",
-      e.target.id,
-      e.target.name,
-      e.target.value
-    );
-
     dispatch(
       editStudent({
         ...students[indexOfStudentToEdit],
@@ -173,17 +148,14 @@ const App = () => {
   };
 
   const onClickDifficultySwatch = () => {
-    // // console.log("Clicked on DifficultySwatch");
     dispatch(toggleDifficultyColorPicker());
   };
 
   const onClickFunSwatch = () => {
-    //  // console.log("Clicked on FunSwatch");
     dispatch(toggleFunColorPicker());
   };
 
   const onChangeDifficultyColor = (color) => {
-    console.log("difficulty Value", color);
     dispatch(setDifficultyColor(color.hex));
     handleChange({
       target: {
@@ -196,7 +168,6 @@ const App = () => {
   };
 
   const onChangeFunColor = (color) => {
-    console.log("fun Value", color.hex);
     dispatch(setFunColor(color.hex));
     handleChange({
       target: {
@@ -222,7 +193,6 @@ const App = () => {
   };
 
   const handleFunCheckboxChange = () => {
-    // // console.log("fun clicked");
     if (isDifficultyBoxChecked === true) {
       dispatch(toggleFunCheckBox());
     } else {
@@ -231,7 +201,6 @@ const App = () => {
   };
 
   const handleDifficultyCheckBoxChange = () => {
-    // // console.log("difficulty clicked");
     if (isFunBoxChecked === true) {
       dispatch(toggleDifficultyCheckBox());
     } else {
@@ -249,17 +218,11 @@ const App = () => {
   };
 
   const handleAllBoxChange = () => {
-    //
-    // console.log("handleAllBoxChange");
     dispatch(toggleAllStudentsChecked(!isAllBoxChecked));
 
     if (selectedStudentsList.length !== students.length) {
-      // console.log("er is nog niks geselecteerd, dus we selecteren ze allemaal");
       populateSelectedStudentList();
     } else {
-      // // console.log(
-      //   "ze zijn allemaal geselecteerd, dus we halen ze er allemaal uit"
-      // );
       if (isAverageBoxChecked) {
         handleAverageBoxChange();
       }
@@ -276,7 +239,6 @@ const App = () => {
   };
 
   if (formerLength != 0 && selectedStudentsList.length === 1) {
-    // console.log("gemiddelden zijn uitgeschakeld");
     dispatch(toggleAverageCheckBox(false));
   }
 
@@ -303,96 +265,57 @@ const App = () => {
           path="/"
           element={
             <Overview
-              setShowAlert={setShowAlert}
-              studentNames={studentNames}
-              courses={courses}
-              students={students}
-              assignments={assignments}
-              indexOfStudentToEdit={indexOfStudentToEdit}
-              onSubmit={onSubmit}
-              handleChange={handleChange}
-              isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
-              isFunColorPickerOpen={isFunColorPickerOpen}
-              colorDifficulty={colorDifficulty}
-              colorFun={colorFun}
-              onClickDifficultySwatch={onClickDifficultySwatch}
-              onClickFunSwatch={onClickFunSwatch}
-              onChangeDifficultyColor={onChangeDifficultyColor}
-              onChangeFunColor={onChangeFunColor}
-              onCloseDifficultyColor={onCloseDifficultyColor}
-              onCloseFunColor={onCloseFunColor}
-              isAllBoxChecked={isAllBoxChecked}
-              isAverageBoxChecked={isAverageBoxChecked}
-              isStudentChecked={isStudentChecked}
               addToSelectedStudentsList={addToSelectedStudentsList}
-              removeFromSelectedStudentsList={removeFromSelectedStudentsList}
+              assignments={assignments}
+              courses={courses}
               handleAllBoxChange={handleAllBoxChange}
               handleAverageBoxChange={handleAverageBoxChange}
-              depolulateSelectedStudentList={depolulateSelectedStudentList}
-              populateSelectedStudentList={populateSelectedStudentList}
+              handleChange={handleChange}
               handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
               handleFunCheckboxChange={handleFunCheckboxChange}
-              isFunBoxChecked={isFunBoxChecked}
+              indexOfStudentToEdit={indexOfStudentToEdit}
+              isAllBoxChecked={isAllBoxChecked}
+              isAverageBoxChecked={isAverageBoxChecked}
               isDifficultyBoxChecked={isDifficultyBoxChecked}
-              selectedStudentsList={selectedStudentsList}
-              isStudentCardChecked={isStudentCardChecked}
-              averageFunNumberOfAllSelectedStudents={
-                averageFunNumberOfAllSelectedStudents
-              }
-              setAverageFunOfAllSelectedStudents={
-                setAverageFunOfAllSelectedStudents
-              }
+              isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+              isFunBoxChecked={isFunBoxChecked}
+              isFunColorPickerOpen={isFunColorPickerOpen}
+              isStudentChecked={isStudentChecked}
+              onChangeDifficultyColor={onChangeDifficultyColor}
+              onChangeFunColor={onChangeFunColor}
+              onClickDifficultySwatch={onClickDifficultySwatch}
+              onClickFunSwatch={onClickFunSwatch}
               studentCheckboxChange={studentCheckboxChange}
-              toggleAllStudentsChecked={toggleAllStudentsChecked}
-              edit={edit}
+              students={students}
             />
           }></Route>
         <Route
           path=":studentName"
           element={
             <SingleStudentView
-              showAlert={showAlert}
-              setShowAlert={setShowAlert}
-              studentNames={studentNames}
-              courses={courses}
-              students={students}
-              assignments={assignments}
-              onSubmit={onSubmit}
-              handleChange={handleChange}
-              isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
-              isFunColorPickerOpen={isFunColorPickerOpen}
-              colorDifficulty={colorDifficulty}
-              colorFun={colorFun}
-              onClickDifficultySwatch={onClickDifficultySwatch}
-              onClickFunSwatch={onClickFunSwatch}
-              onChangeDifficultyColor={onChangeDifficultyColor}
-              onChangeFunColor={onChangeFunColor}
-              onCloseDifficultyColor={onCloseDifficultyColor}
-              onCloseFunColor={onCloseFunColor}
-              isAllBoxChecked={isAllBoxChecked}
-              isStudentChecked={isStudentChecked}
               addToSelectedStudentsList={addToSelectedStudentsList}
-              removeFromSelectedStudentsList={removeFromSelectedStudentsList}
+              assignments={assignments}
+              courses={courses}
               handleAllBoxChange={handleAllBoxChange}
-              handleAverageBoxChange={handleAverageBoxChange}
-              depolulateSelectedStudentList={depolulateSelectedStudentList}
-              populateSelectedStudentList={populateSelectedStudentList}
+              handleChange={handleChange}
               handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
               handleFunCheckboxChange={handleFunCheckboxChange}
-              isFunBoxChecked={isFunBoxChecked}
-              isDifficultyBoxChecked={isDifficultyBoxChecked}
+              isAllBoxChecked={isAllBoxChecked}
               isAverageBoxChecked={isAverageBoxChecked}
+              isDifficultyBoxChecked={isDifficultyBoxChecked}
+              isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+              isFunBoxChecked={isFunBoxChecked}
+              isFunColorPickerOpen={isFunColorPickerOpen}
+              isStudentChecked={isStudentChecked}
+              onChangeDifficultyColor={onChangeDifficultyColor}
+              onChangeFunColor={onChangeFunColor}
+              onClickDifficultySwatch={onClickDifficultySwatch}
+              onClickFunSwatch={onClickFunSwatch}
               selectedStudentsList={selectedStudentsList}
-              isStudentCardChecked={isStudentCardChecked}
-              averageFunNumberOfAllSelectedStudents={
-                averageFunNumberOfAllSelectedStudents
-              }
-              setAverageFunOfAllSelectedStudents={
-                setAverageFunOfAllSelectedStudents
-              }
+              setShowAlert={setShowAlert}
+              showAlert={showAlert}
               studentCheckboxChange={studentCheckboxChange}
-              toggleAllStudentsChecked={toggleAllStudentsChecked}
-              edit={edit}
+              students={students}
             />
           }
         />
@@ -423,7 +346,6 @@ const App = () => {
               handleFunCheckboxChange={handleFunCheckboxChange}
               studentCheckboxChange={studentCheckboxChange}
               isStudentModalOpen={isStudentModalOpen}
-              edit={edit}
             />
           }
         />
@@ -433,11 +355,8 @@ const App = () => {
           path="/assignments"
           element={
             <AssignmentsList
-              key={assignments.id}
               assignments={assignments}
               students={students}
-              studentNames={studentNames}
-              selectedStudent={selectedStudent}
               courses={courses}
             />
           }

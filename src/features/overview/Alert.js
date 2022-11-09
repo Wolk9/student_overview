@@ -7,7 +7,6 @@ export const AlertMessage = ({ variant, header, message }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // when the component is mounted, the alert is displayed for 3 seconds
     setTimeout(() => {
       dispatch(setShowAlert(false));
     }, 5000);

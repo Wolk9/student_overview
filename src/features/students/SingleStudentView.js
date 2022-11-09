@@ -4,49 +4,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import Overview from "../overview/Overview";
 
 const SingleStudentView = ({
-  showAlert,
-  setShowAlert,
-  courses,
-  students,
-  studentNames,
-  assignments,
-  handleEditClick,
-  indexOfStudentToEdit,
-  setIndexOfStudentToEdit,
-  onSubmit,
-  handleChange,
-  isDifficultyColorPickerOpen,
-  isFunColorPickerOpen,
-  colorDifficulty,
-  colorFun,
-  onClickDifficultySwatch,
-  onClickFunSwatch,
-  onChangeDifficultyColor,
-  onChangeFunColor,
-  onCloseDifficultyColor,
-  onCloseFunColor,
-  isStudentChecked,
-  handleSelectedStudentsChange,
-  handleSelectedStudentsURL,
   addToSelectedStudentsList,
-  removeFromSelectedStudentsList,
+  assignments,
+  courses,
   handleAllBoxChange,
-  handleAverageBoxChange,
-  depolulateSelectedStudentList,
-  populateSelectedStudentList,
+  handleChange,
   handleDifficultyCheckBoxChange,
   handleFunCheckboxChange,
-  isFunBoxChecked,
-  isDifficultyBoxChecked,
-  isAverageBoxChecked,
   isAllBoxChecked,
+  isAverageBoxChecked,
+  isDifficultyBoxChecked,
+  isDifficultyColorPickerOpen,
+  isFunBoxChecked,
+  isFunColorPickerOpen,
+  isStudentChecked,
+  onChangeDifficultyColor,
+  onChangeFunColor,
+  onClickDifficultySwatch,
+  onClickFunSwatch,
   selectedStudentsList,
-  isStudentCardChecked,
-  toggleDifficultyCheckBox,
-  toggleFunCheckBox,
-  flushSelectedStudentsList,
-  toggleAllStudentsChecked,
+  setShowAlert,
   studentCheckboxChange,
+  students,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -107,44 +86,28 @@ const SingleStudentView = ({
   return (
     <>
       <Overview
-        singleStudentView={indexOfStudentToUse != -1 ? true : false}
-        showAlert={showAlert}
-        studentName={studentName}
-        studentNames={studentNames}
-        courses={courses}
-        students={students}
-        assignments={assignments}
-        handleEditClick={handleEditClick}
-        indexOfStudentToEdit={indexOfStudentToUse}
-        setIndexOfStudentToEdit={setIndexOfStudentToEdit}
-        onSubmit={onSubmit}
-        handleChange={handleChange}
-        isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
-        isFunColorPickerOpen={isFunColorPickerOpen}
-        colorDifficulty={colorDifficulty}
-        colorFun={colorFun}
-        onClickDifficultySwatch={onClickDifficultySwatch}
-        onClickFunSwatch={onClickFunSwatch}
-        onChangeDifficultyColor={onChangeDifficultyColor}
-        onChangeFunColor={onChangeFunColor}
-        onCloseDifficultyColor={onCloseDifficultyColor}
-        onCloseFunColor={onCloseFunColor}
-        isAllBoxChecked={isAllBoxChecked}
-        isStudentChecked={isStudentChecked}
-        handleSelectedStudentsChange={handleSelectedStudentsChange}
         addToSelectedStudentsList={addToSelectedStudentsList}
-        removeFromSelectedStudentsList={removeFromSelectedStudentsList}
+        assignments={assignments}
+        courses={courses}
         handleAllBoxChange={handleAllBoxChange}
-        depolulateSelectedStudentList={depolulateSelectedStudentList}
-        populateSelectedStudentList={populateSelectedStudentList}
+        handleChange={handleChange}
         handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
         handleFunCheckboxChange={handleFunCheckboxChange}
-        isFunBoxChecked={isFunBoxChecked}
-        isDifficultyBoxChecked={isDifficultyBoxChecked}
+        indexOfStudentToEdit={indexOfStudentToUse}
+        isAllBoxChecked={isAllBoxChecked}
         isAverageBoxChecked={isAverageBoxChecked}
-        selectedStudentsList={selectedStudentsList}
-        isStudentCardChecked={isStudentCardChecked}
+        isDifficultyBoxChecked={isDifficultyBoxChecked}
+        isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
+        isFunBoxChecked={isFunBoxChecked}
+        isFunColorPickerOpen={isFunColorPickerOpen}
+        isStudentChecked={isStudentChecked}
+        onChangeDifficultyColor={onChangeDifficultyColor}
+        onChangeFunColor={onChangeFunColor}
+        onClickDifficultySwatch={onClickDifficultySwatch}
+        onClickFunSwatch={onClickFunSwatch}
+        singleStudentView={indexOfStudentToUse != -1 ? true : false}
         studentCheckboxChange={studentCheckboxChange}
+        students={students}
       />
     </>
   );

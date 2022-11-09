@@ -1,7 +1,5 @@
 import React from "react";
-
 import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
-
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,26 +11,17 @@ import {
 } from "../ui/uiSlice";
 import StudentModal from "./StudentModal";
 
+// StudentList is called from App
+
 const StudentsList = ({
-  indexOfStudentToEdit,
-  onSubmit,
   handleChange,
-  colorDifficulty,
-  colorFun,
-  onClickDifficultySwatch,
-  onClickFunSwatch,
+  indexOfStudentToEdit,
+  isStudentChecked,
+  isStudentModalOpen,
   onChangeDifficultyColor,
   onChangeFunColor,
-  onCloseDifficultyColor,
-  onCloseFunColor,
-  isStudentChecked,
-  handleAllBoxChange,
-  depolulateSelectedStudentList,
-  populateSelectedStudentList,
-  handleDifficultyCheckBoxChange,
-  handleFunCheckboxChange,
-  studentCheckboxChange,
-  isStudentModalOpen,
+  onClickDifficultySwatch,
+  onClickFunSwatch,
 }) => {
   const dispatch = useDispatch();
   const students = useSelector((state) => state.students);
@@ -43,12 +32,9 @@ const StudentsList = ({
   const isDifficultyColorPickerOpen = useSelector(
     (state) => state.ui.isDifficultyColorPickerOpen
   );
-  const selectedStudent = useSelector((state) => state.ui.selectedStudent);
 
   const handleEditClick = (e) => {
-    console.log("Click on StudentEdit happend", e);
     const indexOfStudent = students.findIndex((s) => s.id == e.id);
-    console.log(students[indexOfStudent]);
     dispatch(toggleEdit(true));
     dispatch(flushSelectedStudentsList());
     dispatch(addToSelectedStudentsList(students[indexOfStudent].id));
@@ -109,28 +95,17 @@ const StudentsList = ({
         </MDBCol>
         {isStudentModalOpen && (
           <StudentModal
-            students={students}
-            indexOfStudentToEdit={indexOfStudentToEdit}
-            onSubmit={onSubmit}
             handleChange={handleChange}
+            indexOfStudentToEdit={indexOfStudentToEdit}
             isDifficultyColorPickerOpen={isDifficultyColorPickerOpen}
             isFunColorPickerOpen={isFunColorPickerOpen}
-            colorDifficulty={colorDifficulty}
-            colorFun={colorFun}
-            onClickDifficultySwatch={onClickDifficultySwatch}
-            onClickFunSwatch={onClickFunSwatch}
+            isStudentChecked={isStudentChecked}
+            isStudentModalOpen={isStudentModalOpen}
             onChangeDifficultyColor={onChangeDifficultyColor}
             onChangeFunColor={onChangeFunColor}
-            onCloseDifficultyColor={onCloseDifficultyColor}
-            onCloseFunColor={onCloseFunColor}
-            isStudentChecked={isStudentChecked}
-            handleAllBoxChange={handleAllBoxChange}
-            depolulateSelectedStudentList={depolulateSelectedStudentList}
-            populateSelectedStudentList={populateSelectedStudentList}
-            handleDifficultyCheckBoxChange={handleDifficultyCheckBoxChange}
-            handleFunCheckboxChange={handleFunCheckboxChange}
-            studentCheckboxChange={studentCheckboxChange}
-            isStudentModalOpen={isStudentModalOpen}
+            onClickDifficultySwatch={onClickDifficultySwatch}
+            onClickFunSwatch={onClickFunSwatch}
+            students={students}
           />
         )}
       </MDBContainer>
