@@ -21,14 +21,4 @@ const update = (subset, id, newObject) => {
   return axios.put(`${baseUrl}${subset}/${id}`, newObject);
 };
 
-const remove = (subset, id) => {
-  console.log("Delete: ", subset, id);
-  return axios.delete(`${baseUrl}${subset}/${id}`);
-};
-
-export default {
-  getAll,
-  create,
-  update,
-  remove,
-};
+export default { getAll, create, update };

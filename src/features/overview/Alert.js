@@ -10,7 +10,7 @@ export const AlertMessage = ({ variant, header, message }) => {
     setTimeout(() => {
       dispatch(setShowAlert(false));
     }, 5000);
-  }, []);
+  });
 
   return (
     <Alert variant={variant} onClose={() => dispatch(setShowAlert(false))}>

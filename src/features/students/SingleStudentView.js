@@ -31,47 +31,30 @@ const SingleStudentView = ({
   const navigate = useNavigate();
 
   const { studentName } = useParams();
-  // console.log("URL name: ", studentName);
 
   const test = /[-_. ]/;
   let [firstName, lastName] = studentName.split(test);
 
   if (studentName.search(test) == -1) {
-    // console.log("zit geen dingetje in");
     lastName = "noname";
   }
 
-  // console.log(firstName, lastName);
-
   const firstNameLC = firstName.toLowerCase();
   const lastNameLC = lastName.toLowerCase();
-
-  // console.log("Extracted URL Name: ", firstName, lastName);
-  // console.log("Lowercase Extracted Name: ", firstNameLC, lastNameLC);
 
   const studentsLC = students.map((student) => ({
     firstName: student.firstName.toLowerCase(),
     lastName: student.lastName.toLowerCase(),
   }));
 
-  // console.log("Lowercase studentslist: ", studentsLC);
-
   const indexOfStudentToUse = studentsLC.findIndex(
     (student) =>
-      student.firstName == firstNameLC || student.lastName == lastNameLC
+      student.firstName === firstNameLC || student.lastName === lastNameLC
   );
 
   useEffect(() => {
     if (indexOfStudentToUse != -1) {
-      // console.log(
-      //   "Index of student to use: ",
-      //   indexOfStudentToUse,
-      //   students[indexOfStudentToUse].firstName,
-      //   students[indexOfStudentToUse].lastName
-      // );
     } else {
-      // console.log("Index of student to use: ", indexOfStudentToUse);
-
       dispatch(setShowAlert(true));
       navigate("/");
     }

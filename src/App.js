@@ -16,7 +16,6 @@ import {
   editSelectedStudent,
   flushSelectedStudentsList,
   removeFromSelectedStudentsList,
-  setAverageFunOfAllSelectedStudents,
   setDifficultyColor,
   setFunColor,
   setShowAlert,
@@ -43,9 +42,6 @@ const App = () => {
   const students = useSelector((state) => state.students);
   const courses = useSelector((state) => state.courses);
   const assignments = useSelector((state) => state.assignments);
-  const isStudentCardChecked = useSelector(
-    (state) => state.ui.isStudentCardChecked
-  );
   const isAllBoxChecked = useSelector((state) => state.ui.isAllBoxChecked);
   const isAverageBoxChecked = useSelector(
     (state) => state.ui.isAverageBoxChecked
@@ -62,37 +58,20 @@ const App = () => {
   );
   const colorDifficulty = useSelector((state) => state.ui.colorDifficulty);
   const colorFun = useSelector((state) => state.ui.colorFun);
-  const studentNames = students.map((student) => ({
-    id: student.id,
-    fullName: student.firstName + "_" + student.lastName,
-  }));
   const isFunBoxChecked = useSelector((state) => state.ui.isFunBoxChecked);
   const isDifficultyBoxChecked = useSelector(
     (state) => state.ui.isDifficultyBoxChecked
   );
   const showAlert = useSelector((state) => state.ui.showAlert);
-
-  const averageFunNumberOfAllSelectedStudents = useSelector(
-    (state) => state.ui.averageFunNumberOfAllSelectedStudents
-  );
   const isStudentModalOpen = useSelector(
     (state) => state.ui.isStudentModalOpen
   );
   const [formerLength, setFormerLength] = useState(0);
 
-  const edit = useSelector((state) => state.ui.edit);
   // Logic functions ------------------------------------------------------------
 
   let indexOfStudentToEdit = students.findIndex(
     (s) => s.id == selectedStudentsList[0]
-  );
-
-  console.log("App edit: ", edit);
-
-  console.log(
-    "huidige student om te editten: ",
-    students[indexOfStudentToEdit],
-    indexOfStudentToEdit
   );
 
   const studentCheckboxChange = (e) => {
