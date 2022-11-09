@@ -1,7 +1,5 @@
-import React from "react";
 import { MDBCheckbox } from "mdb-react-ui-kit";
-
-//TODO: review scss. Aligning when view is small is not nice. Overlapping text and widths that thighten.
+import React from "react";
 
 export const SelectorCard = ({
   students,

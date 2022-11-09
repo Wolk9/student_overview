@@ -1,21 +1,12 @@
-import React from "react";
-import {
-  MDBCardText,
-  MDBModal,
-  MDBModalDialog,
-  MDBModalContent,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter,
-} from "mdb-react-ui-kit";
-import { Chart } from "react-chartjs-2";
 import "chart.js/auto";
-import { StudentCard } from "../students/StudentCard";
-import { SelectorCard } from "./SelectorCard";
-import { AlertMessage } from "./Alert";
+import { MDBModalBody, MDBModalTitle } from "mdb-react-ui-kit";
+import React from "react";
+import { Chart } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
+import { StudentCard } from "../students/StudentCard";
 import { toggleAllStudentsChecked } from "../ui/uiSlice";
+import { AlertMessage } from "./Alert";
+import { SelectorCard } from "./SelectorCard";
 
 const Overview = ({
   setShowAlert,

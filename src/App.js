@@ -1,12 +1,4 @@
-import React, { useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
-import StudentsList from "./features/students/StudentsList";
-import CoursesList from "./features/courses/CoursesList";
-import AssignmentsList from "./features/assignments/AssignmentsList";
-import dataService from "../src/services/dataService";
-import { useDispatch, useSelector } from "react-redux";
 import {
   MDBContainer,
   MDBNavbar,
@@ -14,27 +6,35 @@ import {
   MDBNavbarLink,
   MDBNavbarNav,
 } from "mdb-react-ui-kit";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import SingleStudentView from "../src/features/students/SingleStudentView";
+import { editStudent } from "../src/features/students/studentSlice";
 import {
-  setShowAlert,
-  toggleAllStudentsChecked,
-  toggleEditStudentCard,
-  toggleEdit,
-  editSelectedStudent,
   addToSelectedStudentsList,
+  editSelectedStudent,
+  flushSelectedStudentsList,
   removeFromSelectedStudentsList,
-  toggleDifficultyColorPicker,
-  toggleFunColorPicker,
+  setAverageFunOfAllSelectedStudents,
   setDifficultyColor,
   setFunColor,
-  toggleDifficultyCheckBox,
-  toggleFunCheckBox,
+  setShowAlert,
+  toggleAllStudentsChecked,
   toggleAverageCheckBox,
-  flushSelectedStudentsList,
-  setAverageFunOfAllSelectedStudents,
+  toggleDifficultyCheckBox,
+  toggleDifficultyColorPicker,
+  toggleEdit,
+  toggleEditStudentCard,
+  toggleFunCheckBox,
+  toggleFunColorPicker,
 } from "../src/features/ui/uiSlice";
-import { editStudent, addStudent } from "../src/features/students/studentSlice";
+import dataService from "../src/services/dataService";
+import "./App.css";
+import AssignmentsList from "./features/assignments/AssignmentsList";
+import CoursesList from "./features/courses/CoursesList";
 import Overview from "./features/overview/Overview";
-import SingleStudentView from "../src/features/students/SingleStudentView";
+import StudentsList from "./features/students/StudentsList";
 
 const App = () => {
   // Redux State interaction ----------------------------------------------------
@@ -226,7 +226,6 @@ const App = () => {
     if (isDifficultyBoxChecked === true) {
       dispatch(toggleFunCheckBox());
     } else {
-      dispatch(toggleFunCheckBox());
       dispatch(toggleDifficultyCheckBox());
     }
   };
@@ -292,6 +291,11 @@ const App = () => {
             <MDBNavbarLink href="/courses">Cursussen</MDBNavbarLink>
             <MDBNavbarLink href="/assignments">Opdrachten</MDBNavbarLink>
           </MDBNavbarNav>
+          <MDBNavbarBrand className="align-right pt-2">
+            <h6>
+              <i>Martin de Bes</i>
+            </h6>
+          </MDBNavbarBrand>
         </MDBContainer>
       </MDBNavbar>
       <Routes>

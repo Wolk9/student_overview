@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setShowAlert } from "../ui/uiSlice";
 
 export const AlertMessage = ({ variant, header, message }) => {

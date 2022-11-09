@@ -1,9 +1,5 @@
 import React from "react";
-import { Button, Image } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { editCourse } from "./courseSlice";
-import { mdiPencil } from "@mdi/js";
-import Icon from "@mdi/react";
 
 const CourseItem = ({ id, code, project }) => {
   const dispatch = useDispatch();

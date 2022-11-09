@@ -1,14 +1,10 @@
+import { MDBBtn, MDBCol, MDBInput } from "mdb-react-ui-kit";
 import React from "react";
-import { MDBCol, MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { SwatchesPicker } from "react-color";
-import {
-  toggleStudentModal,
-  flushSelectedStudentsList,
-  editSelectedStudent,
-} from "../ui/uiSlice";
-import { addStudent } from "../students/studentSlice";
 import { useDispatch, useSelector } from "react-redux";
-import dataService from "../../services/dataService";
+import {
+  editSelectedStudent, flushSelectedStudentsList, toggleStudentModal
+} from "../ui/uiSlice";
 
 export const StudentCard = ({
   students,

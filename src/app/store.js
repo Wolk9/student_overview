@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import studentSlice, { setStudents } from "../features/students/studentSlice";
-import courseSlice, { setCourses } from "../features/courses/courseSlice";
 import assignmentSlice, {
   setAssignments,
 } from "../features/assignments/assignmentSlice";
+import courseSlice, { setCourses } from "../features/courses/courseSlice";
+import studentSlice, { setStudents } from "../features/students/studentSlice";
 import uiSlice from "../features/ui/uiSlice";
 import dataService from "../services/dataService";
 

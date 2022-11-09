@@ -1,23 +1,7 @@
-import React, { useState } from "react";
-import { CloseButton } from "react-bootstrap";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBBtn,
-  MDBInput,
-  MDBModalTitle,
-  MDBModalHeader,
-  MDBModalBody,
-  MDBModalFooter,
-  MDBModal,
-  MDBCardBody,
-  MDBModalDialog,
-  MDBCard,
-} from "mdb-react-ui-kit";
-import { useDispatch, useSelector } from "react-redux";
-import { SwatchesPicker } from "react-color";
-import { toggleStudentModal, toggleEdit } from "../ui/uiSlice";
+import { MDBContainer, MDBModal, MDBModalBody } from "mdb-react-ui-kit";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { toggleStudentModal } from "../ui/uiSlice";
 import { StudentCard } from "./StudentCard";
 
 const StudentModal = ({

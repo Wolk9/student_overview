@@ -1,5 +1,5 @@
-import React from "react";
 import { MDBContainer } from "mdb-react-ui-kit";
+import React from "react";
 import DataTable from "react-data-table-component";
 import { Rating } from "react-simple-star-rating";
 

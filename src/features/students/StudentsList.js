@@ -1,24 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { MDBContainer, MDBCol, MDBRow, MDBIcon } from "mdb-react-ui-kit";
+import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import DataTable from "react-data-table-component";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  toggleStudentModal,
-  toggleEdit,
   addToSelectedStudentsList,
   editSelectedStudent,
   flushSelectedStudentsList,
-  setTempNanoID,
+  toggleEdit,
+  toggleStudentModal,
 } from "../ui/uiSlice";
-import { addStudent } from "../students/studentSlice";
 import StudentModal from "./StudentModal";
-import { mdiAccountPlus, mdiTrashCan } from "@mdi/js";
-import Icon from "@mdi/react";
-import DataTable from "react-data-table-component";
-import { getByDisplayValue, getByTestId } from "@testing-library/react";
-import { nanoid } from "@reduxjs/toolkit";
 
 const StudentsList = ({
   indexOfStudentToEdit,

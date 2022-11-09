@@ -1,10 +1,9 @@
-import React from "react";
-import { Button, Image } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { editStudent } from "./studentSlice";
 import { mdiPencil } from "@mdi/js";
 import Icon from "@mdi/react";
-import { MDBRow, MDBCol } from "mdb-react-ui-kit";
+import { MDBCol, MDBRow } from "mdb-react-ui-kit";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { editStudent } from "./studentSlice";
 
 const StudentItem = ({
   id,
