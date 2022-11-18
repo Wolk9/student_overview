@@ -32,10 +32,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject",
+    "start": "react-scripts start & npx json-server --watch data.json --port 3005 --host 0.0.0.0",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "server": "json-server -p3005 --watch data.json"
   },
   "eslintConfig": {
@@ -65,7 +65,7 @@
     "json-server": "^0.17.0",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
-    "react-app-rewired": "^2.2.1",
+    "react-scripts": "^2.2.1",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.0"
